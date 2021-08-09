@@ -4,6 +4,7 @@ import (
 	"fmt"
 	"github.com/mimicode/tksdk/jdopensdk/request"
 	"github.com/mimicode/tksdk/jdopensdk/response/jdunionopengoodsjingfenquery"
+	"github.com/mimicode/tksdk/jdopensdk/response/jdunionopengoodspromotiongoodsinfoquery"
 	"github.com/mimicode/tksdk/jdopensdk/response/jdunionopenorderrowquery"
 	"github.com/mimicode/tksdk/jdopensdk/response/jdunionopenpromotionbysubunionidget"
 	"github.com/mimicode/tksdk/jdopensdk/response/jdunionopenpromotioncommonget"
@@ -16,7 +17,6 @@ const (
 	sessionKey = ""
 )
 
-//103431087_37658_1631770896
 func GetClient() *TopClient {
 	//初始化TopClient
 	client := &TopClient{}
@@ -78,6 +78,21 @@ func TestJdUnionOpenOrderRowQueryRequest(t *testing.T) {
 		fmt.Println(err)
 	} else {
 		commonGetResponse := getResponse.(*jdunionopenorderrowquery.Response)
+
+		fmt.Println(commonGetResponse.IsError())
+		fmt.Println(commonGetResponse.Body)
+	}
+}
+
+func TestJdUnionOpenGoodsPromotiongoodsinfoQueryRequest(t *testing.T) {
+	client := GetClient()
+	getRequest := &request.JdUnionOpenGoodsPromotiongoodsinfoQueryRequest{}
+	getRequest.AddParameter("360buy_param_json", `{skuIds:"10030840282202"}`)
+	var getResponse DefaultResponse = &jdunionopengoodspromotiongoodsinfoquery.Response{}
+	if err := client.Exec(getRequest, getResponse); err != nil {
+		fmt.Println(err)
+	} else {
+		commonGetResponse := getResponse.(*jdunionopengoodspromotiongoodsinfoquery.Response)
 
 		fmt.Println(commonGetResponse.IsError())
 		fmt.Println(commonGetResponse.Body)
