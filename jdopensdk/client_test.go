@@ -4,6 +4,7 @@ import (
 	"fmt"
 	"github.com/mimicode/tksdk/jdopensdk/request"
 	"github.com/mimicode/tksdk/jdopensdk/response/jdunionopengoodsjingfenquery"
+	"github.com/mimicode/tksdk/jdopensdk/response/jdunionopenorderrowquery"
 	"github.com/mimicode/tksdk/jdopensdk/response/jdunionopenpromotionbysubunionidget"
 	"github.com/mimicode/tksdk/jdopensdk/response/jdunionopenpromotioncommonget"
 	"testing"
@@ -62,6 +63,21 @@ func TestJdUnionOpenPromotionBysubunionidGetRequest(t *testing.T) {
 		fmt.Println(err)
 	} else {
 		commonGetResponse := getResponse.(*jdunionopenpromotionbysubunionidget.Response)
+
+		fmt.Println(commonGetResponse.IsError())
+		fmt.Println(commonGetResponse.Body)
+	}
+}
+
+func TestJdUnionOpenOrderRowQueryRequest(t *testing.T) {
+	client := GetClient()
+	getRequest := &request.JdUnionOpenOrderRowQueryRequest{}
+	getRequest.AddParameter("360buy_param_json", `{"orderReq":{"pageIndex":"1", "pageSize":"20","type":"3","startTime":"2021-08-02 11:45:00","endTime":"2021-08-02 12:45:00"}}`)
+	var getResponse DefaultResponse = &jdunionopenorderrowquery.Response{}
+	if err := client.Exec(getRequest, getResponse); err != nil {
+		fmt.Println(err)
+	} else {
+		commonGetResponse := getResponse.(*jdunionopenorderrowquery.Response)
 
 		fmt.Println(commonGetResponse.IsError())
 		fmt.Println(commonGetResponse.Body)
