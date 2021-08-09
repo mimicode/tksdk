@@ -10,7 +10,7 @@
 Download and install it:
 
 ```sh
-$ go get -u github.com/mimicode/taobaoopensdk
+$ go get -u github.com/mimicode/tksdk
 ```
 
 Import it in your code:
