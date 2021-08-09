@@ -1,7 +1,7 @@
 package request
 
 import (
-	utils2 "github.com/mimicode/tksdk/utils"
+	utils "github.com/mimicode/tksdk/utils"
 	"net/url"
 )
 
@@ -12,14 +12,14 @@ type TbkDgVegasTljCreateRequest struct {
 }
 
 func (tk *TbkDgVegasTljCreateRequest) CheckParameters() {
-	utils2.CheckNumber(tk.Parameters.Get("adzone_id"), "adzone_id")
-	utils2.CheckNumber(tk.Parameters.Get("item_id"), "item_id")
-	utils2.CheckNumber(tk.Parameters.Get("total_num"), "total_num")
-	utils2.CheckNumber(tk.Parameters.Get("user_total_win_num_limit"), "user_total_win_num_limit")
-	utils2.CheckNotNull(tk.Parameters.Get("security_switch"), "security_switch")
-	utils2.CheckMaxLength(tk.Parameters.Get("name"), 10, "name")
-	utils2.CheckMinFloatValue(tk.Parameters.Get("per_face"), 1, "per_face")
-	utils2.CheckNotNull(tk.Parameters.Get("send_start_time"), "send_start_time")
+	utils.CheckNumber(tk.Parameters.Get("adzone_id"), "adzone_id")
+	utils.CheckNumber(tk.Parameters.Get("item_id"), "item_id")
+	utils.CheckNumber(tk.Parameters.Get("total_num"), "total_num")
+	utils.CheckNumber(tk.Parameters.Get("user_total_win_num_limit"), "user_total_win_num_limit")
+	utils.CheckNotNull(tk.Parameters.Get("security_switch"), "security_switch")
+	utils.CheckMaxLength(tk.Parameters.Get("name"), 10, "name")
+	utils.CheckMinFloatValue(tk.Parameters.Get("per_face"), 1, "per_face")
+	utils.CheckNotNull(tk.Parameters.Get("send_start_time"), "send_start_time")
 
 }
 

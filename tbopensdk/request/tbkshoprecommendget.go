@@ -1,7 +1,7 @@
 package request
 
 import (
-	utils2 "github.com/mimicode/tksdk/pddopensdk/utils"
+	"github.com/mimicode/tksdk/utils"
 	"net/url"
 )
 
@@ -12,9 +12,9 @@ type TbkShopRecommendGetRequest struct {
 }
 
 func (tk *TbkShopRecommendGetRequest) CheckParameters() {
-	utils2.CheckNotNull(tk.Parameters.Get("fields"), "fields")
-	utils2.CheckNotNull(tk.Parameters.Get("user_id"), "user_id")
-	utils2.CheckNumber(tk.Parameters.Get("user_id"), "user_id")
+	utils.CheckNotNull(tk.Parameters.Get("fields"), "fields")
+	utils.CheckNotNull(tk.Parameters.Get("user_id"), "user_id")
+	utils.CheckNumber(tk.Parameters.Get("user_id"), "user_id")
 
 }
 

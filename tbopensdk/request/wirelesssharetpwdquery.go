@@ -1,7 +1,7 @@
 package request
 
 import (
-	utils2 "github.com/mimicode/tksdk/pddopensdk/utils"
+	"github.com/mimicode/tksdk/utils"
 	"net/url"
 )
 
@@ -12,7 +12,7 @@ type WirelessShareTpwdQueryRequest struct {
 }
 
 func (tk *WirelessShareTpwdQueryRequest) CheckParameters() {
-	utils2.CheckNotNull(tk.Parameters.Get("password_content"), "password_content")
+	utils.CheckNotNull(tk.Parameters.Get("password_content"), "password_content")
 }
 
 //添加请求参数

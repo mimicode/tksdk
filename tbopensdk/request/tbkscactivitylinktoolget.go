@@ -1,7 +1,7 @@
 package request
 
 import (
-	utils2 "github.com/mimicode/tksdk/pddopensdk/utils"
+	"github.com/mimicode/tksdk/utils"
 	"net/url"
 )
 
@@ -12,13 +12,13 @@ type TbkScActivitylinkToolgetRequest struct {
 }
 
 func (tk *TbkScActivitylinkToolgetRequest) CheckParameters() {
-	utils2.CheckNotNull(tk.Parameters.Get("adzone_id"), "adzone_id")
-	utils2.CheckNumber(tk.Parameters.Get("adzone_id"), "adzone_id")
+	utils.CheckNotNull(tk.Parameters.Get("adzone_id"), "adzone_id")
+	utils.CheckNumber(tk.Parameters.Get("adzone_id"), "adzone_id")
 
-	utils2.CheckNotNull(tk.Parameters.Get("site_id"), "site_id")
-	utils2.CheckNumber(tk.Parameters.Get("site_id"), "site_id")
+	utils.CheckNotNull(tk.Parameters.Get("site_id"), "site_id")
+	utils.CheckNumber(tk.Parameters.Get("site_id"), "site_id")
 
-	utils2.CheckNotNull(tk.Parameters.Get("promotion_scene_id"), "promotion_scene_id")
+	utils.CheckNotNull(tk.Parameters.Get("promotion_scene_id"), "promotion_scene_id")
 }
 
 //添加请求参数

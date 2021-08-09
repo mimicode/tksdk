@@ -1,7 +1,7 @@
 package request
 
 import (
-	utils2 "github.com/mimicode/tksdk/utils"
+	utils "github.com/mimicode/tksdk/utils"
 	"net/url"
 )
 
@@ -12,10 +12,10 @@ type TbkScShopConvertRequest struct {
 }
 
 func (tk *TbkScShopConvertRequest) CheckParameters() {
-	utils2.CheckNumber(tk.Parameters.Get("site_id"), "site_id")
-	utils2.CheckNotNull(tk.Parameters.Get("fields"), "fields")
-	utils2.CheckNotNull(tk.Parameters.Get("user_ids"), "user_ids")
-	utils2.CheckNumber(tk.Parameters.Get("adzone_id"), "adzone_id")
+	utils.CheckNumber(tk.Parameters.Get("site_id"), "site_id")
+	utils.CheckNotNull(tk.Parameters.Get("fields"), "fields")
+	utils.CheckNotNull(tk.Parameters.Get("user_ids"), "user_ids")
+	utils.CheckNumber(tk.Parameters.Get("adzone_id"), "adzone_id")
 
 }
 

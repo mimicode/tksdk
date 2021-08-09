@@ -1,7 +1,7 @@
 package request
 
 import (
-	utils2 "github.com/mimicode/tksdk/pddopensdk/utils"
+	"github.com/mimicode/tksdk/utils"
 	"net/url"
 )
 
@@ -12,7 +12,7 @@ type TbkUatmFavoritesGetRequest struct {
 }
 
 func (tk *TbkUatmFavoritesGetRequest) CheckParameters() {
-	utils2.CheckNotNull(tk.Parameters.Get("fields"), "fields")
+	utils.CheckNotNull(tk.Parameters.Get("fields"), "fields")
 
 }
 

@@ -1,7 +1,7 @@
 package request
 
 import (
-	utils2 "github.com/mimicode/tksdk/pddopensdk/utils"
+	"github.com/mimicode/tksdk/utils"
 	"net/url"
 )
 
@@ -12,7 +12,7 @@ type TbkDgNewuserOrderGetRequest struct {
 }
 
 func (tk *TbkDgNewuserOrderGetRequest) CheckParameters() {
-	utils2.CheckNotNull(tk.Parameters.Get("activity_id"), "activity_id")
+	utils.CheckNotNull(tk.Parameters.Get("activity_id"), "activity_id")
 
 }
 

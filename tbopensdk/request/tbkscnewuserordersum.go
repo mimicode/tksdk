@@ -1,7 +1,7 @@
 package request
 
 import (
-	utils2 "github.com/mimicode/tksdk/pddopensdk/utils"
+	"github.com/mimicode/tksdk/utils"
 	"net/url"
 )
 
@@ -12,11 +12,11 @@ type TbkScNewuserOrderSumRequest struct {
 }
 
 func (tk *TbkScNewuserOrderSumRequest) CheckParameters() {
-	utils2.CheckNotNull(tk.Parameters.Get("activity_id"), "activity_id")
-	utils2.CheckNotNull(tk.Parameters.Get("page_no"), "page_no")
-	utils2.CheckNumber(tk.Parameters.Get("page_no"), "page_no")
-	utils2.CheckNotNull(tk.Parameters.Get("page_size"), "page_size")
-	utils2.CheckNumber(tk.Parameters.Get("page_size"), "page_size")
+	utils.CheckNotNull(tk.Parameters.Get("activity_id"), "activity_id")
+	utils.CheckNotNull(tk.Parameters.Get("page_no"), "page_no")
+	utils.CheckNumber(tk.Parameters.Get("page_no"), "page_no")
+	utils.CheckNotNull(tk.Parameters.Get("page_size"), "page_size")
+	utils.CheckNumber(tk.Parameters.Get("page_size"), "page_size")
 
 }
 

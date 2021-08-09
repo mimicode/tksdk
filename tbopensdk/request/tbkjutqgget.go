@@ -1,7 +1,7 @@
 package request
 
 import (
-	utils2 "github.com/mimicode/tksdk/pddopensdk/utils"
+	"github.com/mimicode/tksdk/utils"
 	"net/url"
 )
 
@@ -12,11 +12,11 @@ type TbkJuTqgGetRequest struct {
 }
 
 func (tk *TbkJuTqgGetRequest) CheckParameters() {
-	utils2.CheckNotNull(tk.Parameters.Get("fields"), "fields")
-	utils2.CheckNotNull(tk.Parameters.Get("start_time"), "start_time")
-	utils2.CheckNotNull(tk.Parameters.Get("end_time"), "end_time")
-	utils2.CheckNotNull(tk.Parameters.Get("adzone_id"), "adzone_id")
-	utils2.CheckNumber(tk.Parameters.Get("adzone_id"), "adzone_id")
+	utils.CheckNotNull(tk.Parameters.Get("fields"), "fields")
+	utils.CheckNotNull(tk.Parameters.Get("start_time"), "start_time")
+	utils.CheckNotNull(tk.Parameters.Get("end_time"), "end_time")
+	utils.CheckNotNull(tk.Parameters.Get("adzone_id"), "adzone_id")
+	utils.CheckNumber(tk.Parameters.Get("adzone_id"), "adzone_id")
 
 }
 

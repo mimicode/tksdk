@@ -1,7 +1,7 @@
 package request
 
 import (
-	utils2 "github.com/mimicode/tksdk/pddopensdk/utils"
+	"github.com/mimicode/tksdk/utils"
 	"net/url"
 )
 
@@ -13,8 +13,8 @@ type TbkItemInfoGetRequest struct {
 
 //参数检测
 func (tk *TbkItemInfoGetRequest) CheckParameters() {
-	utils2.CheckNotNull(tk.Parameters.Get("num_iids"), "num_iids")
-	utils2.CheckMaxListSize(tk.Parameters.Get("num_iids"), 40, "num_iids")
+	utils.CheckNotNull(tk.Parameters.Get("num_iids"), "num_iids")
+	utils.CheckMaxListSize(tk.Parameters.Get("num_iids"), 40, "num_iids")
 }
 
 //添加请求参数

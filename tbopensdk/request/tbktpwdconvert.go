@@ -1,7 +1,7 @@
 package request
 
 import (
-	utils2 "github.com/mimicode/tksdk/pddopensdk/utils"
+	"github.com/mimicode/tksdk/utils"
 	"net/url"
 )
 
@@ -12,10 +12,10 @@ type TbkTpwdConvertRequest struct {
 }
 
 func (tk *TbkTpwdConvertRequest) CheckParameters() {
-	utils2.CheckNotNull(tk.Parameters.Get("adzone_id"), "adzone_id")
-	utils2.CheckNumber(tk.Parameters.Get("adzone_id"), "adzone_id")
+	utils.CheckNotNull(tk.Parameters.Get("adzone_id"), "adzone_id")
+	utils.CheckNumber(tk.Parameters.Get("adzone_id"), "adzone_id")
 
-	utils2.CheckNotNull(tk.Parameters.Get("password_content"), "password_content")
+	utils.CheckNotNull(tk.Parameters.Get("password_content"), "password_content")
 }
 
 //添加请求参数

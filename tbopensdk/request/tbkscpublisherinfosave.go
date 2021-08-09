@@ -1,7 +1,7 @@
 package request
 
 import (
-	utils2 "github.com/mimicode/tksdk/pddopensdk/utils"
+	"github.com/mimicode/tksdk/utils"
 	"net/url"
 )
 
@@ -12,9 +12,9 @@ type TbkScPublisherInfoSaveRequest struct {
 }
 
 func (tk *TbkScPublisherInfoSaveRequest) CheckParameters() {
-	utils2.CheckNotNull(tk.Parameters.Get("inviter_code"), "inviter_code")
-	utils2.CheckNotNull(tk.Parameters.Get("info_type"), "info_type")
-	utils2.CheckNumber(tk.Parameters.Get("info_type"), "info_type")
+	utils.CheckNotNull(tk.Parameters.Get("inviter_code"), "inviter_code")
+	utils.CheckNotNull(tk.Parameters.Get("info_type"), "info_type")
+	utils.CheckNumber(tk.Parameters.Get("info_type"), "info_type")
 }
 
 //添加请求参数

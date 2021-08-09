@@ -1,7 +1,7 @@
 package request
 
 import (
-	utils2 "github.com/mimicode/tksdk/pddopensdk/utils"
+	"github.com/mimicode/tksdk/utils"
 	"net/url"
 )
 
@@ -12,13 +12,13 @@ type TbkScMaterialOptionalRequest struct {
 }
 
 func (tk *TbkScMaterialOptionalRequest) CheckParameters() {
-	utils2.CheckNotNull(tk.Parameters.Get("adzone_id"), "adzone_id")
-	utils2.CheckNumber(tk.Parameters.Get("adzone_id"), "adzone_id")
+	utils.CheckNotNull(tk.Parameters.Get("adzone_id"), "adzone_id")
+	utils.CheckNumber(tk.Parameters.Get("adzone_id"), "adzone_id")
 
-	utils2.CheckNotNull(tk.Parameters.Get("site_id"), "site_id")
-	utils2.CheckNumber(tk.Parameters.Get("site_id"), "site_id")
+	utils.CheckNotNull(tk.Parameters.Get("site_id"), "site_id")
+	utils.CheckNumber(tk.Parameters.Get("site_id"), "site_id")
 
-	utils2.CheckMaxValue(tk.Parameters.Get("page_size"), 100, "page_size")
+	utils.CheckMaxValue(tk.Parameters.Get("page_size"), 100, "page_size")
 
 }
 

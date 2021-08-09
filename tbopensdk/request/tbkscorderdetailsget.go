@@ -1,7 +1,7 @@
 package request
 
 import (
-	utils2 "github.com/mimicode/tksdk/utils"
+	utils "github.com/mimicode/tksdk/utils"
 	"net/url"
 )
 
@@ -12,8 +12,8 @@ type TbkScOrderDetailsGetRequest struct {
 }
 
 func (tk *TbkScOrderDetailsGetRequest) CheckParameters() {
-	utils2.CheckNotNull(tk.Parameters.Get("end_time"), "end_time")
-	utils2.CheckNotNull(tk.Parameters.Get("start_time"), "start_time")
+	utils.CheckNotNull(tk.Parameters.Get("end_time"), "end_time")
+	utils.CheckNotNull(tk.Parameters.Get("start_time"), "start_time")
 
 }
 

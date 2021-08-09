@@ -1,7 +1,7 @@
 package request
 
 import (
-	utils2 "github.com/mimicode/tksdk/pddopensdk/utils"
+	"github.com/mimicode/tksdk/utils"
 	"net/url"
 )
 
@@ -12,7 +12,7 @@ type SellercatsListGetRequest struct {
 }
 
 func (tk *SellercatsListGetRequest) CheckParameters() {
-	utils2.CheckNotNull(tk.Parameters.Get("nick"), "nick")
+	utils.CheckNotNull(tk.Parameters.Get("nick"), "nick")
 }
 
 //添加请求参数

@@ -1,7 +1,7 @@
 package request
 
 import (
-	utils2 "github.com/mimicode/tksdk/utils"
+	utils "github.com/mimicode/tksdk/utils"
 	"net/url"
 )
 
@@ -12,8 +12,8 @@ type TbkTpwdCreateRequest struct {
 }
 
 func (tk *TbkTpwdCreateRequest) CheckParameters() {
-	//utils2.CheckNotNull(tk.Parameters.Get("text"), "text")
-	utils2.CheckNotNull(tk.Parameters.Get("url"), "url")
+	//utils.CheckNotNull(tk.Parameters.Get("text"), "text")
+	utils.CheckNotNull(tk.Parameters.Get("url"), "url")
 
 }
 

@@ -118,3 +118,18 @@ func NowTime() *time.Time {
 func GetUUID() string {
 	return strconv.FormatInt(time.Now().UnixNano(), 16)
 }
+
+//检测最小值
+func CheckMinFloatValue(value string, minVal float64, fieldName string) {
+	if CheckEmpty(value) {
+		return
+	}
+	if i, e := strconv.ParseFloat(value, 64); e != nil {
+		panic("fieldName cid Value Is Not Number")
+	} else {
+		if i < minVal {
+			panic(fmt.Sprintf("Invalid Arguments:the value of %s can not be less than %.2f .", fieldName, minVal))
+		}
+	}
+
+}

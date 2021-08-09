@@ -1,7 +1,7 @@
 package request
 
 import (
-	utils2 "github.com/mimicode/tksdk/utils"
+	utils "github.com/mimicode/tksdk/utils"
 	"net/url"
 )
 
@@ -12,9 +12,9 @@ type TbkScActivityInfoGetRequest struct {
 }
 
 func (tk *TbkScActivityInfoGetRequest) CheckParameters() {
-	utils2.CheckNotNull(tk.Parameters.Get("activity_material_id"), "activity_material_id")
-	utils2.CheckNotNull(tk.Parameters.Get("adzone_id"), "adzone_id")
-	utils2.CheckNotNull(tk.Parameters.Get("site_id"), "site_id")
+	utils.CheckNotNull(tk.Parameters.Get("activity_material_id"), "activity_material_id")
+	utils.CheckNotNull(tk.Parameters.Get("adzone_id"), "adzone_id")
+	utils.CheckNotNull(tk.Parameters.Get("site_id"), "site_id")
 
 }
 

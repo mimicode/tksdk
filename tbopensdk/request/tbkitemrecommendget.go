@@ -1,7 +1,7 @@
 package request
 
 import (
-	utils2 "github.com/mimicode/tksdk/pddopensdk/utils"
+	"github.com/mimicode/tksdk/utils"
 	"net/url"
 )
 
@@ -13,8 +13,8 @@ type TbkItemRecommendGetRequest struct {
 
 //参数检测
 func (tk *TbkItemRecommendGetRequest) CheckParameters() {
-	utils2.CheckNotNull(tk.Parameters.Get("fields"), "fields")
-	utils2.CheckNotNull(tk.Parameters.Get("num_iid"), "num_iid")
+	utils.CheckNotNull(tk.Parameters.Get("fields"), "fields")
+	utils.CheckNotNull(tk.Parameters.Get("num_iid"), "num_iid")
 }
 
 //添加请求参数

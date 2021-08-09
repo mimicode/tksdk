@@ -1,7 +1,7 @@
 package request
 
 import (
-	utils2 "github.com/mimicode/tksdk/pddopensdk/utils"
+	"github.com/mimicode/tksdk/utils"
 	"net/url"
 )
 
@@ -12,12 +12,12 @@ type TbkItemConvertRequest struct {
 }
 
 func (tk *TbkItemConvertRequest) CheckParameters() {
-	utils2.CheckNotNull(tk.Parameters.Get("adzone_id"), "adzone_id")
-	utils2.CheckNumber(tk.Parameters.Get("adzone_id"), "adzone_id")
+	utils.CheckNotNull(tk.Parameters.Get("adzone_id"), "adzone_id")
+	utils.CheckNumber(tk.Parameters.Get("adzone_id"), "adzone_id")
 
-	utils2.CheckNotNull(tk.Parameters.Get("fields"), "fields")
-	utils2.CheckNotNull(tk.Parameters.Get("num_iids"), "num_iids")
-	utils2.CheckMaxListSize(tk.Parameters.Get("num_iids"), 40, "num_iids")
+	utils.CheckNotNull(tk.Parameters.Get("fields"), "fields")
+	utils.CheckNotNull(tk.Parameters.Get("num_iids"), "num_iids")
+	utils.CheckMaxListSize(tk.Parameters.Get("num_iids"), 40, "num_iids")
 }
 
 //添加请求参数
