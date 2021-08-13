@@ -42,7 +42,7 @@ func (t *Response) WrapResult(result string) {
 // Responce 响应结果
 type Responce struct {
 	Code           string `json:"code"`
-	QueryResultStr string `json:"queryResult"`
+	QueryResultStr string `json:"getResult"`
 	QueryResult    QueryResult
 }
 
