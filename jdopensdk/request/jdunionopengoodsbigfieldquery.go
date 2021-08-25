@@ -1,8 +1,8 @@
 package request
 
 import (
-	"net/url"
 	"github.com/mimicode/tksdk/utils"
+	"net/url"
 )
 
 // JdUnionOpenGoodsBigfieldQueryRequest jd.union.open.goods.bigfield.query 商品详情查询接口,大字段信息

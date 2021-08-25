@@ -1,8 +1,8 @@
 package request
 
 import (
-	"net/url"
 	"github.com/mimicode/tksdk/utils"
+	"net/url"
 )
 
 // JdUnionOpenGoodsPromotiongoodsinfoQueryRequest jd.union.open.goods.promotiongoodsinfo.query 通过SKUID查询推广商品

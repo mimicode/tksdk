@@ -1,8 +1,8 @@
 package request
 
 import (
-	"net/url"
 	"github.com/mimicode/tksdk/utils"
+	"net/url"
 )
 
 // JdUnionOpenCouponQueryRequest jd.union.open.coupon.query 通过领券链接查询优惠券的平台、面额、期限、可用状态、剩余数量等详细信息

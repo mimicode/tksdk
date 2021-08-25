@@ -1,8 +1,8 @@
 package request
 
 import (
-	"net/url"
 	"github.com/mimicode/tksdk/utils"
+	"net/url"
 )
 
 // JdUnionOpenGoodsJingfenQueryRequest jd.union.open.goods.jingfen.query 京粉精选商品查询接口

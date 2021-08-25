@@ -1,8 +1,8 @@
 package request
 
 import (
-	"net/url"
 	"github.com/mimicode/tksdk/utils"
+	"net/url"
 )
 
 // JdUnionOpenOrderBonusQueryRequest jd.union.open.order.bonus.query 奖励订单查询接口

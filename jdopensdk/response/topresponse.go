@@ -11,7 +11,7 @@ func (t *TopResponse) IsError() bool {
 }
 
 type ErrorInfo struct {
-	Code      int64    `json:"code"`
+	Code      int64  `json:"code"`
 	Message   string `json:"message"`
 	RequestID string `json:"requestId"`
 }

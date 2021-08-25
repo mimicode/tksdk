@@ -1,8 +1,8 @@
 package request
 
 import (
-	"net/url"
 	"github.com/mimicode/tksdk/utils"
+	"net/url"
 )
 
 // JdUnionOpenStatisticsRedpacketAgentQueryRequest jd.union.open.statistics.redpacket.agent.query 工具商查询帮助其他推客转的链接的红包发放数据

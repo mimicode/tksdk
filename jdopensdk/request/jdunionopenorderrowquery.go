@@ -1,8 +1,8 @@
 package request
 
 import (
-	"net/url"
 	"github.com/mimicode/tksdk/utils"
+	"net/url"
 )
 
 // JdUnionOpenOrderRowQueryRequest jd.union.open.order.row.query 查询推广订单及佣金信息

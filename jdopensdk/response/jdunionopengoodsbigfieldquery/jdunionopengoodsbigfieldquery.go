@@ -38,15 +38,17 @@ func (t *Response) WrapResult(result string) {
 	}
 	t.Responce.QueryResultStr = ""
 }
+
 // Responce 响应结果
 type Responce struct {
 	Code           string `json:"code"`
 	QueryResultStr string `json:"queryResult"`
 	QueryResult    QueryResult
 }
+
 // QueryResult 具体内容
 type QueryResult struct {
-	Code      int64    `json:"code"`
+	Code      int64  `json:"code"`
 	Message   string `json:"message"`
 	RequestID string `json:"requestId"`
 }

@@ -146,11 +146,11 @@ func createAPI(apiRequest ApiInfo) {
 		panic(err)
 	}
 	response := string(responseByte)
-	responseJsonName := strings.ReplaceAll(apiRequest.APIORGNAME,".","_")
+	responseJsonName := strings.ReplaceAll(apiRequest.APIORGNAME, ".", "_")
 	response = strings.Replace(response, "--APIDESC--", apiRequest.APIDESC, -1)
 	response = strings.Replace(response, "--PACKAGENAME--", DIRNAME, -1)
 	response = strings.Replace(response, "--APINAME--", APINAME, -1)
-	response = strings.Replace(response, "--RESPONSEJSONNAME--", responseJsonName , -1)
+	response = strings.Replace(response, "--RESPONSEJSONNAME--", responseJsonName, -1)
 	requestFile := filepath.Join(dir, "request/"+FILENAME)
 
 	//写入请求
@@ -234,7 +234,6 @@ func createAPIS() {
 		},
 	}
 
-
 	request = ApiInfo{
 		APIDESC:    "jd.union.open.goods.bigfield.query 商品详情查询接口,大字段信息",
 		APIORGNAME: "jd.union.open.goods.bigfield.query",
@@ -246,7 +245,6 @@ func createAPIS() {
 			},
 		},
 	}
-
 
 	request = ApiInfo{
 		APIDESC:    "jd.union.open.activity.query 提供联盟官方活动查询",
@@ -260,8 +258,6 @@ func createAPIS() {
 		},
 	}
 
-
-
 	request = ApiInfo{
 		APIDESC:    "jd.union.open.activity.recommend.query 提供联盟官方活动查询",
 		APIORGNAME: "jd.union.open.activity.recommend.query",
@@ -273,9 +269,6 @@ func createAPIS() {
 			},
 		},
 	}
-
-
-
 
 	request = ApiInfo{
 		APIDESC:    "jd.union.open.promotion.common.get 网站/APP来获取的推广链接",
@@ -289,10 +282,6 @@ func createAPIS() {
 		},
 	}
 
-
-
-
-
 	request = ApiInfo{
 		APIDESC:    "jd.union.open.promotion.bysubunionid.get 通过商品链接、领券链接、活动链接获取普通推广链接或优惠券二合一推广链接",
 		APIORGNAME: "jd.union.open.promotion.bysubunionid.get",
@@ -305,9 +294,6 @@ func createAPIS() {
 		},
 	}
 
-
-
-
 	request = ApiInfo{
 		APIDESC:    "jd.union.open.promotion.byunionid.get 工具商媒体帮助子站长获取普通推广链接和优惠券二合一推广链接",
 		APIORGNAME: "jd.union.open.promotion.byunionid.get",
@@ -319,8 +305,6 @@ func createAPIS() {
 			},
 		},
 	}
-
-
 
 	request = ApiInfo{
 		APIDESC:    "jd.union.open.order.row.query 查询推广订单及佣金信息",
@@ -357,7 +341,6 @@ func createAPIS() {
 		},
 	}
 
-
 	request = ApiInfo{
 		APIDESC:    "jd.union.open.order.agent.query 工具商订单行查询接口",
 		APIORGNAME: "jd.union.open.order.agent.query",
@@ -381,7 +364,6 @@ func createAPIS() {
 			},
 		},
 	}
-
 
 	createAPI(request)
 }

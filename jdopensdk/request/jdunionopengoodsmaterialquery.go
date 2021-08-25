@@ -1,8 +1,8 @@
 package request
 
 import (
-	"net/url"
 	"github.com/mimicode/tksdk/utils"
+	"net/url"
 )
 
 // JdUnionOpenGoodsMaterialQueryRequest jd.union.open.goods.material.query 猜你喜欢商品推荐

@@ -1,8 +1,8 @@
 package request
 
 import (
-	"net/url"
 	"github.com/mimicode/tksdk/utils"
+	"net/url"
 )
 
 // JdUnionOpenPromotionCommonGetRequest jd.union.open.promotion.common.get 网站/APP来获取的推广链接

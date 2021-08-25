@@ -1,8 +1,8 @@
 package request
 
 import (
-	"net/url"
 	"github.com/mimicode/tksdk/utils"
+	"net/url"
 )
 
 // JdUnionOpenCategoryGoodsGetRequest jd.union.open.category.goods.get 根据商品的父类目id查询子类目id信息

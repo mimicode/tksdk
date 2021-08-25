@@ -1,8 +1,8 @@
 package request
 
 import (
-	"net/url"
 	"github.com/mimicode/tksdk/utils"
+	"net/url"
 )
 
 // JdUnionOpenOrderAgentQueryRequest jd.union.open.order.agent.query 工具商订单行查询接口

@@ -1,8 +1,8 @@
 package request
 
 import (
-	"net/url"
 	"github.com/mimicode/tksdk/utils"
+	"net/url"
 )
 
 // JdUnionOpenStatisticsRedpacketQueryRequest jd.union.open.statistics.redpacket.query 京享红包效果数据
