@@ -45,8 +45,7 @@ func Hmac(key, data string) string {
 
 // CheckMaxLength 检验字段fieldName的值value 的长度
 func CheckMaxLength(value string, maxLength int, fieldName string) {
-
-	if len(value) > maxLength {
+	if len([]rune(value)) > maxLength {
 		panic(fmt.Sprintf("Invalid Arguments:the length of %s can not be larger than %d.", fieldName, maxLength))
 	}
 }
