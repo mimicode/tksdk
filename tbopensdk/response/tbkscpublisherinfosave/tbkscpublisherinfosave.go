@@ -32,4 +32,5 @@ type ResponseClassData struct {
 	AccountName string `json:"account_name"`
 	Desc        string `json:"desc"`
 	RelationID  int64  `json:"relation_id"`
+	SpecialId   int64  `json:"special_id"`
 }

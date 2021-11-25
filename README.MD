@@ -50,6 +50,3 @@ Examples
 
 	}
 ```
-
-### 微信交流群
-![微信交流群](tksdkqun.png)
