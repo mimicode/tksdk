@@ -130,7 +130,7 @@ func TestTbkScMaterialOptional(t *testing.T) {
 	getRequest.AddParameter("adzone_id", "108916600241")
 	getRequest.AddParameter("site_id", "519950261")
 
-	getRequest.AddParameter("q", "男装裤子")
+	getRequest.AddParameter("q", "https://h5.m.taobao.com/awp/core/detail.htm?id=658058537271")
 	getRequest.AddParameter("platform", "1")
 	getRequest.AddParameter("page_no", "1")
 	getRequest.AddParameter("page_size", "1")
