@@ -5,6 +5,7 @@ import (
 	"github.com/mimicode/tksdk/jdopensdk/request"
 	"github.com/mimicode/tksdk/jdopensdk/response/jdunionopengoodsjingfenquery"
 	"github.com/mimicode/tksdk/jdopensdk/response/jdunionopengoodspromotiongoodsinfoquery"
+	"github.com/mimicode/tksdk/jdopensdk/response/jdunionopengoodsquery"
 	"github.com/mimicode/tksdk/jdopensdk/response/jdunionopenorderrowquery"
 	"github.com/mimicode/tksdk/jdopensdk/response/jdunionopenpromotionbysubunionidget"
 	"github.com/mimicode/tksdk/jdopensdk/response/jdunionopenpromotioncommonget"
@@ -94,6 +95,24 @@ func TestJdUnionOpenGoodsPromotiongoodsinfoQueryRequest(t *testing.T) {
 	} else {
 		commonGetResponse := getResponse.(*jdunionopengoodspromotiongoodsinfoquery.Response)
 
+		fmt.Println(commonGetResponse.IsError())
+		fmt.Println(commonGetResponse.Body)
+	}
+}
+
+func TestJdUnionOpenGoodsQueryRequest(t *testing.T) {
+	client := GetClient()
+	getRequest := &request.JdUnionOpenGoodsQueryRequest{}
+	//getRequest.AddParameter("360buy_param_json", `{"goodsReqDTO":{"skuIds":[10045819630288],"fields":"videoInfo"}}`)
+	//getRequest.AddParameter("360buy_param_json", `{"goodsReqDTO":{"keyword":"iPhone+13"}}`)
+	//getRequest.AddParameter("360buy_param_json", `{"goodsReqDTO":{"keyword":"小米+13"}}`)
+	//getRequest.AddParameter("360buy_param_json", `{"goodsReqDTO":{"keyword":"民法典"}}`)
+	getRequest.AddParameter("360buy_param_json", `{"goodsReqDTO":{"keyword":"空调"}}`)
+	var getResponse DefaultResponse = &jdunionopengoodsquery.Response{}
+	if err := client.Exec(getRequest, getResponse); err != nil {
+		fmt.Println(err)
+	} else {
+		commonGetResponse := getResponse.(*jdunionopengoodsquery.Response)
 		fmt.Println(commonGetResponse.IsError())
 		fmt.Println(commonGetResponse.Body)
 	}
