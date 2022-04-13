@@ -63,7 +63,7 @@ type Datum struct {
 	CommissionInfo     CommissionInfo `json:"commissionInfo"`
 	CouponInfo         CouponInfo     `json:"couponInfo"`
 	DeliveryType       int64          `json:"deliveryType"`
-	ForbidTypes        []int64        `json:"forbidTypes"`
+	ForbidTypes        []int64        `json:"forbidTypes"` // 0普通商品，10微信京东购物小程序禁售，11微信京喜小程序禁售
 	GoodCommentsShare  float64        `json:"goodCommentsShare"`
 	ImageInfo          ImageInfo      `json:"imageInfo"`
 	InOrderComm30Days  float64        `json:"inOrderComm30Days"`
@@ -80,6 +80,22 @@ type Datum struct {
 	Spuid              int64          `json:"spuid"`
 	VideoInfo          VideoInfo      `json:"videoInfo"`
 	BookInfo           BookInfo       `json:"bookInfo"`
+	JxFlags            []int64        `json:"jxFlags"`   // 京喜商品类型（1京喜；2京喜工厂直供；3京喜优选（包含3时可在京东APP购买））
+	EliteType          []int64        `json:"eliteType"` // 资源位17：极速版商品
+	DocumentInfo       DocumentInfo   `json:"documentInfo"`
+	SeckillInfo        SeckillInfo    `json:"seckillInfo"` //秒杀信息
+}
+
+type SeckillInfo struct {
+	SeckillOriPrice  float64 `json:"seckillOriPrice"`
+	SeckillPrice     float64 `json:"seckillPrice"`
+	SeckillStartTime int64   `json:"seckillStartTime"`
+	SeckillEndTime   int64   `json:"seckillEndTime"`
+}
+
+type DocumentInfo struct {
+	Document string `json:"document"`
+	Discount string `json:"discount"`
 }
 
 type BookInfo struct {
