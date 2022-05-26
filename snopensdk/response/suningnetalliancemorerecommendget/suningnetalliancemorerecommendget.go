@@ -72,11 +72,11 @@ type CommodityList struct {
 	NoConponCommision    string      `json:"noConponCommision"`
 	RebateCommissionRate string      `json:"rebateCommissionRate"`
 	OrderActivity        interface{} `json:"orderActivity"`
-	CouponAmount         int64       `json:"couponAmount"`
+	CouponAmount         interface{} `json:"couponAmount"`
 	CouponSpecialPrice   string      `json:"couponSpecialPrice"`
 	CouponActiveID       string      `json:"couponActiveId"`
 	ActivitySecretKey    string      `json:"activitySecretKey"`
-	CouponPrice          int64       `json:"couponPrice"`
+	CouponPrice          interface{} `json:"couponPrice"`
 	MinOrderQuantity     string      `json:"minOrderQuantity"`
 	PicList              []PicList   `json:"picList"`
 	ProductURL           string      `json:"productUrl"`
