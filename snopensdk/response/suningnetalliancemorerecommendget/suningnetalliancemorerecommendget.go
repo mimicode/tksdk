@@ -69,11 +69,11 @@ type CommodityList struct {
 	PGNum                interface{} `json:"pgNum"`
 	CommodityPriceFlag   string      `json:"commodityPriceFlag"`
 	SaleStatus           int64       `json:"saleStatus"`
-	NoConponCommision    string      `json:"noConponCommision"`
+	NoConponCommision    interface{} `json:"noConponCommision"`
 	RebateCommissionRate string      `json:"rebateCommissionRate"`
 	OrderActivity        interface{} `json:"orderActivity"`
 	CouponAmount         interface{} `json:"couponAmount"`
-	CouponSpecialPrice   string      `json:"couponSpecialPrice"`
+	CouponSpecialPrice   interface{} `json:"couponSpecialPrice"`
 	CouponActiveID       string      `json:"couponActiveId"`
 	ActivitySecretKey    string      `json:"activitySecretKey"`
 	CouponPrice          interface{} `json:"couponPrice"`
