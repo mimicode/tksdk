@@ -1,6 +1,8 @@
 package pddopensdk
 
 import (
+	"encoding/json"
+	"fmt"
 	request2 "github.com/mimicode/tksdk/pddopensdk/request"
 	"github.com/mimicode/tksdk/pddopensdk/response/pddddkallorderlistincrementget"
 	"github.com/mimicode/tksdk/pddopensdk/response/pddddkgoodsdetail"
@@ -23,20 +25,36 @@ import (
 	"github.com/mimicode/tksdk/pddopensdk/response/pddddkoauthresourceurlgen"
 	"github.com/mimicode/tksdk/pddopensdk/response/pddddkoauthrppromurlgenerate"
 	"github.com/mimicode/tksdk/pddopensdk/response/pddddkoauththemepromurlgenerate"
-
-	"fmt"
 	pddddkorderlistincrementget2 "github.com/mimicode/tksdk/pddopensdk/response/pddddkorderlistincrementget"
 	pddddkresourceurlgen2 "github.com/mimicode/tksdk/pddopensdk/response/pddddkresourceurlgen"
 	pddddkrppromurlgenerate2 "github.com/mimicode/tksdk/pddopensdk/response/pddddkrppromurlgenerate"
+	"io/ioutil"
+	"os"
 	"testing"
 )
 
-const (
-	appKey     = ""
-	appSecret  = ""
-	sessionKey = ""
+var (
+	appKey, appSecret, sessionKey string
 )
 
+func init() {
+	if _, err := os.Stat("../dev_env.json"); err == nil {
+		if bytes, err := ioutil.ReadFile("../dev_env.json"); err == nil {
+			var data struct {
+				Pdd struct {
+					AppKey     string `json:"app_key"`
+					AppSecret  string `json:"app_secret"`
+					SessionKey string `json:"session_key"`
+				} `json:"pdd"`
+			}
+			if err = json.Unmarshal(bytes, &data); err == nil {
+				appKey = data.Pdd.AppKey
+				appSecret = data.Pdd.AppSecret
+				sessionKey = data.Pdd.SessionKey
+			}
+		}
+	}
+}
 func GetClient() *TopClient {
 	//初始化TopClient
 	client := &TopClient{}

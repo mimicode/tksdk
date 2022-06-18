@@ -1,0 +1,28 @@
+{
+  "jd": {
+    "app_key": "",
+    "app_secret": "",
+    "session_key": "",
+    "key": ""
+  },
+  "tb": {
+    "app_key": "",
+    "app_secret": "",
+    "session_key": ""
+  },
+  "sn": {
+    "app_key": "",
+    "app_secret": "",
+    "session_key": ""
+  },
+  "pdd": {
+    "app_key": "",
+    "app_secret": "",
+    "session_key": ""
+  },
+  "vip": {
+    "app_key": "",
+    "app_secret": "",
+    "session_key": ""
+  }
+}

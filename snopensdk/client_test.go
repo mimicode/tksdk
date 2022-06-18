@@ -1,6 +1,7 @@
 package snopensdk
 
 import (
+	"encoding/json"
 	"fmt"
 	request2 "github.com/mimicode/tksdk/snopensdk/request"
 	suningnetalliancebacthcustomlinkquery2 "github.com/mimicode/tksdk/snopensdk/response/suningnetalliancebacthcustomlinkquery"
@@ -20,15 +21,33 @@ import (
 	suningnetalliancestorepromotionurlquery2 "github.com/mimicode/tksdk/snopensdk/response/suningnetalliancestorepromotionurlquery"
 	suningnetalliancetoolselleradd2 "github.com/mimicode/tksdk/snopensdk/response/suningnetalliancetoolselleradd"
 	suningnetallianceunioninfomationget2 "github.com/mimicode/tksdk/snopensdk/response/suningnetallianceunioninfomationget"
+	"io/ioutil"
+	"os"
 	"testing"
 )
 
-const (
-	appKey     = ""
-	appSecret  = ""
-	sessionKey = ""
+var (
+	appKey, appSecret, sessionKey string
 )
 
+func init() {
+	if _, err := os.Stat("../dev_env.json"); err == nil {
+		if bytes, err := ioutil.ReadFile("../dev_env.json"); err == nil {
+			var data struct {
+				Sn struct {
+					AppKey     string `json:"app_key"`
+					AppSecret  string `json:"app_secret"`
+					SessionKey string `json:"session_key"`
+				} `json:"sn"`
+			}
+			if err = json.Unmarshal(bytes, &data); err == nil {
+				appKey = data.Sn.AppKey
+				appSecret = data.Sn.AppSecret
+				sessionKey = data.Sn.SessionKey
+			}
+		}
+	}
+}
 func GetClient() *TopClient {
 	//初始化TopClient
 	client := &TopClient{}

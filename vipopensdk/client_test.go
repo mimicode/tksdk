@@ -1,7 +1,9 @@
 package vipopensdk
 
 import (
+	"encoding/json"
 	"fmt"
+	utils2 "github.com/mimicode/tksdk/utils"
 	request2 "github.com/mimicode/tksdk/vipopensdk/request"
 	comvipadpapiopenserviceuniongoodsservicegetbygoodsidswithoauth2 "github.com/mimicode/tksdk/vipopensdk/response/comvipadpapiopenserviceuniongoodsservicegetbygoodsidswithoauth"
 	comvipadpapiopenserviceuniongoodsservicegoodslistwithoauth2 "github.com/mimicode/tksdk/vipopensdk/response/comvipadpapiopenserviceuniongoodsservicegoodslistwithoauth"
@@ -13,15 +15,33 @@ import (
 	comvipadpapiopenserviceunionurlservicegenbygoodsidwithoauth2 "github.com/mimicode/tksdk/vipopensdk/response/comvipadpapiopenserviceunionurlservicegenbygoodsidwithoauth"
 	comvipadpapiopenserviceunionurlservicegenbyvipurlwithoauth2 "github.com/mimicode/tksdk/vipopensdk/response/comvipadpapiopenserviceunionurlservicegenbyvipurlwithoauth"
 	comvipadpapiopenserviceunionurlserviceviplinkcheckwithouth2 "github.com/mimicode/tksdk/vipopensdk/response/comvipadpapiopenserviceunionurlserviceviplinkcheckwithouth"
-	utils2 "github.com/mimicode/tksdk/utils"
+	"io/ioutil"
+	"os"
 	"testing"
 )
 
-const (
-	appKey     = ""
-	appSecret  = ""
-	sessionKey = ""
+var (
+	appKey, appSecret, sessionKey string
 )
+
+func init() {
+	if _, err := os.Stat("../dev_env.json"); err == nil {
+		if bytes, err := ioutil.ReadFile("../dev_env.json"); err == nil {
+			var data struct {
+				Vip struct {
+					AppKey     string `json:"app_key"`
+					AppSecret  string `json:"app_secret"`
+					SessionKey string `json:"session_key"`
+				} `json:"vip"`
+			}
+			if err = json.Unmarshal(bytes, &data); err == nil {
+				appKey = data.Vip.AppKey
+				appSecret = data.Vip.AppSecret
+				sessionKey = data.Vip.SessionKey
+			}
+		}
+	}
+}
 
 func GetClient() *TopClient {
 	//初始化TopClient
