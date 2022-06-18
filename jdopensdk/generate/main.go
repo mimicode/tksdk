@@ -364,7 +364,17 @@ func createAPIS() {
 			},
 		},
 	}
-
+	request = ApiInfo{
+		APIDESC:    "jd.union.open.position.query 查询推广位【申请】",
+		APIORGNAME: "jd.union.open.position.query",
+		APIURL:     "https://union.jd.com/openplatform/api/v2?apiName=jd.union.open.position.query",
+		CHECKFIELDS: []CheckField{
+			{
+				FieldName:         "360buy_param_json",
+				FieldNotNullCheck: true,
+			},
+		},
+	}
 	createAPI(request)
 }
 

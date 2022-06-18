@@ -1,23 +1,45 @@
 package jdopensdk
 
 import (
+	"encoding/json"
 	"fmt"
 	"github.com/mimicode/tksdk/jdopensdk/request"
 	"github.com/mimicode/tksdk/jdopensdk/response/jdunionopengoodsjingfenquery"
 	"github.com/mimicode/tksdk/jdopensdk/response/jdunionopengoodspromotiongoodsinfoquery"
 	"github.com/mimicode/tksdk/jdopensdk/response/jdunionopengoodsquery"
 	"github.com/mimicode/tksdk/jdopensdk/response/jdunionopenorderrowquery"
+	"github.com/mimicode/tksdk/jdopensdk/response/jdunionopenpositionquery"
 	"github.com/mimicode/tksdk/jdopensdk/response/jdunionopenpromotionbysubunionidget"
 	"github.com/mimicode/tksdk/jdopensdk/response/jdunionopenpromotioncommonget"
+	"io/ioutil"
+	"os"
 	"testing"
 )
 
-const (
-	appKey     = ""
-	appSecret  = ""
-	sessionKey = ""
+var (
+	appKey, appSecret, sessionKey, key string
 )
 
+func init() {
+	if _, err := os.Stat("../dev_env.json"); err == nil {
+		if bytes, err := ioutil.ReadFile("../dev_env.json"); err == nil {
+			var data struct {
+				Jd struct {
+					AppKey     string `json:"app_key"`
+					AppSecret  string `json:"app_secret"`
+					SessionKey string `json:"session_key"`
+					Key        string `json:"key"`
+				} `json:"jd"`
+			}
+			if err = json.Unmarshal(bytes, &data); err == nil {
+				appKey = data.Jd.AppKey
+				appSecret = data.Jd.AppSecret
+				sessionKey = data.Jd.SessionKey
+				key = data.Jd.Key
+			}
+		}
+	}
+}
 func GetClient() *TopClient {
 	//初始化TopClient
 	client := &TopClient{}
@@ -113,6 +135,20 @@ func TestJdUnionOpenGoodsQueryRequest(t *testing.T) {
 		fmt.Println(err)
 	} else {
 		commonGetResponse := getResponse.(*jdunionopengoodsquery.Response)
+		fmt.Println(commonGetResponse.IsError())
+		fmt.Println(commonGetResponse.Body)
+	}
+}
+
+func TestJdUnionOpenPositionQueryRequest(t *testing.T) {
+	client := GetClient()
+	getRequest := &request.JdUnionOpenPositionQueryRequest{}
+	getRequest.AddParameter("360buy_param_json", `{"positionReq":{"unionId":103431087,"pageIndex":1,"pageSize":100,"key":"`+key+`","unionType":4}}`)
+	var getResponse DefaultResponse = &jdunionopenpositionquery.Response{}
+	if err := client.Exec(getRequest, getResponse); err != nil {
+		fmt.Println(err)
+	} else {
+		commonGetResponse := getResponse.(*jdunionopenpositionquery.Response)
 		fmt.Println(commonGetResponse.IsError())
 		fmt.Println(commonGetResponse.Body)
 	}

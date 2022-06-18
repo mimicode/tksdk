@@ -1,6 +1,7 @@
 package tbopensdk
 
 import (
+	"encoding/json"
 	"fmt"
 	request2 "github.com/mimicode/tksdk/tbopensdk/request"
 	"github.com/mimicode/tksdk/tbopensdk/response/juitemssearch"
@@ -37,6 +38,8 @@ import (
 	"github.com/mimicode/tksdk/tbopensdk/response/tbkspreadget"
 	"github.com/mimicode/tksdk/tbopensdk/response/tbktpwdconvert"
 	response2 "github.com/mimicode/tksdk/tbopensdk/response/tbktpwdcreate"
+	"io/ioutil"
+	"os"
 	"testing"
 )
 
@@ -45,9 +48,22 @@ var (
 )
 
 func init() {
-	appKey = ""
-	appSecret = ""
-	sessionKey = ""
+	if _, err := os.Stat("../dev_env.json"); err == nil {
+		if bytes, err := ioutil.ReadFile("../dev_env.json"); err == nil {
+			var data struct {
+				Tb struct {
+					AppKey     string `json:"app_key"`
+					AppSecret  string `json:"app_secret"`
+					SessionKey string `json:"session_key"`
+				} `json:"tb"`
+			}
+			if err = json.Unmarshal(bytes, &data); err == nil {
+				appKey = data.Tb.AppKey
+				appSecret = data.Tb.AppSecret
+				sessionKey = data.Tb.SessionKey
+			}
+		}
+	}
 }
 func TestTbkiteminfoget(t *testing.T) {
 
