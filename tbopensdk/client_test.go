@@ -8,6 +8,7 @@ import (
 	"github.com/mimicode/tksdk/tbopensdk/response/sellercatslistget"
 	"github.com/mimicode/tksdk/tbopensdk/response/shopcatslistget"
 	"github.com/mimicode/tksdk/tbopensdk/response/shopgetbytitle"
+	"github.com/mimicode/tksdk/tbopensdk/response/taobaotbkscrelationrefund"
 	"github.com/mimicode/tksdk/tbopensdk/response/tbkactivitylinkget"
 	"github.com/mimicode/tksdk/tbopensdk/response/tbkcouponget"
 	"github.com/mimicode/tksdk/tbopensdk/response/tbkdgitemcouponget"
@@ -991,6 +992,34 @@ func Test_TbkDgVegasTljCreate(t *testing.T) {
 		t.Log(err)
 	} else {
 		result := getResponse.(*tbkdgvegastljcreate.Response)
+
+		fmt.Println(result.Body)
+
+	}
+}
+func Test_TbkScRelationRefund(t *testing.T) {
+
+	//初始化TopClient
+	client := &TopClient{}
+	client.Init(appKey, appSecret, sessionKey)
+
+	//初始化请求接口信息
+	getRequest := &request2.TbkScRelationRefundRequest{}
+	getRequest.AddParameter("page_size", "1")
+	getRequest.AddParameter("search_type", "1")
+	getRequest.AddParameter("refund_type", "1")
+	getRequest.AddParameter("page_no", "1")
+	getRequest.AddParameter("biz_type", "1")
+	getRequest.AddParameter("start_time", "2020-05-27 18:11:51")
+
+	//初始化结果类型
+	var getResponse DefaultResponse = &taobaotbkscrelationrefund.Response{}
+	//执行请求接口得到结果
+	err := client.Exec(getRequest, getResponse)
+	if err != nil {
+		t.Log(err)
+	} else {
+		result := getResponse.(*taobaotbkscrelationrefund.Response)
 
 		fmt.Println(result.Body)
 
