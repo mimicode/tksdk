@@ -1,10 +1,13 @@
 package --APINAME--
 
-import "encoding/json"
+import (
+	"encoding/json"
+	"github.com/mimicode/tksdk/tbopensdk/response"
+)
 
 //--APIDESC--
 type Response struct {
-	TopResponse
+	response.TopResponse
 }
 
 //解析输出结果

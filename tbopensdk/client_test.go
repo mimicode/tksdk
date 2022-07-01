@@ -963,7 +963,7 @@ func Test_TbkDgVegasTljCreate(t *testing.T) {
 
 	//初始化TopClient
 	client := &TopClient{}
-	client.Init("27572253", "72c20ce22a8614873eb9ae6b4db96728", "")
+	client.Init(appKey, appSecret, "")
 
 	//初始化请求接口信息
 	getRequest := &request2.TbkDgVegasTljCreateRequest{}
