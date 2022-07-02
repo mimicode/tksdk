@@ -11,13 +11,13 @@ import (
 
 func createReadmeApiList() {
 	dir, _ := os.Getwd()
-	request := filepath.Join(dir, "request")
-	//fmt.Println(request)
-	if matches, err := filepath.Glob(request + `/*\.go`); err != nil {
+	sdkPath := filepath.Join(dir, "snopensdk")
+	if matches, err := filepath.Glob(filepath.Join(sdkPath, "request", "*.go")); err != nil {
 		fmt.Println(err)
 		return
 	} else {
 		compile := regexp.MustCompile(`//(.+)`)
+		var apiList []string
 		for _, fileName := range matches {
 			bytes, err := ioutil.ReadFile(fileName)
 			if err != nil {
@@ -27,12 +27,18 @@ func createReadmeApiList() {
 			all := compile.FindAllSubmatch(bytes, -1)
 			name := string(all[0][1])
 			url := string(all[1][1])
-
-			sprintf := fmt.Sprintf("- [%s](%s)", strings.TrimSpace(name), strings.TrimSpace(url))
-
-			fmt.Println(sprintf)
-
+			apiList = append(apiList, fmt.Sprintf("- [%s](%s)", strings.TrimSpace(name), strings.TrimSpace(url)))
 		}
+		file, err := os.OpenFile(filepath.Join(sdkPath, "README.MD"), os.O_CREATE|os.O_RDWR|os.O_TRUNC, 0655)
+
+		if err != nil {
+			fmt.Println(err)
+			return
+		}
+		defer file.Close()
+		file.WriteString("## api列表\n")
+		file.WriteString("--\n")
+		file.WriteString(strings.Join(apiList, "\n"))
 	}
 }
 

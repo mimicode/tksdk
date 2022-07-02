@@ -1,10 +1,10 @@
 # 淘客sdk
 
-- 京东
-- 淘宝
-- 拼多多
-- 苏宁
-- 唯品会
+- [京东](https://github.com/mimicode/tksdk/tree/main/jdopensdk)
+- [淘宝](https://github.com/mimicode/tksdk/tree/main/tbopensdk)
+- [拼多多](https://github.com/mimicode/tksdk/tree/main/pddopensdk)
+- [苏宁](https://github.com/mimicode/tksdk/tree/main/snopensdk)
+- [唯品会](https://github.com/mimicode/tksdk/tree/main/vipopensdk)
 ## Installation
 
 Download and install it:

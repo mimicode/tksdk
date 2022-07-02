@@ -1,0 +1,12 @@
+## api列表
+--
+- [com.vip.adp.api.open.service.UnionGoodsService 获取指定商品id结合的商品信息-需要oauth授权](http://vop.vip.com/apicenter/method?serviceName=com.vip.adp.api.open.service.UnionGoodsService-1.0.0&methodName=getByGoodsIdsWithOauth)
+- [com.vip.adp.api.open.service.UnionGoodsService 获取联盟在推商品列表-需要oauth授权](http://vop.vip.com/apicenter/method?serviceName=com.vip.adp.api.open.service.UnionGoodsService-1.0.0&methodName=goodsListWithOauth)
+- [ComVipAdpApiOpenService5nionGoodsServiceQueryWithOauthRequest com.vip.adp.api.open.service.UnionGoodsService 根据关键词查询商品列表-需要oauth授权](http://vop.vip.com/apicenter/method?serviceName=com.vip.adp.api.open.service.UnionGoodsService-1.0.0&methodName=queryWithOauth)
+- [com.vip.adp.api.open.service.UnionGoodsService 相似推荐商品列表-需要oauth授权](http://vop.vip.com/apicenter/method?serviceName=com.vip.adp.api.open.service.UnionGoodsService-1.0.0&methodName=similarRecommendWithOauth)
+- [com.vip.adp.api.open.service.UnionGoodsService 猜你喜欢商品列表-需要oauth授权](http://vop.vip.com/apicenter/method?serviceName=com.vip.adp.api.open.service.UnionGoodsService-1.0.0&methodName=userRecommendWithOauth)
+- [com.vip.adp.api.open.service.UnionOrderService 获取订单信息列表-需要oauth授权](http://vop.vip.com/apicenter/method?serviceName=com.vip.adp.api.open.service.UnionUrlService-1.0.0&methodName=vipLinkCheckWithOuth)
+- [com.vip.adp.api.open.service.UnionOrderService 维权订单总收益需要扣除该接口返回-需要oauth授权](http://vop.vip.com/apicenter/method?serviceName=com.vip.adp.api.open.service.UnionUrlService-1.0.0&methodName=refundOrderListWithOauth)
+- [com.vip.adp.api.open.service.UnionUrlService 根据商品id生成联盟链接-需要oauth授权](http://vop.vip.com/apicenter/method?serviceName=com.vip.adp.api.open.service.UnionUrlService-1.0.0&methodName=genByGoodsIdWithOauth)
+- [com.vip.adp.api.open.service.UnionUrlService 根据唯品会链接生成联盟链接-需要oauth授权](http://vop.vip.com/apicenter/method?serviceName=com.vip.adp.api.open.service.UnionUrlService-1.0.0&methodName=genByVIPUrlWithOauth)
+- [com.vip.adp.api.open.service.UnionUrlService 检测一段文本中是否有唯品会链接-需要oauth授权](http://vop.vip.com/apicenter/method?serviceName=com.vip.adp.api.open.service.UnionUrlService-1.0.0&methodName=vipLinkCheckWithOuth)
