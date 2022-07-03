@@ -1,11 +1,13 @@
 package vipopensdk
 
 import (
+	"context"
 	"encoding/json"
 	"errors"
 	"fmt"
 	"github.com/mimicode/tksdk/utils"
 	"io/ioutil"
+	"net"
 	"net/http"
 	"net/url"
 	"strconv"
@@ -34,10 +36,19 @@ type DefaultResponse interface {
 }
 
 type TopClient struct {
-	Appkey        string
-	AppSecret     string
-	ProxyUrl      string
-	SysParameters *url.Values //系统变量
+	Appkey         string
+	AppSecret      string
+	RequestTimeOut time.Duration
+	HttpClient     *http.Client
+	ProxyUrl       string
+	SysParameters  *url.Values //系统变量
+}
+
+func (u *TopClient) getTimeOut() time.Duration {
+	if u.RequestTimeOut == 0 {
+		return 30 * time.Second
+	}
+	return u.RequestTimeOut
 }
 
 func (u *TopClient) Init(appKey, appSecret, sessionkey string) {
@@ -62,7 +73,7 @@ func (u *TopClient) CreateSign(params map[string]interface{}) {
 	for _, k := range newParamsKey {
 		signStr += k + u.SysParameters.Get(k)
 	}
- 	marshal, _ := json.Marshal(params)
+	marshal, _ := json.Marshal(params)
 	signStr += string(marshal)
 	sign := strings.ToUpper(utils.Hmac(u.AppSecret, signStr))
 	//API输入参数签名结果
@@ -77,25 +88,39 @@ func (u *TopClient) CreateStrParam() string {
 
 // PostRequest 发送POST请求
 func (u *TopClient) PostRequest(uri, body string) (string, error) {
-	var client *http.Client
-	if len(u.ProxyUrl) > 0 {
-		client = &http.Client{
-			Transport: &http.Transport{
-				Proxy: func(r *http.Request) (*url.URL, error) {
-					return url.Parse(u.ProxyUrl)
+	if u.HttpClient == nil {
+		if len(u.ProxyUrl) > 0 {
+			u.HttpClient = &http.Client{
+				Transport: &http.Transport{
+					Proxy: func(r *http.Request) (*url.URL, error) {
+						return url.Parse(u.ProxyUrl)
+					},
+					DisableKeepAlives: true,
+					DialContext:       (&net.Dialer{Timeout: 5 * time.Second}).DialContext,
 				},
-			},
-			Timeout: 30 * time.Second,
+				Timeout: u.getTimeOut(),
+			}
+		} else {
+			u.HttpClient = &http.Client{
+				Transport: &http.Transport{
+					DisableKeepAlives: true,
+					DialContext:       (&net.Dialer{Timeout: 5 * time.Second}).DialContext,
+				},
+				Timeout: u.getTimeOut(),
+			}
 		}
-	} else {
-		client = http.DefaultClient
 	}
+
 	request, err := http.NewRequest(http.MethodPost, ApiGatewayUrl+"?"+uri, strings.NewReader(body))
 	if err != nil {
 		return "", nil
 	}
+	ctx, cancelFunc := context.WithCancel(context.Background())
+	defer cancelFunc()
+	request.WithContext(ctx)
+
 	request.Header.Add("Content-Type", "application/json; charset=UTF-8")
-	response, err := client.Do(request)
+	response, err := u.HttpClient.Do(request)
 	if err != nil {
 		return "", err
 	}

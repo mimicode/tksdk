@@ -1,12 +1,14 @@
 package snopensdk
 
 import (
+	"context"
 	"encoding/base64"
 	"encoding/json"
 	"errors"
 	"fmt"
 	utils2 "github.com/mimicode/tksdk/utils"
 	"io/ioutil"
+	"net"
 	"net/http"
 	"net/url"
 	"strings"
@@ -33,10 +35,19 @@ type DefaultResponse interface {
 }
 
 type TopClient struct {
-	Appkey        string
-	AppSecret     string
-	ProxyUrl      string
-	SysParameters *url.Values //系统变量
+	Appkey         string
+	AppSecret      string
+	RequestTimeOut time.Duration
+	HttpClient     *http.Client
+	ProxyUrl       string
+	SysParameters  *url.Values //系统变量
+}
+
+func (u *TopClient) getTimeOut() time.Duration {
+	if u.RequestTimeOut == 0 {
+		return 30 * time.Second
+	}
+	return u.RequestTimeOut
 }
 
 func (u *TopClient) Init(appKey, appSecret, sessionkey string) {
@@ -72,23 +83,36 @@ func (u *TopClient) CreateStrParam() string {
 
 //发送POST请求
 func (u *TopClient) PostRequest(uri, body string) (string, error) {
-	var client *http.Client
-	if len(u.ProxyUrl) > 0 {
-		client = &http.Client{
-			Transport: &http.Transport{
-				Proxy: func(r *http.Request) (*url.URL, error) {
-					return url.Parse(u.ProxyUrl)
+	if u.HttpClient == nil {
+		if len(u.ProxyUrl) > 0 {
+			u.HttpClient = &http.Client{
+				Transport: &http.Transport{
+					Proxy: func(r *http.Request) (*url.URL, error) {
+						return url.Parse(u.ProxyUrl)
+					},
+					DisableKeepAlives: true,
+					DialContext:       (&net.Dialer{Timeout: 5 * time.Second}).DialContext,
 				},
-			},
-			Timeout: 30 * time.Second,
+				Timeout: u.getTimeOut(),
+			}
+		} else {
+			u.HttpClient = &http.Client{
+				Transport: &http.Transport{
+					DisableKeepAlives: true,
+					DialContext:       (&net.Dialer{Timeout: 5 * time.Second}).DialContext,
+				},
+				Timeout: u.getTimeOut(),
+			}
 		}
-	} else {
-		client = http.DefaultClient
 	}
 	request, err := http.NewRequest(http.MethodPost, ApiGatewayUrl+"/"+uri, strings.NewReader(body))
 	if err != nil {
 		return "", nil
 	}
+	ctx, cancelFunc := context.WithCancel(context.Background())
+	defer cancelFunc()
+	request.WithContext(ctx)
+
 	request.Header.Add("Content-Type", "application/json; charset=UTF-8")
 	request.Header.Add("AppMethod", u.SysParameters.Get("appMethod"))
 	request.Header.Add("AppRequestTime", u.SysParameters.Get("appRequestTime"))
@@ -96,7 +120,7 @@ func (u *TopClient) PostRequest(uri, body string) (string, error) {
 	request.Header.Add("signInfo", u.SysParameters.Get("signInfo"))
 	request.Header.Add("AppKey", u.Appkey)
 	request.Header.Add("VersionNo", u.SysParameters.Get("versionNo"))
-	response, err := client.Do(request)
+	response, err := u.HttpClient.Do(request)
 	if err != nil {
 		return "", err
 	}
