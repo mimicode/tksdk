@@ -38,13 +38,13 @@ type TbkItemInfoGeNTbkItem struct {
 	ItemURL                string                   `json:"item_url"`
 	MaterialLIBType        string                   `json:"material_lib_type"`
 	Nick                   string                   `json:"nick"`
-	NumIid                 int64                    `json:"num_iid"`
+	NumIid                 interface{}              `json:"num_iid"`
 	PictURL                string                   `json:"pict_url"`
 	Provcity               string                   `json:"provcity"`
 	ReservePrice           string                   `json:"reserve_price"`
-	SellerID    int64                    `json:"seller_id"`
-	SmallImages TbkItemInfoGeSmallImages `json:"small_images"`
-	Title       string                   `json:"title"`
+	SellerID               int64                    `json:"seller_id"`
+	SmallImages            TbkItemInfoGeSmallImages `json:"small_images"`
+	Title                  string                   `json:"title"`
 	UserType               int64                    `json:"user_type"`
 	Volume                 int64                    `json:"volume"`
 	ZkFinalPrice           string                   `json:"zk_final_price"`

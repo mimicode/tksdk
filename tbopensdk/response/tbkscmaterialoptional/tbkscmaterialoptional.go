@@ -48,7 +48,7 @@ type MapDatum struct {
 	ItemURL                string      `json:"item_url"`
 	LevelOneCategoryID     int64       `json:"level_one_category_id"`
 	LevelOneCategoryName   string      `json:"level_one_category_name"`
-	NumIid                 int64       `json:"num_iid"`
+	NumIid                 interface{} `json:"num_iid"`
 	PictURL                string      `json:"pict_url"`
 	Provcity               string      `json:"provcity"`
 	ReservePrice           string      `json:"reserve_price"`

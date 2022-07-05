@@ -53,7 +53,7 @@ type PublisherOrderDto struct {
 	FlowSource                         string             `json:"flow_source"`
 	IncomeRate                         string             `json:"income_rate"`
 	ItemCategoryName                   string             `json:"item_category_name"`
-	ItemID                             *int64             `json:"item_id,omitempty"`
+	ItemID                             interface{}        `json:"item_id,omitempty"`
 	ItemImg                            string             `json:"item_img"`
 	ItemLink                           *string            `json:"item_link,omitempty"`
 	ItemNum                            int64              `json:"item_num"`

@@ -29,9 +29,9 @@ type Result struct {
 }
 
 type Data struct {
-	NumIid    string `json:"num_iid"`
-	ClickURL  string `json:"click_url"`
-	SellerID  string `json:"seller_id"`
-	OriginURL string `json:"origin_url"`
-	OriginPID string `json:"origin_pid"`
+	NumIid    interface{} `json:"num_iid"`
+	ClickURL  string      `json:"click_url"`
+	SellerID  string      `json:"seller_id"`
+	OriginURL string      `json:"origin_url"`
+	OriginPID string      `json:"origin_pid"`
 }

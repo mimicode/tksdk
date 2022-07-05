@@ -33,18 +33,18 @@ type ResultData struct {
 }
 
 type Data struct {
-	CategoryID        int64    `json:"category_id"`
-	CouponClickURL    string   `json:"coupon_click_url"`
-	CouponEndTime     string   `json:"coupon_end_time"`
-	CouponInfo        string   `json:"coupon_info"`
-	CouponRemainCount int64    `json:"coupon_remain_count"`
-	CouponStartTime   string   `json:"coupon_start_time"`
-	CouponTotalCount  int64    `json:"coupon_total_count"`
-	CouponType        int64    `json:"coupon_type"`
-	ItemID            int64    `json:"item_id"`
-	ItemURL           string   `json:"item_url"`
-	MaxCommissionRate string   `json:"max_commission_rate"`
-	TopnInfo          TopnInfo `json:"topn_info"`
+	CategoryID        int64       `json:"category_id"`
+	CouponClickURL    string      `json:"coupon_click_url"`
+	CouponEndTime     string      `json:"coupon_end_time"`
+	CouponInfo        string      `json:"coupon_info"`
+	CouponRemainCount int64       `json:"coupon_remain_count"`
+	CouponStartTime   string      `json:"coupon_start_time"`
+	CouponTotalCount  int64       `json:"coupon_total_count"`
+	CouponType        int64       `json:"coupon_type"`
+	ItemID            interface{} `json:"item_id"`
+	ItemURL           string      `json:"item_url"`
+	MaxCommissionRate string      `json:"max_commission_rate"`
+	TopnInfo          TopnInfo    `json:"topn_info"`
 }
 
 type TopnInfo struct {

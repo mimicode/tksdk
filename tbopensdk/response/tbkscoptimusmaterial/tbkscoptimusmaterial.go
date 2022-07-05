@@ -43,7 +43,7 @@ type MapDatum struct {
 	CouponStartTime        string      `json:"coupon_start_time"`
 	CouponTotalCount       int64       `json:"coupon_total_count"`
 	ItemDescription        string      `json:"item_description"`
-	ItemID                 int64       `json:"item_id"`
+	ItemID                 interface{} `json:"item_id"`
 	LevelOneCategoryID     int64       `json:"level_one_category_id"`
 	LevelOneCategoryName   string      `json:"level_one_category_name"`
 	Nick                   string      `json:"nick"`
