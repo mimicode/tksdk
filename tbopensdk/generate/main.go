@@ -568,52 +568,48 @@ func createAPIS() {
 				FieldNumberCheck: true,
 			},
 			{
-				FieldName:         "fields",
-				FieldNotNullCheck: true,
-			},
-			{
-				FieldName:         "user_ids",
-				FieldNotNullCheck: true,
-			},
-			{
 				FieldName:        "adzone_id",
 				FieldNumberCheck: true,
 			},
-		},
-	}
-	request = ApiInfo{
-		APIDESC:    "taobao.tbk.sc.relation.refund( 淘宝客-服务商-维权退款订单查询 )",
-		APIORGNAME: "taobao.tbk.sc.relation.refund",
-		APIURL:     "https://open.taobao.com/api.htm?docId=43874&docType=2&scopeId=16322",
-		CHECKFIELDS: []CheckField{
-
 			{
-				FieldName:        "page_size",
-				FieldNumberCheck: true,
-			},
-			{
-				FieldName:        "search_type",
-				FieldNumberCheck: true,
-			},
-			{
-				FieldName:        "refund_type",
-				FieldNumberCheck: true,
-			},
-
-			{
-				FieldName:        "page_no",
-				FieldNumberCheck: true,
-			},
-			{
-				FieldName:        "biz_type",
-				FieldNumberCheck: true,
-			},
-			{
-				FieldName:         "start_time",
+				FieldName:         "password_content",
 				FieldNotNullCheck: true,
 			},
 		},
 	}
+	//request = ApiInfo{
+	//	APIDESC:    "taobao.tbk.sc.relation.refund( 淘宝客-服务商-维权退款订单查询 )",
+	//	APIORGNAME: "taobao.tbk.sc.relation.refund",
+	//	APIURL:     "https://open.taobao.com/api.htm?docId=43874&docType=2&scopeId=16322",
+	//	CHECKFIELDS: []CheckField{
+	//
+	//		{
+	//			FieldName:        "page_size",
+	//			FieldNumberCheck: true,
+	//		},
+	//		{
+	//			FieldName:        "search_type",
+	//			FieldNumberCheck: true,
+	//		},
+	//		{
+	//			FieldName:        "refund_type",
+	//			FieldNumberCheck: true,
+	//		},
+	//
+	//		{
+	//			FieldName:        "page_no",
+	//			FieldNumberCheck: true,
+	//		},
+	//		{
+	//			FieldName:        "biz_type",
+	//			FieldNumberCheck: true,
+	//		},
+	//		{
+	//			FieldName:         "start_time",
+	//			FieldNotNullCheck: true,
+	//		},
+	//	},
+	//}
 
 	createAPI(request)
 }

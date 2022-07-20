@@ -9,6 +9,7 @@ import (
 	"github.com/mimicode/tksdk/tbopensdk/response/shopcatslistget"
 	"github.com/mimicode/tksdk/tbopensdk/response/shopgetbytitle"
 	"github.com/mimicode/tksdk/tbopensdk/response/taobaotbkscrelationrefund"
+	"github.com/mimicode/tksdk/tbopensdk/response/taobaotbksctpwdconvert"
 	"github.com/mimicode/tksdk/tbopensdk/response/tbkactivitylinkget"
 	"github.com/mimicode/tksdk/tbopensdk/response/tbkcouponget"
 	"github.com/mimicode/tksdk/tbopensdk/response/tbkdgitemcouponget"
@@ -1020,6 +1021,31 @@ func Test_TbkScRelationRefund(t *testing.T) {
 		t.Log(err)
 	} else {
 		result := getResponse.(*taobaotbkscrelationrefund.Response)
+
+		fmt.Println(result.Body)
+
+	}
+}
+func Test_TbkScTpwdConvertRequest(t *testing.T) {
+
+	//初始化TopClient
+	client := &TopClient{}
+	client.Init(appKey, appSecret, sessionKey)
+
+	//初始化请求接口信息
+	getRequest := &request2.TbkScTpwdConvertRequest{}
+	getRequest.AddParameter("adzone_id", "108916600241")
+	getRequest.AddParameter("site_id", "519950261")
+	getRequest.AddParameter("password_content", "0(bcZM2JnlJ6T):/")
+
+	//初始化结果类型
+	var getResponse DefaultResponse = &taobaotbksctpwdconvert.Response{}
+	//执行请求接口得到结果
+	err := client.Exec(getRequest, getResponse)
+	if err != nil {
+		t.Log(err)
+	} else {
+		result := getResponse.(*taobaotbksctpwdconvert.Response)
 
 		fmt.Println(result.Body)
 
