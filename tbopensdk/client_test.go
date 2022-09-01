@@ -3,6 +3,10 @@ package tbopensdk
 import (
 	"encoding/json"
 	"fmt"
+	"io/ioutil"
+	"os"
+	"testing"
+
 	request2 "github.com/mimicode/tksdk/tbopensdk/request"
 	"github.com/mimicode/tksdk/tbopensdk/response/juitemssearch"
 	"github.com/mimicode/tksdk/tbopensdk/response/sellercatslistget"
@@ -40,9 +44,6 @@ import (
 	"github.com/mimicode/tksdk/tbopensdk/response/tbkspreadget"
 	"github.com/mimicode/tksdk/tbopensdk/response/tbktpwdconvert"
 	response2 "github.com/mimicode/tksdk/tbopensdk/response/tbktpwdcreate"
-	"io/ioutil"
-	"os"
-	"testing"
 )
 
 var (
@@ -75,10 +76,13 @@ func TestTbkiteminfoget(t *testing.T) {
 
 	//初始化请求接口信息
 	getRequest := &request2.TbkItemInfoGetRequest{}
-	getRequest.AddParameter("num_iids", "640057354722")
+	// getRequest.AddParameter("num_iids", "611759287561")
+	getRequest.AddParameter("num_iids", "544862238428")
 	getRequest.AddParameter("platform", "1")
 	getRequest.AddParameter("ip", "11.22.33.43")
 	getRequest.AddParameter("get_topn_rate", "1")
+	//biz_scene_id
+	//promotion_type
 	//初始化结果类型
 	var getResponse DefaultResponse = &tbkiteminfoget.Response{}
 	//执行请求接口得到结果
@@ -112,7 +116,7 @@ func TestTbkPrivilegeGet(t *testing.T) {
 	getRequest.AddParameter("adzone_id", "108916600241")
 	getRequest.AddParameter("site_id", "519950261")
 
-	getRequest.AddParameter("item_id", "640057354722")
+	getRequest.AddParameter("item_id", "611759287561")
 
 	//getRequest.AddParameter("relation_id", "")
 	//getRequest.AddParameter("me", "")
@@ -148,10 +152,12 @@ func TestTbkScMaterialOptional(t *testing.T) {
 	getRequest.AddParameter("adzone_id", "108916600241")
 	getRequest.AddParameter("site_id", "519950261")
 
-	getRequest.AddParameter("q", "https://h5.m.taobao.com/awp/core/detail.htm?id=658058537271")
+	//getRequest.AddParameter("q", "女装")
+	getRequest.AddParameter("q", "https://chaoshi.detail.tmall.com/item.htm?spm=a219t.11817059.0.d4f75841e.5c9b6a155mzkfI&id=611759287561&scm=null&pvid=726930f8-71df-4d16-8a1f-e9285ab71520&app_pvid=59590_33.39.137.63_702_1661985515992&ptl=floorId:27796;originalFloorId:27796;pvid:726930f8-71df-4d16-8a1f-e9285ab71520;app_pvid:59590_33.39.137.63_702_1661985515992&sku_properties=147956252:75366083")
+
 	getRequest.AddParameter("platform", "1")
 	getRequest.AddParameter("page_no", "1")
-	getRequest.AddParameter("page_size", "1")
+	getRequest.AddParameter("page_size", "100")
 	//getRequest.AddParameter("get_topn_rate", "1")
 
 	//初始化结果类型
@@ -450,7 +456,7 @@ func TestTbkScPublisherInfoGet(t *testing.T) {
 	}
 }
 
-//(未完成)
+// (未完成)
 func TestTbkScPublisherInfoSave(t *testing.T) {
 
 	//初始化TopClient

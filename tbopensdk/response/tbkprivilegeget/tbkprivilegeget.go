@@ -2,16 +2,17 @@ package tbkprivilegeget
 
 import (
 	json "encoding/json"
+
 	"github.com/mimicode/tksdk/tbopensdk/response"
 )
 
-//淘宝客商品详情查询（简版） 免费 不需要授权
+// 淘宝客商品详情查询（简版） 免费 不需要授权
 type Response struct {
 	response.TopResponse
 	TbkPrivilegeGetResult Result `json:"tbk_privilege_get_response"`
 }
 
-//解析输出结果
+// 解析输出结果
 func (t *Response) WrapResult(result string) {
 	unmarshal := json.Unmarshal([]byte(result), t)
 	//保存原始信息
@@ -33,18 +34,27 @@ type ResultData struct {
 }
 
 type Data struct {
-	CategoryID        int64       `json:"category_id"`
-	CouponClickURL    string      `json:"coupon_click_url"`
-	CouponEndTime     string      `json:"coupon_end_time"`
-	CouponInfo        string      `json:"coupon_info"`
-	CouponRemainCount int64       `json:"coupon_remain_count"`
-	CouponStartTime   string      `json:"coupon_start_time"`
-	CouponTotalCount  int64       `json:"coupon_total_count"`
-	CouponType        int64       `json:"coupon_type"`
-	ItemID            interface{} `json:"item_id"`
-	ItemURL           string      `json:"item_url"`
-	MaxCommissionRate string      `json:"max_commission_rate"`
-	TopnInfo          TopnInfo    `json:"topn_info"`
+	CategoryID          int64          `json:"category_id"`
+	CouponClickURL      string         `json:"coupon_click_url"`
+	CouponEndTime       string         `json:"coupon_end_time"`
+	CouponInfo          string         `json:"coupon_info"`
+	CouponRemainCount   int64          `json:"coupon_remain_count"`
+	CouponStartTime     string         `json:"coupon_start_time"`
+	CouponTotalCount    int64          `json:"coupon_total_count"`
+	CouponType          int64          `json:"coupon_type"`
+	ItemID              interface{}    `json:"item_id"`
+	ItemURL             string         `json:"item_url"`
+	MaxCommissionRate   string         `json:"max_commission_rate"`
+	YsylClickUrl        string         `json:"ysyl_click_url"`
+	YsylTljFace         string         `json:"ysyl_tlj_face"`
+	YsylTljSendTime     string         `json:"ysyl_tlj_send_time"`
+	YsylCommissionRate  string         `json:"ysyl_commission_rate"`
+	YsylTljUseStartTime string         `json:"ysyl_tlj_use_start_time"`
+	YsylTljUseEndTime   string         `json:"ysyl_tlj_use_end_time"`
+	MinCommissionRate   string         `json:"min_commission_rate"`
+	RewardInfo          int64          `json:"reward_info"`
+	TopnInfo            TopnInfo       `json:"topn_info"`
+	MiniProgram         MiniProgramDto `json:"mini_program"`
 }
 
 type TopnInfo struct {
@@ -52,6 +62,11 @@ type TopnInfo struct {
 	TopnQuantity   int64 `json:"topn_quantity"`
 	TopnStartTime  int64 `json:"topn_start_time"`
 	TopnTotalCount int64 `json:"topn_total_count"`
+}
+type MiniProgramDto struct {
+	MiniProgramAppid     string `json:"mini_program_appid"`
+	MiniProgramPath      string `json:"mini_program_path"`
+	MiniProgramQrcodeUrl string `json:"mini_program_qrcode_url"`
 }
 
 /*
