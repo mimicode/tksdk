@@ -35,6 +35,7 @@ import (
 	"github.com/mimicode/tksdk/tbopensdk/response/tbksccouponrealtimerecommend"
 	"github.com/mimicode/tksdk/tbopensdk/response/tbkscinvitecodeget"
 	"github.com/mimicode/tksdk/tbopensdk/response/tbkscmaterialoptional"
+	"github.com/mimicode/tksdk/tbopensdk/response/tbkscoptimusmaterial"
 	"github.com/mimicode/tksdk/tbopensdk/response/tbkscorderget"
 	"github.com/mimicode/tksdk/tbopensdk/response/tbkscpublisherinfoget"
 	"github.com/mimicode/tksdk/tbopensdk/response/tbkscpublisherinfosave"
@@ -116,12 +117,15 @@ func TestTbkPrivilegeGet(t *testing.T) {
 	getRequest.AddParameter("adzone_id", "108916600241")
 	getRequest.AddParameter("site_id", "519950261")
 
-	getRequest.AddParameter("item_id", "611759287561")
+	// getRequest.AddParameter("item_id", "611759287561")
+	getRequest.AddParameter("item_id", "WXyxZnFotP3N22CrWqiQta-Vk8merikBjXKMm7uz")
 
 	//getRequest.AddParameter("relation_id", "")
 	//getRequest.AddParameter("me", "")
 	getRequest.AddParameter("platform", "1")
 	getRequest.AddParameter("get_topn_rate", "1")
+	getRequest.AddParameter("biz_scene_id", "2")
+	// getRequest.AddParameter("promotion_type", "1")
 
 	//初始化结果类型 19.90
 	//券后
@@ -1032,6 +1036,7 @@ func Test_TbkScRelationRefund(t *testing.T) {
 
 	}
 }
+
 func Test_TbkScTpwdConvertRequest(t *testing.T) {
 
 	//初始化TopClient
@@ -1042,7 +1047,7 @@ func Test_TbkScTpwdConvertRequest(t *testing.T) {
 	getRequest := &request2.TbkScTpwdConvertRequest{}
 	getRequest.AddParameter("adzone_id", "108916600241")
 	getRequest.AddParameter("site_id", "519950261")
-	getRequest.AddParameter("password_content", "0(bcZM2JnlJ6T):/")
+	getRequest.AddParameter("password_content", "0(POMo2v5I6S8):/")
 
 	//初始化结果类型
 	var getResponse DefaultResponse = &taobaotbksctpwdconvert.Response{}
@@ -1052,6 +1057,32 @@ func Test_TbkScTpwdConvertRequest(t *testing.T) {
 		t.Log(err)
 	} else {
 		result := getResponse.(*taobaotbksctpwdconvert.Response)
+
+		fmt.Println(result.Body)
+
+	}
+}
+
+func Test_TbkScOptimusMaterialRequest(t *testing.T) {
+
+	//初始化TopClient
+	client := &TopClient{}
+	client.Init(appKey, appSecret, sessionKey)
+
+	//初始化请求接口信息
+	getRequest := &request2.TbkScOptimusMaterialRequest{}
+	getRequest.AddParameter("adzone_id", "108916600241")
+	getRequest.AddParameter("site_id", "519950261")
+	getRequest.AddParameter("material_id", "62121")
+
+	//初始化结果类型
+	var getResponse DefaultResponse = &tbkscoptimusmaterial.Response{}
+	//执行请求接口得到结果
+	err := client.Exec(getRequest, getResponse)
+	if err != nil {
+		t.Log(err)
+	} else {
+		result := getResponse.(*tbkscoptimusmaterial.Response)
 
 		fmt.Println(result.Body)
 
