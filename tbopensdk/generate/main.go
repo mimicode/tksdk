@@ -577,6 +577,19 @@ func createAPIS() {
 			},
 		},
 	}
+
+	request = ApiInfo{
+		APIDESC:    "taobao.tbk.item.click.extract( 淘宝客-公用-链接解析出商品id )",
+		APIORGNAME: "taobao.tbk.item.click.extract",
+		APIURL:     "https://open.taobao.com/api.htm?docId=43873&docType=2&scopeId=16401",
+		CHECKFIELDS: []CheckField{
+			{
+				FieldName:         "click_url",
+				FieldNotNullCheck: true,
+			},
+		},
+	}
+
 	//request = ApiInfo{
 	//	APIDESC:    "taobao.tbk.sc.relation.refund( 淘宝客-服务商-维权退款订单查询 )",
 	//	APIORGNAME: "taobao.tbk.sc.relation.refund",

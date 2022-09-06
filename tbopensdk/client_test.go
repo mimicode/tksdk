@@ -12,6 +12,7 @@ import (
 	"github.com/mimicode/tksdk/tbopensdk/response/sellercatslistget"
 	"github.com/mimicode/tksdk/tbopensdk/response/shopcatslistget"
 	"github.com/mimicode/tksdk/tbopensdk/response/shopgetbytitle"
+	"github.com/mimicode/tksdk/tbopensdk/response/taobaotbkitemclickextract"
 	"github.com/mimicode/tksdk/tbopensdk/response/taobaotbkscrelationrefund"
 	"github.com/mimicode/tksdk/tbopensdk/response/taobaotbksctpwdconvert"
 	"github.com/mimicode/tksdk/tbopensdk/response/tbkactivitylinkget"
@@ -1083,6 +1084,30 @@ func Test_TbkScOptimusMaterialRequest(t *testing.T) {
 		t.Log(err)
 	} else {
 		result := getResponse.(*tbkscoptimusmaterial.Response)
+
+		fmt.Println(result.Body)
+
+	}
+}
+
+func Test_TbkItemClickExtractRequest(t *testing.T) {
+
+	//初始化TopClient
+	client := &TopClient{}
+	client.Init(appKey, appSecret, sessionKey)
+
+	//初始化请求接口信息
+	getRequest := &request2.TbkItemClickExtractRequest{}
+	getRequest.AddParameter("click_url", "https://s.click.taobao.com/t?e=m%3D2%26s%3Dr3V6kx4vlQdw4vFB6t2Z2ueEDrYVVa64yK8Cckff7TXLWlSKdGSYDledsVeLERr979%2FTFaMDK6SWZIHuAfb160WeA7w%2BGhevk8tDEZYjwO8vbuwEVY6XtPJi%2FB4SdxHVax%2BJLOEMomOM%2BK42QxlTALL2SlsjODa%2BWPXbSo2tCY%2F9Umq014SDk1HQ59Ao%2BxITidYLvEx95Z8faIROaBnKPibPfyVDavf%2FMonYgHA20vRBoFFy6HsLK7P2%2BSRInv4y1qf%2F9MeZtdXbFMrsFcE%2FNuYfr9sikpUUOqXpSLZ6aOLxpb1nfSu4psYOae24fhW0&union_lens=lensId:TAPI@1662471009@21334ac9_0b37_18312fe7306_4957@01")
+
+	//初始化结果类型
+	var getResponse DefaultResponse = &taobaotbkitemclickextract.Response{}
+	//执行请求接口得到结果
+	err := client.Exec(getRequest, getResponse)
+	if err != nil {
+		t.Log(err)
+	} else {
+		result := getResponse.(*taobaotbkitemclickextract.Response)
 
 		fmt.Println(result.Body)
 
