@@ -589,7 +589,33 @@ func createAPIS() {
 			},
 		},
 	}
+	request = ApiInfo{
+		APIDESC:    "taobao.tbk.itemid.private.transform( 淘宝客-推广者-商品id转化（二方）（专有） )",
+		APIORGNAME: "taobao.tbk.itemid.private.transform",
+		APIURL:     "https://open.taobao.com/api.htm?docId=64171&docType=2&scopeId=27337",
+		CHECKFIELDS: []CheckField{
+			{
+				FieldName:         "item_ids",
+				FieldNotNullCheck: true,
+			},
+		},
+	}
 
+	request = ApiInfo{
+		APIDESC:    "taobao.tbk.sc.adzone.create( 淘宝客-服务商-创建推广者位 )",
+		APIORGNAME: "taobao.tbk.sc.adzone.create",
+		APIURL:     "https://open.taobao.com/api.htm?docId=34751&docType=2&scopeId=13878",
+		CHECKFIELDS: []CheckField{
+			{
+				FieldName:         "site_id",
+				FieldNotNullCheck: true,
+			},
+			{
+				FieldName:         "adzone_name",
+				FieldNotNullCheck: true,
+			},
+		},
+	}
 	//request = ApiInfo{
 	//	APIDESC:    "taobao.tbk.sc.relation.refund( 淘宝客-服务商-维权退款订单查询 )",
 	//	APIORGNAME: "taobao.tbk.sc.relation.refund",

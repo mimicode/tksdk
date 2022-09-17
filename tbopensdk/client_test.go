@@ -3,6 +3,8 @@ package tbopensdk
 import (
 	"encoding/json"
 	"fmt"
+	"github.com/mimicode/tksdk/tbopensdk/response/taobaotbkitemidprivatetransform"
+	"github.com/mimicode/tksdk/tbopensdk/response/taobaotbkscadzonecreate"
 	"io/ioutil"
 	"os"
 	"testing"
@@ -115,17 +117,28 @@ func TestTbkPrivilegeGet(t *testing.T) {
 	//初始化请求接口信息
 	//mm_41521745_519950261_108916600241
 	getRequest := &request2.TbkPrivilegeGetRequest{}
+	//getRequest.AddParameter("adzone_id", "114483250398")
+	//getRequest.AddParameter("site_id", "2722400397")
+
 	getRequest.AddParameter("adzone_id", "108916600241")
 	getRequest.AddParameter("site_id", "519950261")
 
 	// getRequest.AddParameter("item_id", "611759287561")
-	getRequest.AddParameter("item_id", "WXyxZnFotP3N22CrWqiQta-Vk8merikBjXKMm7uz")
+	//刷库api出来的b段
+	//getRequest.AddParameter("item_id", "Z2e9OaZTGWZx39JNsO2")
+	// 别人的 动态id
+	//getRequest.AddParameter("item_id", "nj8P69BtMtP07QVskZksyCP-YJGeOZNHB3VvGWymFRv")
+	//自己的 P39qQeMS3tBqqgdUXPfqU6-Q2ZryagTbnyvKd5NTbP A变 b不变
+	//getRequest.AddParameter("item_id", "P39qQeMS3tBqqgdUXPfqU6-Q2ZryagTbnyvKd5NTbP")
+	//Q2ZryagTbnyvKd5NTbP
+	// 用自己的b段 转链
+	getRequest.AddParameter("item_id", "Q2ZryagTbnyvKd5NTbP")
 
 	//getRequest.AddParameter("relation_id", "")
 	//getRequest.AddParameter("me", "")
 	getRequest.AddParameter("platform", "1")
 	getRequest.AddParameter("get_topn_rate", "1")
-	getRequest.AddParameter("biz_scene_id", "2")
+	getRequest.AddParameter("biz_scene_id", "3")
 	// getRequest.AddParameter("promotion_type", "1")
 
 	//初始化结果类型 19.90
@@ -1108,6 +1121,54 @@ func Test_TbkItemClickExtractRequest(t *testing.T) {
 		t.Log(err)
 	} else {
 		result := getResponse.(*taobaotbkitemclickextract.Response)
+
+		fmt.Println(result.Body)
+
+	}
+}
+func Test_TbkItemidPrivateTransformRequest(t *testing.T) {
+
+	//初始化TopClient
+	client := &TopClient{}
+	client.Init(appKey, appSecret, "")
+
+	//初始化请求接口信息
+	getRequest := &request2.TbkItemidPrivateTransformRequest{}
+	getRequest.AddParameter("item_ids", "nj8P69BtMtP07QVskZksyCP-YJGeOZNHB3VvGWymFRv")
+
+	//初始化结果类型
+	var getResponse DefaultResponse = &taobaotbkitemidprivatetransform.Response{}
+	//执行请求接口得到结果
+	err := client.Exec(getRequest, getResponse)
+	if err != nil {
+		t.Log(err)
+	} else {
+		result := getResponse.(*taobaotbkitemidprivatetransform.Response)
+
+		fmt.Println(result.Body)
+
+	}
+}
+
+func Test_TbkScAdzoneCreateRequest(t *testing.T) {
+
+	//初始化TopClient
+	client := &TopClient{}
+	client.Init(appKey, appSecret, sessionKey)
+
+	//初始化请求接口信息
+	getRequest := &request2.TbkScAdzoneCreateRequest{}
+	getRequest.AddParameter("site_id", "2722400397")
+	getRequest.AddParameter("adzone_name", "测试创建pid")
+
+	//初始化结果类型
+	var getResponse DefaultResponse = &taobaotbkscadzonecreate.Response{}
+	//执行请求接口得到结果
+	err := client.Exec(getRequest, getResponse)
+	if err != nil {
+		t.Log(err)
+	} else {
+		result := getResponse.(*taobaotbkscadzonecreate.Response)
 
 		fmt.Println(result.Body)
 
