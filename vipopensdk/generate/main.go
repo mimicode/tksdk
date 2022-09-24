@@ -73,7 +73,7 @@ func strFirstToUpper(str string, step string) string {
 	for y := 0; y < len(temp); y++ {
 		vv := []rune(temp[y])
 		for i := 0; i < len(vv); i++ {
-			if i == 0 {
+			if vv[i] >= 97 && vv[i] <= 122 && i == 0 {
 				vv[i] -= 32
 				upperStr += string(vv[i]) // + string(vv[i+1])
 			} else {
@@ -264,11 +264,27 @@ func createAPIS() {
 		APIURL:     "http://vop.vip.com/apicenter/method?serviceName=com.vip.adp.api.open.service.UnionUrlService-1.0.0&methodName=refundOrderListWithOauth",
 	}
 
+	request = ApiInfo{
+		APIDESC:    "com.vip.adp.api.open.service.UnionGoodsService 获取联盟在推商品列表V2-需要oauth授权",
+		APIORGNAME: "com.vip.adp.api.open.service.UnionGoodsService",
+		APIMETHOD:  "goodsListV2WithOauth",
+		APIVERSION: "1.0.0",
+		APIURL:     "http://vop.vip.com/apicenter/method?serviceName=com.vip.adp.api.open.service.UnionGoodsService-1.0.0&methodName=goodsListV2WithOauth",
+	}
+
+	request = ApiInfo{
+		APIDESC:    "com.vip.adp.api.open.service.UnionGoodsService 获取指定商品id集合的商品信息(新)-需要oauth授权",
+		APIORGNAME: "com.vip.adp.api.open.service.UnionGoodsService",
+		APIMETHOD:  "getByGoodsIdsV2WithOauth",
+		APIVERSION: "1.0.0",
+		APIURL:     "http://vop.vip.com/apicenter/method?serviceName=com.vip.adp.api.open.service.UnionGoodsService-1.0.0&methodName=getByGoodsIdsV2WithOauth",
+	}
+
 	createAPI(request)
 }
 
 func main() {
 	//
-	//createAPIS()
-	createReadmeApiList()
+	createAPIS()
+	//createReadmeApiList()
 }

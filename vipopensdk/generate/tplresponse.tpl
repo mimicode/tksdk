@@ -2,7 +2,7 @@ package --PACKNAME--
 
 import (
 	"encoding/json"
-	"ffxapp/pkg/vipopensdk/response"
+	"github.com/mimicode/tksdk/vipopensdk/response"
 )
 
 //--APIDESC--

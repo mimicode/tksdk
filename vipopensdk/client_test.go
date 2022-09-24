@@ -5,6 +5,7 @@ import (
 	"fmt"
 	utils2 "github.com/mimicode/tksdk/utils"
 	request2 "github.com/mimicode/tksdk/vipopensdk/request"
+	"github.com/mimicode/tksdk/vipopensdk/response/comvipadpapiopenserviceuniongoodsservicegetbygoodsidsv2withoauth"
 	comvipadpapiopenserviceuniongoodsservicegetbygoodsidswithoauth2 "github.com/mimicode/tksdk/vipopensdk/response/comvipadpapiopenserviceuniongoodsservicegetbygoodsidswithoauth"
 	comvipadpapiopenserviceuniongoodsservicegoodslistwithoauth2 "github.com/mimicode/tksdk/vipopensdk/response/comvipadpapiopenserviceuniongoodsservicegoodslistwithoauth"
 	comvipadpapiopenserviceuniongoodsservicequerywithoauth2 "github.com/mimicode/tksdk/vipopensdk/response/comvipadpapiopenserviceuniongoodsservicequerywithoauth"
@@ -492,6 +493,47 @@ func TestComVipAdpApiOpenService5nionOrderServiceRefundOrderListWithOauthRequest
 		t.Log(err)
 	} else {
 		result := getResponse.(*comvipadpapiopenserviceunionorderservicerefundorderlistwithoauth2.Response)
+
+		fmt.Println(result.Body)
+
+	}
+}
+
+func TestComVipAdpApiOpenServiceUnionGoodsServiceGetByGoodsIdsV2WithOauthRequest(t *testing.T) {
+
+	client := GetClient()
+	//初始化请求接口信息
+	getRequest := &request2.ComVipAdpApiOpenServiceUnionGoodsServiceGetByGoodsIdsV2WithOauthRequest{}
+
+	getRequest.AddParameter("request", map[string]interface{}{
+		"requestId":   utils2.GetUUID(),
+		"queryDetail": true,
+		"goodsIds": []string{
+			"1624525595900175",
+			"1350181608052047",
+			"1624531048610063",
+		},
+		"queryStock":                  true,
+		"queryReputation":             true,
+		"queryStoreServiceCapability": true,
+		"queryPMSAct":                 true,
+		"queryPrepay":                 true,
+		"extendBySpu":                 true,
+		"queryExclusiveCoupon":        true,
+		"extendSku":                   true,
+		"queryCpsInfo":                3,
+		"queryFuturePrice":            true,
+		"querySubsidyActFlag":         true,
+	})
+
+	//初始化结果类型
+	var getResponse DefaultResponse = &comvipadpapiopenserviceuniongoodsservicegetbygoodsidsv2withoauth.Response{}
+	//执行请求接口得到结果
+	err := client.Exec(getRequest, getResponse)
+	if err != nil {
+		t.Log(err)
+	} else {
+		result := getResponse.(*comvipadpapiopenserviceuniongoodsservicegetbygoodsidsv2withoauth.Response)
 
 		fmt.Println(result.Body)
 
