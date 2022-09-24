@@ -8,7 +8,10 @@
   "tb": {
     "app_key": "",
     "app_secret": "",
-    "session_key": ""
+    "session_key": "",
+    "pid": "",
+    "relation_id": "",
+    "special_id": ""
   },
   "sn": {
     "app_key": "",

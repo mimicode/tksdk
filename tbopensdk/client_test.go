@@ -7,6 +7,7 @@ import (
 	"github.com/mimicode/tksdk/tbopensdk/response/taobaotbkscadzonecreate"
 	"io/ioutil"
 	"os"
+	"strings"
 	"testing"
 
 	request2 "github.com/mimicode/tksdk/tbopensdk/request"
@@ -52,6 +53,13 @@ import (
 
 var (
 	appKey, appSecret, sessionKey string
+	pid                           struct {
+		AccountID  string
+		SiteID     string
+		AdzoneID   string
+		RelationID string
+		SpecialID  string
+	}
 )
 
 func init() {
@@ -62,12 +70,23 @@ func init() {
 					AppKey     string `json:"app_key"`
 					AppSecret  string `json:"app_secret"`
 					SessionKey string `json:"session_key"`
+					Pid        string `json:"pid"`
+					RelationID string `json:"relation_id"`
+					SpecialID  string `json:"special_id"`
 				} `json:"tb"`
 			}
 			if err = json.Unmarshal(bytes, &data); err == nil {
 				appKey = data.Tb.AppKey
 				appSecret = data.Tb.AppSecret
 				sessionKey = data.Tb.SessionKey
+				pid.RelationID = data.Tb.RelationID
+				pid.SpecialID = data.Tb.SpecialID
+				split := strings.Split(strings.TrimPrefix(data.Tb.Pid, "mm_"), "_")
+				if len(split) == 3 {
+					pid.AccountID = split[0]
+					pid.SiteID = split[1]
+					pid.AdzoneID = split[2]
+				}
 			}
 		}
 	}
@@ -115,13 +134,9 @@ func TestTbkPrivilegeGet(t *testing.T) {
 	client.Init(appKey, appSecret, sessionKey)
 
 	//初始化请求接口信息
-	//mm_41521745_519950261_108916600241
 	getRequest := &request2.TbkPrivilegeGetRequest{}
-	//getRequest.AddParameter("adzone_id", "114483250398")
-	//getRequest.AddParameter("site_id", "2722400397")
-
-	getRequest.AddParameter("adzone_id", "108916600241")
-	getRequest.AddParameter("site_id", "519950261")
+	getRequest.AddParameter("adzone_id", pid.AdzoneID)
+	getRequest.AddParameter("site_id", pid.SiteID)
 
 	// getRequest.AddParameter("item_id", "611759287561")
 	//刷库api出来的b段
@@ -167,15 +182,16 @@ func TestTbkScMaterialOptional(t *testing.T) {
 
 	//初始化请求接口信息
 	getRequest := &request2.TbkScMaterialOptionalRequest{}
-	getRequest.AddParameter("adzone_id", "108916600241")
-	getRequest.AddParameter("site_id", "519950261")
+	getRequest.AddParameter("adzone_id", pid.AdzoneID)
+	getRequest.AddParameter("site_id", pid.SiteID)
 
-	//getRequest.AddParameter("q", "女装")
-	getRequest.AddParameter("q", "https://chaoshi.detail.tmall.com/item.htm?spm=a219t.11817059.0.d4f75841e.5c9b6a155mzkfI&id=611759287561&scm=null&pvid=726930f8-71df-4d16-8a1f-e9285ab71520&app_pvid=59590_33.39.137.63_702_1661985515992&ptl=floorId:27796;originalFloorId:27796;pvid:726930f8-71df-4d16-8a1f-e9285ab71520;app_pvid:59590_33.39.137.63_702_1661985515992&sku_properties=147956252:75366083")
+	getRequest.AddParameter("q", "女装")
+	//getRequest.AddParameter("q", "https://chaoshi.detail.tmall.com/item.htm?spm=a219t.11817059.0.d4f75841e.5c9b6a155mzkfI&id=611759287561&scm=null&pvid=726930f8-71df-4d16-8a1f-e9285ab71520&app_pvid=59590_33.39.137.63_702_1661985515992&ptl=floorId:27796;originalFloorId:27796;pvid:726930f8-71df-4d16-8a1f-e9285ab71520;app_pvid:59590_33.39.137.63_702_1661985515992&sku_properties=147956252:75366083")
 
 	getRequest.AddParameter("platform", "1")
 	getRequest.AddParameter("page_no", "1")
 	getRequest.AddParameter("page_size", "100")
+	getRequest.AddParameter("biz_scene_id", "1")
 	//getRequest.AddParameter("get_topn_rate", "1")
 
 	//初始化结果类型
@@ -200,8 +216,8 @@ func TestTbkScActivitylinkToolget(t *testing.T) {
 
 	//初始化请求接口信息
 	getRequest := &request2.TbkScActivitylinkToolgetRequest{}
-	getRequest.AddParameter("adzone_id", "24546980")
-	getRequest.AddParameter("site_id", "7418269")
+	getRequest.AddParameter("adzone_id", pid.AdzoneID)
+	getRequest.AddParameter("site_id", pid.SiteID)
 
 	getRequest.AddParameter("promotion_scene_id", "8479247")
 
@@ -227,7 +243,7 @@ func TestTbkItemConvert(t *testing.T) {
 
 	//初始化请求接口信息
 	getRequest := &request2.TbkItemConvertRequest{}
-	getRequest.AddParameter("adzone_id", "24546980")
+	getRequest.AddParameter("adzone_id", pid.AdzoneID)
 	getRequest.AddParameter("fields", "num_iid,click_url")
 
 	getRequest.AddParameter("num_iids", "583866215568,578307080718")
@@ -254,7 +270,7 @@ func TestTbkShopConvert(t *testing.T) {
 
 	//初始化请求接口信息
 	getRequest := &request2.TbkShopConvertRequest{}
-	getRequest.AddParameter("adzone_id", "24546980")
+	getRequest.AddParameter("adzone_id", pid.AdzoneID)
 	getRequest.AddParameter("fields", "user_id,click_url")
 
 	getRequest.AddParameter("user_ids", "188124207,383602586")
@@ -281,7 +297,7 @@ func TestTbkTpwdConvert(t *testing.T) {
 
 	//初始化请求接口信息
 	getRequest := &request2.TbkTpwdConvertRequest{}
-	getRequest.AddParameter("adzone_id", "108944100308")
+	getRequest.AddParameter("adzone_id", pid.AdzoneID)
 	getRequest.AddParameter("password_content", "(Smh4X47XhR9)")
 	//getRequest.AddParameter("password_content", "(ibazcMRJPqp)")
 	//https://s.click.taobao.com/t?e=m%3D2%26s%3DEjQLLe%2BWEEUcQipKwQzePDAVflQIoZepK7Vc7tFgwiFRAdhuF14FMejlC3NB5Wk9MMgx22UI05aWZIHuAfb16zR0r%2BMBQW%2B1BJ3M5HVhgpIeDJkG8xs1jBZZRUpbmzNoBuOrqNvh1RvGDmntuH4VtA%3D%3D
@@ -508,8 +524,8 @@ func TestTbkScCouponRealtimeRecommend(t *testing.T) {
 
 	//初始化请求接口信息
 	getRequest := &request2.TbkScCouponRealtimeRecommendRequest{}
-	getRequest.AddParameter("adzone_id", "24546980")
-	getRequest.AddParameter("site_id", "7418269")
+	getRequest.AddParameter("adzone_id", pid.AdzoneID)
+	getRequest.AddParameter("site_id", pid.SiteID)
 
 	//初始化结果类型
 	var getResponse DefaultResponse = &tbksccouponrealtimerecommend.Response{}
@@ -533,8 +549,8 @@ func TestTbkScCouponBrandRecommend(t *testing.T) {
 
 	//初始化请求接口信息
 	getRequest := &request2.TbkScCouponBrandRecommendRequest{}
-	getRequest.AddParameter("adzone_id", "24546980")
-	getRequest.AddParameter("site_id", "7418269")
+	getRequest.AddParameter("adzone_id", pid.AdzoneID)
+	getRequest.AddParameter("site_id", pid.SiteID)
 
 	//初始化结果类型
 	var getResponse DefaultResponse = &tbksccouponbrandrecommend.Response{}
@@ -682,7 +698,7 @@ func TestTbkActivitylinkGet(t *testing.T) {
 
 	//初始化请求接口信息
 	getRequest := &request2.TbkActivitylinkGetRequest{}
-	getRequest.AddParameter("adzone_id", "24546980")
+	getRequest.AddParameter("adzone_id", pid.AdzoneID)
 
 	getRequest.AddParameter("promotion_scene_id", "8493178")
 
@@ -708,7 +724,7 @@ func TestTbkDgItemCouponGet(t *testing.T) {
 
 	//初始化请求接口信息
 	getRequest := &request2.TbkDgItemCouponGetRequest{}
-	getRequest.AddParameter("adzone_id", "24546980")
+	getRequest.AddParameter("adzone_id", pid.AdzoneID)
 
 	getRequest.AddParameter("cat", "16")
 	getRequest.AddParameter("page_size", "2")
@@ -735,7 +751,7 @@ func TestTbkDgMaterialOptional(t *testing.T) {
 
 	//初始化请求接口信息
 	getRequest := &request2.TbkDgMaterialOptionalRequest{}
-	getRequest.AddParameter("adzone_id", "108944100308")
+	getRequest.AddParameter("adzone_id", pid.AdzoneID)
 
 	//getRequest.AddParameter("cat", "16")
 	getRequest.AddParameter("page_size", "2")
@@ -816,7 +832,7 @@ func TestTbkDgOptimusMaterial(t *testing.T) {
 
 	//初始化请求接口信息
 	getRequest := &request2.TbkDgOptimusMaterialRequest{}
-	getRequest.AddParameter("adzone_id", "108944100308")
+	getRequest.AddParameter("adzone_id", pid.AdzoneID)
 	getRequest.AddParameter("material_id", "44044")
 
 	getRequest.AddParameter("page_size", "20")
@@ -855,7 +871,7 @@ func TestTbkJuTqgGet(t *testing.T) {
 
 	//初始化请求接口信息
 	getRequest := &request2.TbkJuTqgGetRequest{}
-	getRequest.AddParameter("adzone_id", "24546980")
+	getRequest.AddParameter("adzone_id", pid.AdzoneID)
 	getRequest.AddParameter("fields", "click_url,pic_url,reserve_price,zk_final_price,total_amount,sold_num,title,category_name,start_time,end_time,num_iid")
 
 	getRequest.AddParameter("start_time", "2019-02-15 07:00:00")
@@ -939,8 +955,8 @@ func Test_tbkscactivityinfoget(t *testing.T) {
 	getRequest := &request2.TbkScActivityInfoGetRequest{}
 	//getRequest.AddParameter("activity_material_id", "20150318020002192")
 	getRequest.AddParameter("activity_material_id", "1585018034441")
-	getRequest.AddParameter("adzone_id", "108916600241")
-	getRequest.AddParameter("site_id", "519950261")
+	getRequest.AddParameter("adzone_id", pid.AdzoneID)
+	getRequest.AddParameter("site_id", pid.SiteID)
 	//getRequest.AddParameter("relation_id", "")
 	t.Logf("GetScActivityInfoGet : %s", getRequest.GetParameters().Encode())
 	//初始化结果类型
@@ -965,8 +981,8 @@ func Test_TbkScShopConvertRequest(t *testing.T) {
 	//初始化请求接口信息
 	getRequest := &request2.TbkScShopConvertRequest{}
 	getRequest.AddParameter("fields", "user_id,click_url")
-	getRequest.AddParameter("adzone_id", "108916600241")
-	getRequest.AddParameter("site_id", "519950261")
+	getRequest.AddParameter("adzone_id", pid.AdzoneID)
+	getRequest.AddParameter("site_id", pid.SiteID)
 	getRequest.AddParameter("platform", "1")
 	getRequest.AddParameter("user_ids", "533497499")
 	getRequest.AddParameter("relation_id", "")
@@ -993,7 +1009,7 @@ func Test_TbkDgVegasTljCreate(t *testing.T) {
 
 	//初始化请求接口信息
 	getRequest := &request2.TbkDgVegasTljCreateRequest{}
-	getRequest.AddParameter("adzone_id", "108916600241")
+	getRequest.AddParameter("adzone_id", pid.AdzoneID)
 	getRequest.AddParameter("item_id", "580973170958")
 	getRequest.AddParameter("name", "我是标题啊")
 	getRequest.AddParameter("total_num", "1")
@@ -1059,8 +1075,8 @@ func Test_TbkScTpwdConvertRequest(t *testing.T) {
 
 	//初始化请求接口信息
 	getRequest := &request2.TbkScTpwdConvertRequest{}
-	getRequest.AddParameter("adzone_id", "108916600241")
-	getRequest.AddParameter("site_id", "519950261")
+	getRequest.AddParameter("adzone_id", pid.AdzoneID)
+	getRequest.AddParameter("site_id", pid.SiteID)
 	getRequest.AddParameter("password_content", "0(POMo2v5I6S8):/")
 
 	//初始化结果类型
@@ -1085,8 +1101,8 @@ func Test_TbkScOptimusMaterialRequest(t *testing.T) {
 
 	//初始化请求接口信息
 	getRequest := &request2.TbkScOptimusMaterialRequest{}
-	getRequest.AddParameter("adzone_id", "108916600241")
-	getRequest.AddParameter("site_id", "519950261")
+	getRequest.AddParameter("adzone_id", pid.AdzoneID)
+	getRequest.AddParameter("site_id", pid.SiteID)
 	getRequest.AddParameter("material_id", "62121")
 
 	//初始化结果类型
@@ -1158,7 +1174,7 @@ func Test_TbkScAdzoneCreateRequest(t *testing.T) {
 
 	//初始化请求接口信息
 	getRequest := &request2.TbkScAdzoneCreateRequest{}
-	getRequest.AddParameter("site_id", "2722400397")
+	getRequest.AddParameter("site_id", pid.SiteID)
 	getRequest.AddParameter("adzone_name", "测试创建pid")
 
 	//初始化结果类型
