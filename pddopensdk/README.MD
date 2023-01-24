@@ -27,6 +27,7 @@
 - [pdd.ddk.oauth.rp.prom.url.generate生成营销工具推广链接](https://open.pinduoduo.com/application/document/api?id=pdd.ddk.oauth.rp.prom.url.generate&permissionId=7)
 - [pdd.ddk.oauth.theme.prom.url.generate（多多进宝主题推广链接生成](https://open.pinduoduo.com/#/apidocument/port?id=pdd.ddk.oauth.theme.prom.url.generate)
 - [pdd.ddk.order.list.increment.get（最后更新时间段增量同步推广订单信息）](https://open.pinduoduo.com/application/document/api?id=pdd.ddk.order.list.increment.get&permissionId=2)
+- [pdd.ddk.order.list.range.get用时间段查询推广订单接口](https://open.pinduoduo.com/application/document/api?id=pdd.ddk.order.list.range.get)
 - [pdd.ddk.resource.url.gen（生成多多进宝频道推广）](https://open.pinduoduo.com/#/apidocument/port?id=pdd.ddk.resource.url.gen)
 - [pdd.ddk.rp.prom.url.generate生成营销工具推广链接](https://open.pinduoduo.com/application/document/api?id=pdd.ddk.rp.prom.url.generate)
 - [pdd.ddk.theme.prom.url.generate（多多进宝主题推广链接生成](https://open.pinduoduo.com/#/apidocument/port?id=pdd.ddk.resource.url.gen)

@@ -586,12 +586,26 @@ func createAPIS() {
 			},
 		},
 	}
-
+	request = ApiInfo{
+		APIDESC:    "pdd.ddk.order.list.range.get用时间段查询推广订单接口",
+		APIORGNAME: "pdd.ddk.order.list.range.get",
+		APIURL:     "https://open.pinduoduo.com/application/document/api?id=pdd.ddk.order.list.range.get",
+		CHECKFIELDS: []CheckField{
+			{
+				FieldName:         "start_time",
+				FieldNotNullCheck: true,
+			},
+			{
+				FieldName:         "end_time",
+				FieldNotNullCheck: true,
+			},
+		},
+	}
 	createAPI(request)
 }
 
 func main() {
 	//
-	//createAPIS()
+	createAPIS()
 	createReadmeApiList()
 }

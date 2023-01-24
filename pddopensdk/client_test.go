@@ -26,6 +26,7 @@ import (
 	"github.com/mimicode/tksdk/pddopensdk/response/pddddkoauthrppromurlgenerate"
 	"github.com/mimicode/tksdk/pddopensdk/response/pddddkoauththemepromurlgenerate"
 	pddddkorderlistincrementget2 "github.com/mimicode/tksdk/pddopensdk/response/pddddkorderlistincrementget"
+	"github.com/mimicode/tksdk/pddopensdk/response/pddddkorderlistrangeget"
 	pddddkresourceurlgen2 "github.com/mimicode/tksdk/pddopensdk/response/pddddkresourceurlgen"
 	pddddkrppromurlgenerate2 "github.com/mimicode/tksdk/pddopensdk/response/pddddkrppromurlgenerate"
 	"io/ioutil"
@@ -316,7 +317,7 @@ func TestPddDdkGoodsRecommendGetRequest(t *testing.T) {
 	}
 }
 
-//创建pid
+// 创建pid
 func TestPddDdkOauthGoodsPidGenerateRequest(t *testing.T) {
 	client := GetClient()
 	//初始化请求接口信息
@@ -337,7 +338,7 @@ func TestPddDdkOauthGoodsPidGenerateRequest(t *testing.T) {
 	}
 }
 
-//创建pid列表查询
+// 创建pid列表查询
 func TestPddDdkOauthGoodsPidQueryRequest(t *testing.T) {
 	client := GetClient()
 	//初始化请求接口信息
@@ -358,7 +359,7 @@ func TestPddDdkOauthGoodsPidQueryRequest(t *testing.T) {
 	}
 }
 
-//生成营销工具推广链接
+// 生成营销工具推广链接
 func TestPddDdkOauthRpPromUrlGenerateRequest(t *testing.T) {
 	client := GetClient()
 	//初始化请求接口信息
@@ -386,7 +387,7 @@ func TestPddDdkOauthRpPromUrlGenerateRequest(t *testing.T) {
 	}
 }
 
-//备案查询
+// 备案查询
 func TestPddDdkOauthMemberAuthorityQueryRequest(t *testing.T) {
 	client := GetClient()
 	//初始化请求接口信息
@@ -406,7 +407,7 @@ func TestPddDdkOauthMemberAuthorityQueryRequest(t *testing.T) {
 	}
 }
 
-//拼多多主站频道推广接口
+// 拼多多主站频道推广接口
 func TestPddDdkOauthResourceUrlGenRequest(t *testing.T) {
 	client := GetClient()
 	//初始化请求接口信息
@@ -430,7 +431,7 @@ func TestPddDdkOauthResourceUrlGenRequest(t *testing.T) {
 	}
 }
 
-//多多进宝转链接口
+// 多多进宝转链接口
 func TestPddDdkOauthGoodsZsUnitUrlGenRequest(t *testing.T) {
 	client := GetClient()
 	//初始化请求接口信息
@@ -453,7 +454,7 @@ func TestPddDdkOauthGoodsZsUnitUrlGenRequest(t *testing.T) {
 	}
 }
 
-//多多进宝转链接口
+// 多多进宝转链接口
 func TestPddDdkOauthCmsPromUrlGenerateRequest(t *testing.T) {
 	client := GetClient()
 	//初始化请求接口信息
@@ -657,6 +658,29 @@ func TestPddDdkOauthThemePromUrlGenerateRequest(t *testing.T) {
 		t.Log(err)
 	} else {
 		result := getResponse.(*pddddkoauththemepromurlgenerate.Response)
+		fmt.Println(result)
+	}
+}
+
+func TestPddDdkOrderListRangeGetRequest(t *testing.T) {
+	client := GetClient()
+	//初始化请求接口信息
+	getRequest := &request2.PddDdkOrderListRangeGetRequest{}
+	//支付起始时间，格式: "yyyy-MM-dd HH:mm:ss" ，比如 "2020-12-01 00:00:00"
+	getRequest.AddParameter("start_time", `2023-01-24 17:00:00`)
+	//支付结束时间，格式: "yyyy-MM-dd HH:mm:ss" ，比如 "2020-12-01 00:00:00"
+	getRequest.AddParameter("end_time", `2023-01-24 17:25:00`)
+	//每次请求多少条，建议300
+	getRequest.AddParameter("page_size", `300`)
+
+	//初始化结果类型
+	var getResponse DefaultResponse = &pddddkorderlistrangeget.Response{}
+	//执行请求接口得到结果
+	err := client.Exec(getRequest, getResponse)
+	if err != nil {
+		t.Log(err)
+	} else {
+		result := getResponse.(*pddddkorderlistrangeget.Response)
 		fmt.Println(result)
 	}
 }
