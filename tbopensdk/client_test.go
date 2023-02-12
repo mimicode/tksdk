@@ -753,10 +753,10 @@ func TestTbkDgMaterialOptional(t *testing.T) {
 	getRequest := &request2.TbkDgMaterialOptionalRequest{}
 	getRequest.AddParameter("adzone_id", pid.AdzoneID)
 
-	//getRequest.AddParameter("cat", "16")
-	getRequest.AddParameter("page_size", "2")
-	getRequest.AddParameter("page_size", "1")
-	getRequest.AddParameter("q", "https://detail.m.tmall.com/item.htm?id=640057354722")
+	getRequest.AddParameter("cat", "16")
+	//getRequest.AddParameter("page_size", "2")
+	//getRequest.AddParameter("page_size", "1")
+	//getRequest.AddParameter("q", "https://detail.m.tmall.com/item.htm?id=640057354722")
 
 	getRequest.AddParameter("get_topn_rate", "1")
 
