@@ -2,6 +2,7 @@ package main
 
 import (
 	"fmt"
+	"github.com/mimicode/tksdk/utils"
 	"io/ioutil"
 	"os"
 	"path/filepath"
@@ -11,7 +12,7 @@ import (
 
 func createReadmeApiList() {
 	dir, _ := os.Getwd()
-	sdkPath := filepath.Join(dir, "jdopensdk")
+	sdkPath := filepath.Join(dir, "tbopensdk")
 	if matches, err := filepath.Glob(filepath.Join(sdkPath, "request", "*.go")); err != nil {
 		fmt.Println(err)
 		return
@@ -63,23 +64,6 @@ type CheckField struct {
 	FieldMax  string
 	FieldLen  string
 	FieldSize string
-}
-
-func strFirstToUpper(str string, step string) string {
-	temp := strings.Split(str, step)
-	var upperStr string
-	for y := 0; y < len(temp); y++ {
-		vv := []rune(temp[y])
-		for i := 0; i < len(vv); i++ {
-			if i == 0 {
-				vv[i] -= 32
-				upperStr += string(vv[i]) // + string(vv[i+1])
-			} else {
-				upperStr += string(vv[i])
-			}
-		}
-	}
-	return upperStr
 }
 
 func createMustCheck(checkFields []CheckField) string {
@@ -138,7 +122,7 @@ func createAPI(apiRequest ApiInfo) {
 	DIRNAME := strings.Replace(apiRequest.APIORGNAME, ".", "", -1)
 	FILENAME := DIRNAME + ".go"
 
-	APINAME = strFirstToUpper(APINAME, ".")
+	APINAME = utils.StrFirstToUpper(APINAME, ".")
 	//请求文件
 	fileContent := string(bytes)
 	fileContent = strings.Replace(fileContent, "--APIDESC--", apiRequest.APIDESC, -1)

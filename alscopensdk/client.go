@@ -1,4 +1,4 @@
-package pddopensdk
+package alscopensdk
 
 import (
 	"context"
@@ -9,15 +9,15 @@ import (
 	"net"
 	"net/http"
 	"net/url"
-	"strconv"
 	"strings"
 	"time"
 )
 
 const (
-	ApiGatewayUrl = "https://gw-api.pinduoduo.com/api/router"
-	ApiFormat     = "JSON"
-	ApiVersion    = "V1"
+	ApiGatewayUrl = "http://gw.api.taobao.com/router/rest"
+	ApiSignMethod = "md5"
+	ApiFormat     = "json"
+	ApiVersion    = "2.0"
 )
 
 type DefaultRequest interface {
@@ -36,9 +36,9 @@ type DefaultResponse interface {
 type TopClient struct {
 	Appkey         string
 	AppSecret      string
+	ProxyUrl       string
 	RequestTimeOut time.Duration
 	HttpClient     *http.Client
-	ProxyUrl       string
 	SysParameters  *url.Values //系统变量
 }
 
@@ -53,13 +53,29 @@ func (u *TopClient) Init(appKey, appSecret, sessionkey string) {
 	u.Appkey = appKey
 	u.AppSecret = appSecret
 	u.SysParameters = &url.Values{}
-	u.SysParameters.Add("client_id", appKey)
+	//TOP分配给应用的AppKey
+	u.SysParameters.Add("app_key", appKey)
+	//签名的摘要算法，可选值为：hmac，md5
+	u.SysParameters.Add("sign_method", ApiSignMethod)
 	if sessionkey != "" {
-		u.SysParameters.Add("access_token", sessionkey)
+		//用户登录授权成功后，TOP颁发给应用的授权信息,当此API的标签上注明：“需要授权”，
+		// 则此参数必传；“不需要授权”，则此参数不需要传；“可选授权”，则此参数为可选
+		u.SysParameters.Add("session", sessionkey)
 	}
-	u.SysParameters.Add("timestamp", strconv.FormatInt(utils2.NowTime().Unix(), 10))
-	u.SysParameters.Add("data_type", ApiFormat)
-	u.SysParameters.Add("version", ApiVersion)
+
+	//时间戳，格式为yyyy-MM-dd HH:mm:ss，时区为GMT+8，例如：2015-01-01 12:00:00。淘宝API服务端允许客户端请求最大时间误差为10分钟
+	u.SysParameters.Add("timestamp", utils2.NowTime().Format("2006-01-02 15:04:05"))
+	//响应格式。默认为xml格式，可选值：xml，json。
+	u.SysParameters.Add("format", ApiFormat)
+	//API协议版本，可选值：2.0
+	u.SysParameters.Add("v", ApiVersion)
+
+	//是否采用精简JSON返回格式，仅当format=json时有效，默认值为：false
+	//u.SysParameters.Add("simplify","false")
+	//合作伙伴身份标识
+	//u.SysParameters.Add("partner_id","")
+	//被调用的目标AppKey，仅当被调用的API为第三方ISV提供时有效
+	//u.SysParameters.Add("target_app_key","")
 }
 
 func (u *TopClient) CreateSign(params url.Values) {
@@ -136,7 +152,6 @@ func (u *TopClient) PostRequest(uri string) (string, error) {
 			}
 		}
 	}
-
 	request, err := http.NewRequest(http.MethodPost, ApiGatewayUrl, strings.NewReader(uri))
 	if err != nil {
 		return "", nil
@@ -180,7 +195,7 @@ func (u *TopClient) Exec(request DefaultRequest, response DefaultResponse) error
 	if method == "" {
 		panic("API name missing")
 	}
-	u.SysParameters.Set("type", method)
+	u.SysParameters.Set("method", method)
 
 	//请求参数
 	params := request.GetParameters()

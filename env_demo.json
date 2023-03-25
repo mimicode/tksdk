@@ -27,5 +27,12 @@
     "app_key": "",
     "app_secret": "",
     "session_key": ""
+  },
+  "ele": {
+    "app_key": "",
+    "app_secret": "",
+    "pid": "",
+    "sid": "",
+    "session_key": ""
   }
 }

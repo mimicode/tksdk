@@ -2,6 +2,7 @@ package main
 
 import (
 	"fmt"
+	"github.com/mimicode/tksdk/utils"
 	"io/ioutil"
 	"os"
 	"path/filepath"
@@ -65,23 +66,6 @@ type CheckField struct {
 	FieldSize string
 }
 
-func strFirstToUpper(str string, step string) string {
-	temp := strings.Split(str, step)
-	var upperStr string
-	for y := 0; y < len(temp); y++ {
-		vv := []rune(temp[y])
-		for i := 0; i < len(vv); i++ {
-			if i == 0 {
-				vv[i] -= 32
-				upperStr += string(vv[i]) // + string(vv[i+1])
-			} else {
-				upperStr += string(vv[i])
-			}
-		}
-	}
-	return upperStr
-}
-
 func createMustCheck(checkFields []CheckField) string {
 	checkStr := ""
 	for _, v := range checkFields {
@@ -137,7 +121,7 @@ func createAPI(apiRequest ApiInfo) {
 	DIRNAME := strings.ToLower(strings.Replace(apiRequest.APIORGNAME, ".", "", -1))
 	FILENAME := DIRNAME + ".go"
 
-	APINAME := strFirstToUpper(apiRequest.APIORGNAME, ".")
+	APINAME := utils.StrFirstToUpper(apiRequest.APIORGNAME, ".")
 	//请求文件
 	fileContent := string(bytes)
 	fileContent = strings.Replace(fileContent, "--APIDESC--", apiRequest.APIDESC, -1)

@@ -100,7 +100,7 @@ func CheckEmpty(value string) bool {
 	return len(strings.TrimSpace(value)) == 0
 }
 
-//检测是否为数字
+// 检测是否为数字
 func CheckNumber(value, fieldName string) {
 	compile := regexp.MustCompile(`\d+`)
 	if !compile.MatchString(value) {
@@ -118,7 +118,7 @@ func GetUUID() string {
 	return strconv.FormatInt(time.Now().UnixNano(), 16)
 }
 
-//检测最小值
+// 检测最小值
 func CheckMinFloatValue(value string, minVal float64, fieldName string) {
 	if CheckEmpty(value) {
 		return
@@ -131,4 +131,21 @@ func CheckMinFloatValue(value string, minVal float64, fieldName string) {
 		}
 	}
 
+}
+
+func StrFirstToUpper(str string, step string) string {
+	temp := strings.Split(str, step)
+	var upperStr string
+	for y := 0; y < len(temp); y++ {
+		vv := []rune(temp[y])
+		for i := 0; i < len(vv); i++ {
+			if i == 0 {
+				if vv[i] >= 'a' && vv[i] <= 'z' {
+					vv[i] -= 32
+				}
+			}
+			upperStr += string(vv[i])
+		}
+	}
+	return upperStr
 }
