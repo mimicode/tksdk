@@ -81,9 +81,10 @@ func (u *TopClient) CreateStrParam() string {
 	return u.SysParameters.Encode()
 }
 
-//发送POST请求
+// 发送POST请求
 func (u *TopClient) PostRequest(uri, body string) (string, error) {
 	if u.HttpClient == nil {
+		dc := &net.Dialer{Timeout: 5 * time.Second}
 		if len(u.ProxyUrl) > 0 {
 			u.HttpClient = &http.Client{
 				Transport: &http.Transport{
@@ -91,7 +92,7 @@ func (u *TopClient) PostRequest(uri, body string) (string, error) {
 						return url.Parse(u.ProxyUrl)
 					},
 					DisableKeepAlives: true,
-					DialContext:       (&net.Dialer{Timeout: 5 * time.Second}).DialContext,
+					DialContext:       dc.DialContext,
 				},
 				Timeout: u.getTimeOut(),
 			}
@@ -99,7 +100,7 @@ func (u *TopClient) PostRequest(uri, body string) (string, error) {
 			u.HttpClient = &http.Client{
 				Transport: &http.Transport{
 					DisableKeepAlives: true,
-					DialContext:       (&net.Dialer{Timeout: 5 * time.Second}).DialContext,
+					DialContext:       dc.DialContext,
 				},
 				Timeout: u.getTimeOut(),
 			}
