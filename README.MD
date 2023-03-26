@@ -2,6 +2,7 @@
 
 - [京东](https://github.com/mimicode/tksdk/tree/main/jdopensdk)
 - [淘宝](https://github.com/mimicode/tksdk/tree/main/tbopensdk)
+- [阿里本地生活API](https://github.com/mimicode/tksdk/tree/main/alscopensdk)
 - [拼多多](https://github.com/mimicode/tksdk/tree/main/pddopensdk)
 - [苏宁](https://github.com/mimicode/tksdk/tree/main/snopensdk)
 - [唯品会](https://github.com/mimicode/tksdk/tree/main/vipopensdk)
