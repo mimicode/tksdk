@@ -7,6 +7,7 @@ import (
 	request2 "github.com/mimicode/tksdk/vipopensdk/request"
 	"github.com/mimicode/tksdk/vipopensdk/response/comvipadpapiopenserviceuniongoodsservicegetbygoodsidsv2withoauth"
 	comvipadpapiopenserviceuniongoodsservicegetbygoodsidswithoauth2 "github.com/mimicode/tksdk/vipopensdk/response/comvipadpapiopenserviceuniongoodsservicegetbygoodsidswithoauth"
+	"github.com/mimicode/tksdk/vipopensdk/response/comvipadpapiopenserviceuniongoodsservicegoodslistv2withoauth"
 	comvipadpapiopenserviceuniongoodsservicegoodslistwithoauth2 "github.com/mimicode/tksdk/vipopensdk/response/comvipadpapiopenserviceuniongoodsservicegoodslistwithoauth"
 	comvipadpapiopenserviceuniongoodsservicequerywithoauth2 "github.com/mimicode/tksdk/vipopensdk/response/comvipadpapiopenserviceuniongoodsservicequerywithoauth"
 	comvipadpapiopenserviceuniongoodsservicesimilarrecommendwithoauth2 "github.com/mimicode/tksdk/vipopensdk/response/comvipadpapiopenserviceuniongoodsservicesimilarrecommendwithoauth"
@@ -51,7 +52,7 @@ func GetClient() *TopClient {
 	return client
 }
 
-func TestPddDdkGoodsDetailRequest(t *testing.T) {
+func TestComVipAdpApiOpenService5nionGoodsServiceGoodsListWithOauthRequest(t *testing.T) {
 
 	client := GetClient()
 	//初始化请求接口信息
@@ -534,6 +535,90 @@ func TestComVipAdpApiOpenServiceUnionGoodsServiceGetByGoodsIdsV2WithOauthRequest
 		t.Log(err)
 	} else {
 		result := getResponse.(*comvipadpapiopenserviceuniongoodsservicegetbygoodsidsv2withoauth.Response)
+
+		fmt.Println(result.Body)
+
+	}
+}
+
+func TestComVipAdpApiOpenServiceUnionGoodsServiceGoodsListV2WithOauthRequest(t *testing.T) {
+
+	client := GetClient()
+	//初始化请求接口信息
+	getRequest := &request2.ComVipAdpApiOpenServiceUnionGoodsServiceGoodsListV2WithOauthRequest{}
+
+	getRequest.AddParameter("request", map[string]interface{}{
+		"requestId":                   utils2.GetUUID(),
+		"channelType":                 0,
+		"offset":                      1,
+		"pageSize":                    50,
+		"queryReputation":             false,
+		"queryStoreServiceCapability": false,
+		"fieldName":                   "COMMISSION",
+		"order":                       0,
+		"sourceType":                  1,
+		"jxCode":                      "dz5d5n7i",
+		"queryStock":                  false,
+		"queryActivity":               false,
+		"commonParams": map[string]interface{}{
+			"plat": 2,
+		},
+	})
+
+	/*
+
+		   channelType	Integer	否			频道类型:0-超高佣，1-出单爆款; 当请求类型为频道时必传
+		   page	Integer	是			页码
+		   pageSize	Integer	否			分页大小:默认20，最大100
+		   requestId	String	是			请求id：调用方自行定义，用于追踪请求，单次请求唯一，建议使用UUID
+		   queryReputation	Boolean	否			是否查询商品评价信息:默认不查询，该数据在详情页有返回，没有特殊需求，建议不查询
+		   queryStoreServiceCapability	Boolean	否			是否查询店铺服务能力信息:默认不查询，该数据在详情页有返回，没有特殊需求，建议不查询
+		   sourceType	Integer	否			请求源类型：0-频道，1-组货
+
+
+				类目                 API组货ID
+				女装精选 7hfpy0m4
+				男装精选 wj7evz2j
+				美妆精选 vd0wbfdx
+				数码电子 dpot8m5u
+				精选-首饰 szkl4kj7
+				鞋包精选 byh9331t
+				母婴精选 gkf52p8p
+				居家精选 cnrzcs22
+				运动户外精选 indvf44e
+				家用电器 uggxpyh5
+
+				2小时排行榜  dz5d5n7i   注意获取第二页时要传batchNo参数，防止商品重复
+				今日热销榜  7heizb6v    注意获取第二页时要传batchNo参数，防止商品重复
+
+		   jxCode	String	否			精选组货码：当请求源类型为组货时必传
+		   fieldName	String	否			排序字段: COMMISSION-佣金，PRICE-价格,COMM_RATIO-佣金比例，DISCOUNT-折扣
+		   order	Integer	否			排序顺序：0-正序，1-逆序，默认正序
+		   queryStock	Boolean	否			是否查询库存:默认不查询
+		   queryActivity	Boolean	否			是否查询商品活动信息:默认不查询
+		   queryPrepay	Boolean	否			是否查询商品预付信息:默认不查询
+
+		   commonParams	CommonParams	否			通用参数
+
+				plat	Integer	否			用户平台：1-PC,2-APP,3-小程序,不传默认为APP
+				deviceType	String	否			设备号类型：IMEI，IDFA，OAID，有则传入
+				deviceValue	String	否			设备号MD5加密后的值，有则传入
+				ip	String	否			用户ip地址
+				longitude	String	否			经度 如:29.590961456298828
+				latitude	String	否			纬度 如:106.51573181152344
+
+
+		   vendorCode	String	否			工具商code
+		   chanTag	String	否			pid
+	*/
+	//初始化结果类型
+	var getResponse DefaultResponse = &comvipadpapiopenserviceuniongoodsservicegoodslistv2withoauth.Response{}
+	//执行请求接口得到结果
+	err := client.Exec(getRequest, getResponse)
+	if err != nil {
+		t.Log(err)
+	} else {
+		result := getResponse.(*comvipadpapiopenserviceuniongoodsservicegoodslistv2withoauth.Response)
 
 		fmt.Println(result.Body)
 

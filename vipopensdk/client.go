@@ -16,7 +16,7 @@ import (
 )
 
 const (
-	ApiGatewayUrl = "https://gw.vipapis.com"
+	ApiGatewayUrl = "https://vop.vipapis.com"
 	ApiFormat     = "JSON"
 )
 

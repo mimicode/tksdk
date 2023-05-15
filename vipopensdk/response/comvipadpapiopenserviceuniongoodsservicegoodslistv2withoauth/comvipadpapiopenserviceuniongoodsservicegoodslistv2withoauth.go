@@ -68,6 +68,7 @@ prepayInfo	PrepayInfo	否			商品预付信息
 joinedActivities	List<ActivityInfo>	否			商品参与活动信息:未参与活动集合为空
 couponInfo	PMSCouponInfo	否			红包信息
 haiTao	Integer	否			是否海淘商品标识：1是 0不是
+adCode String 否 用来标识获取推广物料的来源，请准确保存，并在调用转链接口时传入，防止错用
 */
 type GoodsInfoList struct {
 	MarketPrice           string      `json:"marketPrice"`
@@ -100,6 +101,8 @@ type GoodsInfoList struct {
 	CategoryID            int64       `json:"categoryId"`
 	Status                int64       `json:"status"`
 	CouponInfo            *CouponInfo `json:"couponInfo,omitempty"`
+	AdCode                string      `json:"adCode"`
+	Weight                int64       `json:"weight"`
 }
 
 /*

@@ -5,13 +5,13 @@ import (
 	response2 "github.com/mimicode/tksdk/vipopensdk/response"
 )
 
-//com.vip.adp.api.open.service.UnionGoodsService 根据关键词查询商品列表-需要oauth授权
+// com.vip.adp.api.open.service.UnionGoodsService 根据关键词查询商品列表-需要oauth授权
 type Response struct {
 	response2.TopResponse
 	Result Result `json:"result"`
 }
 
-//解析输出结果
+// 解析输出结果
 func (t *Response) WrapResult(result string) {
 	unmarshal := json.Unmarshal([]byte(result), t)
 	//保存原始信息
@@ -61,6 +61,8 @@ type GoodsInfoList struct {
 	CategoryID       int64      `json:"categoryId"`
 	Status           int64      `json:"status"`
 	CouponInfo       CouponInfo `json:"couponInfo"`
+	AdCode           string     `json:"adCode"`
+	Weight           int64      `json:"weight"`
 }
 
 type StoreInfo struct {
