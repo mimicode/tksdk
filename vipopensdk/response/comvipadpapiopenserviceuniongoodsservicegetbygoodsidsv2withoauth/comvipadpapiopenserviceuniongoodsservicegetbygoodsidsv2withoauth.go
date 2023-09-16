@@ -65,6 +65,7 @@ type Result struct {
 	DestURL                string                 `json:"destUrl"`
 	CategoryID             int64                  `json:"categoryId"`
 	Status                 int64                  `json:"status"`
+	CouponInfo             CouponInfo             `json:"couponInfo"`
 }
 
 type CommentsInfo struct {
@@ -92,4 +93,17 @@ type StoreInfo struct {
 type StoreServiceCapability struct {
 	StoreScore    string `json:"storeScore"`
 	StoreRankRate string `json:"storeRankRate"`
+}
+
+type CouponInfo struct {
+	UseEndTime        int64  `json:"useEndTime"`
+	TotalAmount       int64  `json:"totalAmount"`
+	CouponName        string `json:"couponName"`
+	ActivateEndTime   int64  `json:"activateEndTime"`
+	Buy               string `json:"buy"`
+	UseBeginTime      int64  `json:"useBeginTime"`
+	CouponNo          string `json:"couponNo"`
+	Fav               string `json:"fav"`
+	ActivateBeginTime int64  `json:"activateBeginTime"`
+	ActivedAmount     int64  `json:"activedAmount"`
 }

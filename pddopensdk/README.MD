@@ -1,6 +1,9 @@
 ## api列表
 --
 - [pdd.ddk.all.order.list.increment.get查询所有授权的多多客订单](https://open.pinduoduo.com/application/document/api?permissionId=7)
+- [pdd.ddk.cashgift.create创建多多礼金](https://open.pinduoduo.com/application/document/api?id=pdd.ddk.cashgift.create)
+- [pdd.ddk.cashgift.data.query查询多多礼金效果数据](https://open.pinduoduo.com/application/document/api?id=pdd.ddk.cashgift.data.query)
+- [pdd.ddk.cashgift.status.update多多礼金状态更新](https://open.pinduoduo.com/application/document/api?id=pdd.ddk.cashgift.status.update)
 - [pdd.ddk.cms.prom.url.generate生成商城-频道推广链接](https://open.pinduoduo.com/application/document/api?id=pdd.ddk.cms.prom.url.generate)
 - [pdd.ddk.goods.detail（多多进宝商品详情查询）](https://open.pinduoduo.com/application/document/api?id=pdd.ddk.goods.detail)
 - [pdd.ddk.goods.pid.generate（创建多多进宝推广位)](https://open.pinduoduo.com/#/apidocument/port?id=pdd.ddk.goods.pid.generate)
@@ -10,7 +13,7 @@
 - [PddDdkGoodsZsUnitUrlGenRequest pdd.ddk.goods.zs.unit.url.gen多多进宝转链接口](https://open.pinduoduo.com/application/document/api?id=pdd.ddk.goods.zs.unit.url.gen)
 - [pdd.ddk.lottery.url.gen多多客生成转盘抽免单url](https://open.pinduoduo.com/application/document/api?id=pdd.ddk.lottery.url.gen)
 - [pdd.ddk.member.authority.query 查询是否绑定备案](https://open.pinduoduo.com/application/document/api?id=pdd.ddk.member.authority.query)
-- [pdd.ddk.oauth.cashgift.create创建多多礼金](https://open.pinduoduo.com/application/document/api?id=pdd.ddk.oauth.cashgift.create&permissionId=7)
+- [pdd.ddk.oauth.cashgift.create创建多多礼金](https://open.pinduoduo.com/application/document/api?id=pdd.ddk.oauth.cashgift.create)
 - [pdd.ddk.oauth.cashgift.status.update多多礼金状态更新](https://open.pinduoduo.com/application/document/api?id=pdd.ddk.oauth.cashgift.status.update&permissionId=7)
 - [pdd.ddk.oauth.cms.prom.url.generate生成商城推广链接接口](https://open.pinduoduo.com/application/document/api?id=pdd.ddk.oauth.cms.prom.url.generate&permissionId=7)
 - [pdd.ddk.oauth.goods.detail多多进宝商品详情查询](https://open.pinduoduo.com/application/document/api?id=pdd.ddk.oauth.goods.detail&permissionId=7)

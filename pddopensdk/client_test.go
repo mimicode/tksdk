@@ -5,6 +5,7 @@ import (
 	"fmt"
 	request2 "github.com/mimicode/tksdk/pddopensdk/request"
 	"github.com/mimicode/tksdk/pddopensdk/response/pddddkallorderlistincrementget"
+	"github.com/mimicode/tksdk/pddopensdk/response/pddddkcashgiftcreate"
 	"github.com/mimicode/tksdk/pddopensdk/response/pddddkgoodsdetail"
 	"github.com/mimicode/tksdk/pddopensdk/response/pddddkgoodspromotionurlgenerate"
 	pddddkgoodsrecommendget2 "github.com/mimicode/tksdk/pddopensdk/response/pddddkgoodsrecommendget"
@@ -681,6 +682,33 @@ func TestPddDdkOrderListRangeGetRequest(t *testing.T) {
 		t.Log(err)
 	} else {
 		result := getResponse.(*pddddkorderlistrangeget.Response)
+		fmt.Println(result)
+	}
+}
+
+func TestPddDdkCashgiftCreateRequest(t *testing.T) {
+	client := GetClient()
+	//初始化请求接口信息
+	getRequest := &request2.PddDdkCashgiftCreateRequest{}
+	getRequest.AddParameter("name", `礼金测试`)
+	getRequest.AddParameter("p_id_list", `["60005_612"]`) //可使用推广位列表，例如：["60005_612"]。(列表中的PID方可推广该礼金)
+	getRequest.AddParameter("acquire_end_time", `1694890334`)
+	getRequest.AddParameter("acquire_start_time", `1694870334`)
+	getRequest.AddParameter("auto_take", `true`)
+	getRequest.AddParameter("coupon_amount", `100`)           //礼金券面额，单位为分，创建普通满减礼金、不限商品满减礼金和免单礼金时，该字段必填；创建灵活面额礼金时，该字段传空，券面额 = 商品券后价 - 期望礼金券后价，由系统自动计算
+	getRequest.AddParameter("coupon_threshold_amount", `200`) //满减门槛，单位为分。对于普通满减礼金和不限商品满减礼金，满减门槛至少需为礼金券面额的2倍
+
+	getRequest.AddParameter("cashgift_type", `1`)                                            //	创建礼金类型：1-普通满减礼金；2-不限商品满减礼金；3-免单礼金；4-灵活面额礼金。默认为普通满减礼金
+	getRequest.AddParameter("goods_sign_list", `["c9r2omogKFFAc7WBwvbZU1ikIb16_J3CTa8HNN"]`) //	商品goodsSign列表，例如：["c9r2omogKFFAc7WBwvbZU1ikIb16_J3CTa8HNN"]，最多可支持传20个商品。创建普通满减礼金、免单礼金和灵活面额礼金时，该字段必填；创建不限商品满减礼金时，该字段传空。goodsSign使用说明：https://jinbao.pinduoduo.com/qa-system?questionId=252
+
+	//初始化结果类型
+	var getResponse DefaultResponse = &pddddkcashgiftcreate.Response{}
+	//执行请求接口得到结果
+	err := client.Exec(getRequest, getResponse)
+	if err != nil {
+		t.Log(err)
+	} else {
+		result := getResponse.(*pddddkcashgiftcreate.Response)
 		fmt.Println(result)
 	}
 }

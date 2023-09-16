@@ -1,14 +1,14 @@
-package pddddkoauthcashgiftcreate
+package pddddkcashgiftstatusupdate
 
 import (
 	"encoding/json"
 	"github.com/mimicode/tksdk/pddopensdk/response"
 )
 
-// Response pdd.ddk.oauth.cashgift.create创建多多礼金
+// Response pdd.ddk.cashgift.status.update多多礼金状态更新
 type Response struct {
 	response.TopResponse
-	CreateCashgiftResponse CreateCashgiftResponse `json:"create_cashgift_response"`
+	UpdateCashgiftResponse UpdateCashgiftResponse `json:"update_cashgift_response"`
 }
 
 // WrapResult 解析输出结果
@@ -23,7 +23,6 @@ func (t *Response) WrapResult(result string) {
 	}
 }
 
-type CreateCashgiftResponse struct {
+type UpdateCashgiftResponse struct {
 	CashGiftID int64 `json:"cash_gift_id"`
-	Success    bool  `json:"success"`
 }

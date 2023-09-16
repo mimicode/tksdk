@@ -1,11 +1,11 @@
-package pddddkoauthcashgiftcreate
+package pddddkcashgiftcreate
 
 import (
 	"encoding/json"
 	"github.com/mimicode/tksdk/pddopensdk/response"
 )
 
-// Response pdd.ddk.oauth.cashgift.create创建多多礼金
+// Response pdd.ddk.cashgift.create创建多多礼金
 type Response struct {
 	response.TopResponse
 	CreateCashgiftResponse CreateCashgiftResponse `json:"create_cashgift_response"`

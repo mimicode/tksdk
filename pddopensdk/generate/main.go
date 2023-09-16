@@ -585,6 +585,46 @@ func createAPIS() {
 			},
 		},
 	}
+
+	request = ApiInfo{
+		APIDESC:    "pdd.ddk.cashgift.status.update多多礼金状态更新",
+		APIORGNAME: "pdd.ddk.cashgift.status.update",
+		APIURL:     "https://open.pinduoduo.com/application/document/api?id=pdd.ddk.cashgift.status.update",
+		CHECKFIELDS: []CheckField{
+			{
+				FieldName:         "cash_gift_id",
+				FieldNotNullCheck: true,
+			},
+			{
+				FieldName:         "update_type",
+				FieldNotNullCheck: true,
+			},
+		},
+	}
+
+	request = ApiInfo{
+		APIDESC:     "pdd.ddk.cashgift.data.query查询多多礼金效果数据",
+		APIORGNAME:  "pdd.ddk.cashgift.data.query",
+		APIURL:      "https://open.pinduoduo.com/application/document/api?id=pdd.ddk.cashgift.data.query",
+		CHECKFIELDS: []CheckField{},
+	}
+
+	request = ApiInfo{
+		APIDESC:    "pdd.ddk.cashgift.create创建多多礼金",
+		APIORGNAME: "pdd.ddk.cashgift.create",
+		APIURL:     "https://open.pinduoduo.com/application/document/api?id=pdd.ddk.cashgift.create",
+		CHECKFIELDS: []CheckField{
+			{
+				FieldName:         "acquire_end_time",
+				FieldNotNullCheck: true,
+			},
+			{
+				FieldName:         "acquire_start_time",
+				FieldNotNullCheck: true,
+			},
+		},
+	}
+
 	createAPI(request)
 }
 

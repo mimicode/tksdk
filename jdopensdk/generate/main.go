@@ -376,6 +376,40 @@ func createAPIS() {
 			},
 		},
 	}
+	request = ApiInfo{
+		APIDESC:    "jd.union.open.coupon.gift.get 礼金创建",
+		APIORGNAME: "jd.union.open.coupon.gift.get",
+		APIURL:     "https://union.jd.com/openplatform/api/v2?apiName=jd.union.open.coupon.gift.get",
+		CHECKFIELDS: []CheckField{
+			{
+				FieldName:         "360buy_param_json",
+				FieldNotNullCheck: true,
+			},
+		},
+	}
+	request = ApiInfo{
+		APIDESC:    "jd.union.open.coupon.gift.stop 礼金停止",
+		APIORGNAME: "jd.union.open.coupon.gift.stop",
+		APIURL:     "https://union.jd.com/openplatform/api/v2?apiName=jd.union.open.coupon.gift.stop",
+		CHECKFIELDS: []CheckField{
+			{
+				FieldName:         "360buy_param_json",
+				FieldNotNullCheck: true,
+			},
+		},
+	}
+	request = ApiInfo{
+		APIDESC:    "jd.union.open.statistics.giftcoupon.query 礼金效果数据",
+		APIORGNAME: "jd.union.open.statistics.giftcoupon.query",
+		APIURL:     "https://union.jd.com/openplatform/api/v2?apiName=jd.union.open.statistics.giftcoupon.query",
+		CHECKFIELDS: []CheckField{
+			{
+				FieldName:         "360buy_param_json",
+				FieldNotNullCheck: true,
+			},
+		},
+	}
+
 	createAPI(request)
 }
 

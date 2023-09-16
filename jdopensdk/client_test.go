@@ -4,6 +4,8 @@ import (
 	"encoding/json"
 	"fmt"
 	"github.com/mimicode/tksdk/jdopensdk/request"
+	"github.com/mimicode/tksdk/jdopensdk/response/jdunionopencoupongiftget"
+	"github.com/mimicode/tksdk/jdopensdk/response/jdunionopencoupongiftstop"
 	"github.com/mimicode/tksdk/jdopensdk/response/jdunionopengoodsjingfenquery"
 	"github.com/mimicode/tksdk/jdopensdk/response/jdunionopengoodspromotiongoodsinfoquery"
 	"github.com/mimicode/tksdk/jdopensdk/response/jdunionopengoodsquery"
@@ -12,6 +14,7 @@ import (
 	"github.com/mimicode/tksdk/jdopensdk/response/jdunionopenpositionquery"
 	"github.com/mimicode/tksdk/jdopensdk/response/jdunionopenpromotionbysubunionidget"
 	"github.com/mimicode/tksdk/jdopensdk/response/jdunionopenpromotioncommonget"
+	"github.com/mimicode/tksdk/jdopensdk/response/jdunionopenstatisticsgiftcouponquery"
 	"io/ioutil"
 	"os"
 	"testing"
@@ -167,5 +170,80 @@ func TestJdUnionOpenPositionCreateRequest(t *testing.T) {
 		fmt.Println(commonGetResponse.IsError())
 		fmt.Println(commonGetResponse.Body)
 		// {"jd_union_open_position_create_responce":{"code":"0","createResult":"{\"code\":200,\"data\":{\"resultList\":{\"测试专用-01\":21001775614},\"siteId\":0,\"type\":4,\"unionId\":103431087},\"message\":\"success\",\"requestId\":\"o_0b126c7d_l531g96m_4147537\"}"}}
+	}
+}
+
+func TestJdUnionOpenCouponGiftGetRequest(t *testing.T) {
+	client := GetClient()
+	getRequest := &request.JdUnionOpenCouponGiftGetRequest{}
+	var param = map[string]interface{}{
+		"couponReq": map[string]interface{}{
+			"couponTitle":      "礼金测试01",
+			"skuMaterialId":    "https://item.jd.com/10053130147978.html",
+			"discount":         1,
+			"amount":           20, //最低20个
+			"receiveStartTime": "2023-09-16 07",
+			"receiveEndTime":   "2023-09-16 23",
+			"expireType":       2,
+			"useStartTime":     "2023-09-16",
+			"useEndTime":       "2023-09-16",
+			"share":            1,
+			"contentMatch":     0,
+			"isSpu":            1,
+			//"targetType":"" //定向推广类型，默认为1，向【运营申请-真操蛋，啥玩意儿都要申请】定向功能后才能入参4,5,6并生效； 1.不定向推广 4:本账号推广-定向PID 5：合作账号推广-定向联盟ID 6:合作账号推广-定向PID
+			//"childPromoters": "[{ 'targetName': '达人A', 'targetValue': '1002132107_4100446224_3003707911' }]",
+		},
+	}
+	marshal, _ := json.Marshal(param)
+	getRequest.AddParameter("360buy_param_json", string(marshal))
+	var getResponse DefaultResponse = &jdunionopencoupongiftget.Response{}
+	if err := client.Exec(getRequest, getResponse); err != nil {
+		fmt.Println(err)
+	} else {
+		commonGetResponse := getResponse.(*jdunionopencoupongiftget.Response)
+		fmt.Println(commonGetResponse.IsError())
+		//{"jd_union_open_coupon_gift_get_responce":{"code":"0","getResult":"{\"code\":200,\"data\":{\"giftCouponKey\":\"9f622b45acaff312\"},\"message\":\"success\",\"requestId\":\"o_0b64a07b_lmlzrjqb_153015728\"}"}}
+		fmt.Println(commonGetResponse.Body)
+	}
+}
+
+func TestJdUnionOpenStatisticsGiftcouponQueryRequest(t *testing.T) {
+	client := GetClient()
+	getRequest := &request.JdUnionOpenStatisticsGiftcouponQueryRequest{}
+	var param = map[string]interface{}{
+		"effectDataReq": map[string]interface{}{
+			"giftCouponKey": "9f622b45acaff312",
+		},
+	}
+	marshal, _ := json.Marshal(param)
+	getRequest.AddParameter("360buy_param_json", string(marshal))
+	var getResponse DefaultResponse = &jdunionopenstatisticsgiftcouponquery.Response{}
+	if err := client.Exec(getRequest, getResponse); err != nil {
+		fmt.Println(err)
+	} else {
+		commonGetResponse := getResponse.(*jdunionopenstatisticsgiftcouponquery.Response)
+		fmt.Println(commonGetResponse.IsError())
+		fmt.Println(commonGetResponse.Body)
+		//{"jd_union_open_statistics_giftcoupon_query_responce":{"code":"0","queryResult":"{\"code\":200,\"data\":[{\"amount\":20,\"contentMatch\":0,\"contentMatchMedias\":[-1],\"costAmount\":0.00,\"costNum\":0,\"couponTitle\":\"礼金测试01\",\"denomination\":1.0,\"effectiveDays\":0,\"expireType\":2,\"giftCouponKey\":\"9f622b45acaff312\",\"promoterList\":[{\"amount\":20,\"pid\":\"\",\"unionId\":103431087}],\"receiveEndTime\":\"2023-09-16 23:59:59\",\"receiveNum\":0,\"receiveStartTime\":\"2023-09-16 07:00:00\",\"share\":1,\"showInMedias\":0,\"showStatus\":3,\"skuIdList\":[10053130147978,10053130147979,10080660235974,10053130147977],\"status\":1,\"type\":2,\"useEndTime\":\"2023-09-16 23:59:59\",\"useStartTime\":\"2023-09-16 00:00:00\",\"ygCommission\":0.00}],\"message\":\"success\",\"requestId\":\"o_0b9180ed_lmlzyq8g_172473927\"}"}}
+	}
+}
+
+func TestJdUnionOpenCouponGiftStopRequest(t *testing.T) {
+	client := GetClient()
+	getRequest := &request.JdUnionOpenCouponGiftStopRequest{}
+	var param = map[string]interface{}{
+		"couponReq": map[string]interface{}{
+			"giftCouponKey": "9f622b45acaff312",
+		},
+	}
+	marshal, _ := json.Marshal(param)
+	getRequest.AddParameter("360buy_param_json", string(marshal))
+	var getResponse DefaultResponse = &jdunionopencoupongiftstop.Response{}
+	if err := client.Exec(getRequest, getResponse); err != nil {
+		fmt.Println(err)
+	} else {
+		commonGetResponse := getResponse.(*jdunionopencoupongiftstop.Response)
+		fmt.Println(commonGetResponse.IsError())
+		fmt.Println(commonGetResponse.Body)
 	}
 }

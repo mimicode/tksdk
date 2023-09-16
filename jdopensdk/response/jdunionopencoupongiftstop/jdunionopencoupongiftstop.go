@@ -1,14 +1,14 @@
-package jdunionopengoodsmaterialquery
+package jdunionopencoupongiftstop
 
 import (
 	"encoding/json"
 	"github.com/mimicode/tksdk/jdopensdk/response"
 )
 
-// Response jd.union.open.goods.material.query 猜你喜欢商品推荐
+// Response jd.union.open.coupon.gift.stop 礼金停止
 type Response struct {
 	response.TopResponse
-	Responce Responce `json:"jd_union_open_goods_material_query_response"`
+	Responce Responce `json:"jd_union_open_coupon_gift_stop_responce"`
 }
 
 // WrapResult 解析输出结果
@@ -42,7 +42,7 @@ func (t *Response) WrapResult(result string) {
 // Responce 响应结果
 type Responce struct {
 	Code           string `json:"code"`
-	QueryResultStr string `json:"queryResult"`
+	QueryResultStr string `json:"stopResult"`
 	QueryResult    QueryResult
 }
 

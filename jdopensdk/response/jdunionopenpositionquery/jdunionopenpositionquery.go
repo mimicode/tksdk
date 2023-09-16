@@ -8,7 +8,7 @@ import (
 // Response jd.union.open.position.query 查询推广位【申请】
 type Response struct {
 	response.TopResponse
-	Responce Responce `json:"jd_union_open_position_query_responce"`
+	Responce Responce `json:"jd_union_open_position_query_response"`
 }
 
 // WrapResult 解析输出结果

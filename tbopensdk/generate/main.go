@@ -600,6 +600,38 @@ func createAPIS() {
 			},
 		},
 	}
+
+	request = ApiInfo{
+		APIDESC:    "taobao.tbk.dg.vegas.tlj.stop( 淘宝客-推广者-淘礼金暂停发放 )",
+		APIORGNAME: "taobao.tbk.dg.vegas.tlj.stop",
+		APIURL:     "https://open.taobao.com/api.htm?docId=58713&docType=2",
+		CHECKFIELDS: []CheckField{
+			{
+				FieldName:         "rights_id",
+				FieldNotNullCheck: true,
+			},
+			{
+				FieldName:         "adzone_id",
+				FieldNotNullCheck: true,
+			},
+		},
+	}
+	request = ApiInfo{
+		APIDESC:    "taobao.tbk.dg.vegas.tlj.report( 淘宝客-推广者-淘礼金效果数据 )",
+		APIORGNAME: "taobao.tbk.dg.vegas.tlj.report",
+		APIURL:     "https://open.taobao.com/api.htm?docId=58736&docType=2",
+		CHECKFIELDS: []CheckField{
+			{
+				FieldName:         "rights_id",
+				FieldNotNullCheck: true,
+			},
+			{
+				FieldName:         "adzone_id",
+				FieldNotNullCheck: true,
+			},
+		},
+	}
+
 	//request = ApiInfo{
 	//	APIDESC:    "taobao.tbk.sc.relation.refund( 淘宝客-服务商-维权退款订单查询 )",
 	//	APIORGNAME: "taobao.tbk.sc.relation.refund",

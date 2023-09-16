@@ -317,6 +317,11 @@ func TestComVipAdpApiOpenService5nionUrlServiceGenByGoodsIdWithOauthRequest(t *t
 	getRequest.AddParameter("goodsIdList", []string{
 		"6919190827778651268",
 	})
+	getRequest.AddParameter("urlGenByGoodsIdRequest", map[string]interface{}{
+		"realCall": true,
+		"openId":   "a1234",
+		"adCode":   "vendoapi",
+	})
 
 	/*
 	   goodsIdList	List<String>	是			商品id列表
