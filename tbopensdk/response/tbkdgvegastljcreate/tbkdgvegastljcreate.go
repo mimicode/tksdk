@@ -6,13 +6,13 @@ import (
 	"github.com/mimicode/tksdk/tbopensdk/response"
 )
 
-//taobao.tbk.dg.vegas.tlj.create( 淘宝客-推广者-淘礼金创建 )
+// taobao.tbk.dg.vegas.tlj.create( 淘宝客-推广者-淘礼金创建 )
 type Response struct {
 	response.TopResponse
 	CreateResponse CreateResponse `json:"tbk_dg_vegas_tlj_create_response"`
 }
 
-//解析输出结果
+// 解析输出结果
 func (t *Response) WrapResult(result string) {
 	unmarshal := json.Unmarshal([]byte(result), t)
 	//保存原始信息
@@ -51,8 +51,18 @@ type Result struct {
 	Model   *Model `json:"model"`
 }
 
+/*
+	rights_id	String	asfasdfasd	淘礼金Id
+	send_url	String	https://www.taobao.com	淘礼金领取Url
+	vegas_code	String	asfasdfasd	投放code【百川商品详情页业务专用】
+	available_fee	String	20.23	创建完成后资金账户可用资金，单位元，保留2位小数
+	item_today_num_left	Number	10	媒体针对此商品今日剩余可领取淘礼金数量
+*/
+
 type Model struct {
-	RightsID  string `json:"rights_id"`
-	SendURL   string `json:"send_url"`
-	VegasCode string `json:"vegas_code"`
+	RightsID         string `json:"rights_id"`
+	SendURL          string `json:"send_url"`
+	VegasCode        string `json:"vegas_code"`
+	AvailableFee     string `json:"available_fee"`
+	ItemTodayNumLeft int64  `json:"item_today_num_left"`
 }

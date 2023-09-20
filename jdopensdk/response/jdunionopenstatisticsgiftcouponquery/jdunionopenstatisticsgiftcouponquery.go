@@ -57,10 +57,10 @@ type Data struct {
 	Amount             int64          `json:"amount"`
 	ContentMatch       int64          `json:"contentMatch"`
 	ContentMatchMedias []int64        `json:"contentMatchMedias"`
-	CostAmount         int64          `json:"costAmount"`
+	CostAmount         float64        `json:"costAmount"`
 	CostNum            int64          `json:"costNum"`
 	CouponTitle        string         `json:"couponTitle"`
-	Denomination       int64          `json:"denomination"`
+	Denomination       float64        `json:"denomination"`
 	EffectiveDays      int64          `json:"effectiveDays"`
 	ExpireType         int64          `json:"expireType"`
 	GiftCouponKey      string         `json:"giftCouponKey"`
@@ -76,7 +76,8 @@ type Data struct {
 	Type               int64          `json:"type"`
 	UseEndTime         string         `json:"useEndTime"`
 	UseStartTime       string         `json:"useStartTime"`
-	YgCommission       int64          `json:"ygCommission"`
+	YgCommission       float64        `json:"ygCommission"`
+	LimitPlatforms     []int64        `json:"limitPlatforms"`
 }
 
 type PromoterList struct {
