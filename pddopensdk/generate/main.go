@@ -625,6 +625,30 @@ func createAPIS() {
 		},
 	}
 
+	request = ApiInfo{
+		APIDESC:    "pdd.ddk.tmc.activity.list千万神券",
+		APIORGNAME: "pdd.ddk.tmc.activity.list",
+		APIURL:     "https://open.pinduoduo.com/application/document/api?id=pdd.ddk.tmc.activity.list",
+		CHECKFIELDS: []CheckField{
+			{
+				FieldName:        "page_num",
+				FieldNumberCheck: true,
+			},
+			{
+				FieldName:        "page_size",
+				FieldNumberCheck: true,
+			},
+			{
+				FieldName:         "start_time_lower",
+				FieldNotNullCheck: true,
+			},
+			{
+				FieldName:         "start_time_upper",
+				FieldNotNullCheck: true,
+			},
+		},
+	}
+
 	createAPI(request)
 }
 

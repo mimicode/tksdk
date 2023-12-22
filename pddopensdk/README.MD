@@ -34,4 +34,5 @@
 - [pdd.ddk.resource.url.gen（生成多多进宝频道推广）](https://open.pinduoduo.com/#/apidocument/port?id=pdd.ddk.resource.url.gen)
 - [pdd.ddk.rp.prom.url.generate生成营销工具推广链接](https://open.pinduoduo.com/application/document/api?id=pdd.ddk.rp.prom.url.generate)
 - [pdd.ddk.theme.prom.url.generate（多多进宝主题推广链接生成](https://open.pinduoduo.com/#/apidocument/port?id=pdd.ddk.resource.url.gen)
+- [pdd.ddk.tmc.activity.list千万神券](https://open.pinduoduo.com/application/document/api?id=pdd.ddk.tmc.activity.list)
 - [pdd.ddk.top.goods.list.query（多多客获取爆款排行商品接口）](https://open.pinduoduo.com/#/apidocument/port?portId=pdd.ddk.top.goods.list.query)

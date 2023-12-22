@@ -30,6 +30,7 @@ import (
 	"github.com/mimicode/tksdk/pddopensdk/response/pddddkorderlistrangeget"
 	pddddkresourceurlgen2 "github.com/mimicode/tksdk/pddopensdk/response/pddddkresourceurlgen"
 	pddddkrppromurlgenerate2 "github.com/mimicode/tksdk/pddopensdk/response/pddddkrppromurlgenerate"
+	"github.com/mimicode/tksdk/pddopensdk/response/pddddktmcactivitylist"
 	"io/ioutil"
 	"os"
 	"testing"
@@ -183,11 +184,10 @@ func TestPddDdkRpPromUrlGenerateRequest(t *testing.T) {
 	client := GetClient()
 	//初始化请求接口信息
 	getRequest := &request2.PddDdkRpPromUrlGenerateRequest{}
-	getRequest.AddParameter("p_id_list", `["1949211_146717471"]`)
-	getRequest.AddParameter("generate_short_url", `true`)
-	getRequest.AddParameter("generate_schema_url", `true`)
-	getRequest.AddParameter("custom_parameters", `custom_o1`)
-	getRequest.AddParameter("channel_type", `-1`)
+	getRequest.AddParameter("channel_type", `34`) // 需要v3级别且加入拼多多白名单
+	getRequest.AddParameter("p_id_list", `["1949211_139902379"]`)
+	getRequest.AddParameter("custom_parameters", `{"uid":"user_1"}`)
+	getRequest.AddParameter("tmcc_param", `{"goods_signs":["E9P2zLx-MvdGZC4hzrTcu0bFvw_vbwqT_JQPlvDQJiD"],"tmc_config_id":511}`)
 
 	//初始化结果类型
 	var getResponse DefaultResponse = &pddddkrppromurlgenerate2.Response{}
@@ -197,6 +197,31 @@ func TestPddDdkRpPromUrlGenerateRequest(t *testing.T) {
 		t.Log(err)
 	} else {
 		result := getResponse.(*pddddkrppromurlgenerate2.Response)
+
+		fmt.Println(result.Body)
+
+	}
+}
+
+//千万神券的问题
+
+func TestPddDdkTmcActivityListRequest(t *testing.T) {
+	client := GetClient()
+	//初始化请求接口信息
+	getRequest := &request2.PddDdkTmcActivityListRequest{}
+	getRequest.AddParameter("start_time_upper", `2023-12-13 00:00:00`)
+	getRequest.AddParameter("start_time_lower", `2023-12-10 00:00:00`) //时间最小时间
+	getRequest.AddParameter("page_num", `1`)
+	getRequest.AddParameter("page_size", `50`)
+
+	//初始化结果类型
+	var getResponse DefaultResponse = &pddddktmcactivitylist.Response{}
+	//执行请求接口得到结果
+	err := client.Exec(getRequest, getResponse)
+	if err != nil {
+		t.Log(err)
+	} else {
+		result := getResponse.(*pddddktmcactivitylist.Response)
 
 		fmt.Println(result.Body)
 
@@ -367,7 +392,7 @@ func TestPddDdkOauthRpPromUrlGenerateRequest(t *testing.T) {
 	getRequest := &request2.PddDdkOauthRpPromUrlGenerateRequest{}
 	//getRequest.AddParameter("channel_type", `10`)
 	//	营销工具类型，必填：-1-活动列表，0-红包(需申请推广权限)，2–新人红包，3-刮刮卡，5-员工内购，6-购物车，10-生成绑定备案链接，12-砸金蛋，13-一元购，14-千万补贴B端页面，15-充值中心B端页面；红包推广权限申请流程链接：https://jinbao.pinduoduo.com/qa-system?questionId=289
-	getRequest.AddParameter("channel_type", `13`)
+	getRequest.AddParameter("channel_type", `34`)
 	getRequest.AddParameter("generate_we_app", `true`)
 	getRequest.AddParameter("generate_short_url", `true`)
 	getRequest.AddParameter("generate_schema_url", `true`)
@@ -375,6 +400,7 @@ func TestPddDdkOauthRpPromUrlGenerateRequest(t *testing.T) {
 	//getRequest.AddParameter("goods_sign", `Y9_2n41LTLdOkjGzwvfZ1vtzvZRnI2fG_J2g7666nb`)
 	getRequest.AddParameter("p_id_list", `["9561589_216982659"]`)
 	getRequest.AddParameter("custom_parameters", `{"uid":"user_1"}`)
+	getRequest.AddParameter("tmcc_param", `{"goods_signs":["E9n2xP2XZdRGZC4hzrTcviIxItmOdHjE_JQx7R4WDVC"],"tmc_config_id":509}`)
 
 	//初始化结果类型
 	var getResponse DefaultResponse = &pddddkoauthrppromurlgenerate.Response{}
