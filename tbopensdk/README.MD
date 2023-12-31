@@ -1,10 +1,17 @@
 ## api列表
-----
+--
 - [taobao.ju.items.search( 聚划算商品搜索接口 )](http://open.taobao.com/api.htm?docId=28762&docType=2&scopeId=11655)
 - [taobao.sellercats.list.get( 获取前台展示的店铺内卖家自定义商品类目 )](http://open.taobao.com/api.htm?docId=65&docType=2&scopeId=386)
 - [taobao.shopcats.list.get( 获取前台展示的店铺类目 )](http://open.taobao.com/api.htm?docId=64&docType=2&scopeId=386)
 - [taobao.shop.getbytitle( 根据店铺名称获取店铺信息 )](http://open.taobao.com/api.htm?docId=24852&docType=2&scopeId=386)
+- [taobao.tbk.dg.vegas.tlj.report( 淘宝客-推广者-淘礼金效果数据 )](https://open.taobao.com/api.htm?docId=58736&docType=2)
+- [taobao.tbk.dg.vegas.tlj.stop( 淘宝客-推广者-淘礼金暂停发放 )](https://open.taobao.com/api.htm?docId=58713&docType=2)
+- [taobao.tbk.item.click.extract( 淘宝客-公用-链接解析出商品id )](https://open.taobao.com/api.htm?docId=43873&docType=2&scopeId=16401)
+- [taobao.tbk.itemid.private.transform( 淘宝客-推广者-商品id转化（二方）（专有） )](https://open.taobao.com/api.htm?docId=64171&docType=2&scopeId=27337)
+- [taobao.tbk.sc.adzone.create( 淘宝客-服务商-创建推广者位 )](https://open.taobao.com/api.htm?docId=34751&docType=2&scopeId=13878)
+- [taobao.tbk.sc.general.link.convert( 淘宝客-服务商-万能转链 )](https://open.taobao.com/api.htm?docId=65412&docType=2&scopeId=28320)
 - [taobao.tbk.sc.relation.refund( 淘宝客-服务商-维权退款订单查询 )](https://open.taobao.com/api.htm?docId=43874&docType=2&scopeId=16322)
+- [taobao.tbk.sc.tpwd.convert( 淘宝客-服务商-淘口令解析&转链 )](https://open.taobao.com/api.htm?docId=43873&docType=2&scopeId=16401)
 - [taobao.tbk.activitylink.get( 淘宝联盟官方活动推广API-媒体 )](http://open.taobao.com/api.htm?docId=41918&docType=2&scopeId=11655)
 - [taobao.tbk.coupon.get( 阿里妈妈推广券信息查询 )](http://open.taobao.com/api.htm?docId=31106&docType=2&scopeId=11655)
 - [taobao.tbk.dg.item.coupon.get( 好券清单API【导购】 )](http://open.taobao.com/api.htm?docId=29821&docType=2&scopeId=11655)

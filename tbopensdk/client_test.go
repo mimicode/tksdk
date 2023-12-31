@@ -5,6 +5,7 @@ import (
 	"fmt"
 	"github.com/mimicode/tksdk/tbopensdk/response/taobaotbkitemidprivatetransform"
 	"github.com/mimicode/tksdk/tbopensdk/response/taobaotbkscadzonecreate"
+	"github.com/mimicode/tksdk/tbopensdk/response/taobaotbkscgenerallinkconvert"
 	"io/ioutil"
 	"os"
 	"strings"
@@ -1185,6 +1186,44 @@ func Test_TbkScAdzoneCreateRequest(t *testing.T) {
 		t.Log(err)
 	} else {
 		result := getResponse.(*taobaotbkscadzonecreate.Response)
+
+		fmt.Println(result.Body)
+
+	}
+}
+
+func Test_TbkScGeneralLinkConvertRequest(t *testing.T) {
+
+	//初始化TopClient
+	client := &TopClient{}
+	client.Init(appKey, appSecret, sessionKey)
+
+	//初始化请求接口信息
+	getRequest := &request2.TbkScGeneralLinkConvertRequest{}
+	getRequest.AddParameter("site_id", pid.SiteID)
+	getRequest.AddParameter("adzone_id", pid.AdzoneID)
+	getRequest.AddParameter("relation_id", pid.RelationID)
+	//1-动态ID转链场景，2-消费者比价场景
+	getRequest.AddParameter("biz_scene_id", "1")
+	//1-自购省，2-推广赚（代理模式专属ID，代理模式必填，其它模式不用填写本字段）
+	getRequest.AddParameter("promotion_type", "1")
+	//卖家ID列表,多个时使用英文逗号拼接传入
+	getRequest.AddParameter("seller_id_list", "2215954685411,216174575401109650")
+	//商品ID列表,多个时使用英文逗号拼接传入
+	getRequest.AddParameter("item_id_list", "v6vdBWxuZt6rAb6OAVIAQmijUe-OJzVevmuZGJaJkDMT89,qoDNKWVH2t4XY0rNq8igNdspU0-3qWJxPGu0vz5JB4wtk")
+	//会场ID列表,多个时使用英文逗号拼接传入
+	getRequest.AddParameter("page_id_list", "20150318020006422,20150318020000462")
+	//物料列表，可以为url或淘口令,多个时使用英文逗号拼接传入
+	getRequest.AddParameter("material_list", "https://s.click.taobao.com/dVB2Q3u,89( CZ3031 9TO3WTxYHoz):/")
+
+	//初始化结果类型
+	var getResponse DefaultResponse = &taobaotbkscgenerallinkconvert.Response{}
+	//执行请求接口得到结果
+	err := client.Exec(getRequest, getResponse)
+	if err != nil {
+		t.Log(err)
+	} else {
+		result := getResponse.(*taobaotbkscgenerallinkconvert.Response)
 
 		fmt.Println(result.Body)
 
