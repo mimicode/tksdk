@@ -92,6 +92,40 @@ type MapDatum struct {
 	BybtInfo               BybtInfo           `json:"bybt_info"`
 	TopnInfo               TopnInfo           `json:"topn_info"`
 	MaifanPromotion        MaifanPromotionDTO `json:"maifan_promotion"`
+	CouponStartFee         string             `json:"coupon_start_fee"`
+	CouponAmount           string             `json:"coupon_amount"`
+	CouponStartTime        string             `json:"coupon_start_time"`
+	CouponEndTime          string             `json:"coupon_end_time"`
+	RealPostFee            string             `json:"real_post_fee"`
+	LockRateStartTime      int64              `json:"lock_rate_start_time"`
+	LockRateEndTime        int64              `json:"lock_rate_end_time"`
+	CouponShareUrl         string             `json:"coupon_share_url"`
+	Oetime                 string             `json:"oetime"`
+	Ostime                 string             `json:"ostime"`
+	JddNum                 int64              `json:"jdd_num"`
+	JddPrice               string             `json:"jdd_price"`
+	UvSumPreSale           int64              `json:"uv_sum_pre_sale"`
+	Nick                   int64              `json:"nick"`
+	OrigPrice              string             `json:"orig_price"`
+	TotalStock             int64              `json:"total_stock"`
+	SellNum                int64              `json:"sell_num"`
+	Stock                  int64              `json:"stock"`
+	TmallPlayActivityInfo  string             `json:"tmall_play_activity_info"`
+	SpCampaignList         SpCampaignList     `json:"sp_campaign_list"`
+	ItemSearchType         string             `json:"item_search_type"`
+}
+
+type SpCampaignList struct {
+	SpCampaign []SpCampaign `json:"sp_campaign"`
+}
+
+type SpCampaign struct {
+	SpCid        string `json:"sp_cid"`
+	SpName       string `json:"sp_name"`
+	SpRate       string `json:"sp_rate"`
+	SpLockStatus string `json:"sp_lock_status"`
+	SpApplyLink  string `json:"sp_apply_link"`
+	SpStatus     string `json:"sp_status"`
 }
 
 type SmallImages struct {
