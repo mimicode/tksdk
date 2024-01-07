@@ -105,7 +105,7 @@ type MapDatum struct {
 	JddNum                 int64              `json:"jdd_num"`
 	JddPrice               string             `json:"jdd_price"`
 	UvSumPreSale           int64              `json:"uv_sum_pre_sale"`
-	Nick                   int64              `json:"nick"`
+	Nick                   string             `json:"nick"`
 	OrigPrice              string             `json:"orig_price"`
 	TotalStock             int64              `json:"total_stock"`
 	SellNum                int64              `json:"sell_num"`
