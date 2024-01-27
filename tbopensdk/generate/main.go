@@ -647,6 +647,53 @@ func createAPIS() {
 		},
 	}
 
+	request = ApiInfo{
+		APIDESC:    "taobao.tbk.sc.material.optional.upgrade( 淘宝客-服务商-物料搜索升级版 )",
+		APIORGNAME: "taobao.tbk.sc.material.optional.upgrade",
+		APIURL:     "https://open.taobao.com/api.htm?docId=64758&docType=2&scopeId=13991",
+		CHECKFIELDS: []CheckField{
+			{
+				FieldName:         "site_id",
+				FieldNotNullCheck: true,
+			},
+			{
+				FieldName:         "adzone_id",
+				FieldNotNullCheck: true,
+			},
+		},
+	}
+	request = ApiInfo{
+		APIDESC:    "taobao.tbk.sc.material.recommend( 淘宝客-服务商-物料精选升级版 )",
+		APIORGNAME: "taobao.tbk.sc.material.recommend",
+		APIURL:     "https://open.taobao.com/api.htm?docId=62191&docType=2&scopeId=16287",
+		CHECKFIELDS: []CheckField{
+			{
+				FieldName:         "site_id",
+				FieldNotNullCheck: true,
+			},
+			{
+				FieldName:         "adzone_id",
+				FieldNotNullCheck: true,
+			},
+			{
+				FieldName:         "material_id",
+				FieldNotNullCheck: true,
+			},
+		},
+	}
+
+	request = ApiInfo{
+		APIDESC:    "taobao.tbk.item.info.upgrade.get( 淘宝客-公用-淘宝客商品详情查询升级版（简易版） )",
+		APIORGNAME: "taobao.tbk.item.info.upgrade.get",
+		APIURL:     "https://open.taobao.com/api.htm?docId=64763&docType=2&scopeId=16189",
+		CHECKFIELDS: []CheckField{
+			{
+				FieldName:         "item_id",
+				FieldNotNullCheck: true,
+			},
+		},
+	}
+
 	//request = ApiInfo{
 	//	APIDESC:    "taobao.tbk.sc.relation.refund( 淘宝客-服务商-维权退款订单查询 )",
 	//	APIORGNAME: "taobao.tbk.sc.relation.refund",

@@ -4,8 +4,11 @@ import (
 	"encoding/json"
 	"fmt"
 	"github.com/mimicode/tksdk/tbopensdk/response/taobaotbkitemidprivatetransform"
+	"github.com/mimicode/tksdk/tbopensdk/response/taobaotbkiteminfoupgradeget"
 	"github.com/mimicode/tksdk/tbopensdk/response/taobaotbkscadzonecreate"
 	"github.com/mimicode/tksdk/tbopensdk/response/taobaotbkscgenerallinkconvert"
+	"github.com/mimicode/tksdk/tbopensdk/response/taobaotbkscmaterialoptionalupgrade"
+	"github.com/mimicode/tksdk/tbopensdk/response/taobaotbkscmaterialrecommend"
 	"io/ioutil"
 	"os"
 	"strings"
@@ -205,6 +208,98 @@ func TestTbkScMaterialOptional(t *testing.T) {
 		result := getResponse.(*tbkscmaterialoptional.Response)
 
 		fmt.Println(result.TbkScMaterialOptionalResult)
+
+	}
+}
+
+func TestTbkScMaterialOptionalUpgradeRequest(t *testing.T) {
+
+	//初始化TopClient
+	client := &TopClient{}
+	client.Init(appKey, appSecret, sessionKey)
+
+	//初始化请求接口信息
+	getRequest := &request2.TbkScMaterialOptionalUpgradeRequest{}
+	getRequest.AddParameter("adzone_id", pid.AdzoneID)
+	getRequest.AddParameter("site_id", pid.SiteID)
+
+	getRequest.AddParameter("q", "女装")
+	//getRequest.AddParameter("q", "https://chaoshi.detail.tmall.com/item.htm?spm=a219t.11817059.0.d4f75841e.5c9b6a155mzkfI&id=611759287561&scm=null&pvid=726930f8-71df-4d16-8a1f-e9285ab71520&app_pvid=59590_33.39.137.63_702_1661985515992&ptl=floorId:27796;originalFloorId:27796;pvid:726930f8-71df-4d16-8a1f-e9285ab71520;app_pvid:59590_33.39.137.63_702_1661985515992&sku_properties=147956252:75366083")
+
+	getRequest.AddParameter("platform", "1")
+	getRequest.AddParameter("page_no", "1")
+	getRequest.AddParameter("page_size", "100")
+	getRequest.AddParameter("biz_scene_id", "1")
+	getRequest.AddParameter("get_topn_rate", "1")
+
+	//初始化结果类型
+	var getResponse DefaultResponse = &taobaotbkscmaterialoptionalupgrade.Response{}
+	//执行请求接口得到结果
+	err := client.Exec(getRequest, getResponse)
+	if err != nil {
+		t.Log(err)
+	} else {
+		result := getResponse.(*taobaotbkscmaterialoptionalupgrade.Response)
+
+		fmt.Println(result.TbkScMaterialOptionalUpgradeResponse)
+
+	}
+}
+
+func TestTbkScMaterialRecommendRequest(t *testing.T) {
+
+	//初始化TopClient
+	client := &TopClient{}
+	client.Init(appKey, appSecret, sessionKey)
+
+	//初始化请求接口信息
+	getRequest := &request2.TbkScMaterialRecommendRequest{}
+	getRequest.AddParameter("adzone_id", pid.AdzoneID)
+	getRequest.AddParameter("site_id", pid.SiteID)
+	//https://market.m.taobao.com/app/qn/toutiao-new/index-pc.html#/detail/10628875?_k=gpov9a
+	getRequest.AddParameter("material_id", "13256")
+	//相似推荐
+	//getRequest.AddParameter("item_id", "djyaQq3TZt3OdY5dDPiDbJf5U3-5oOaBnuW0GvPpMKcNO")
+	getRequest.AddParameter("item_id", "VrXqA4rs6twGnV2nozi79qseUV-m3reOPu7bmJOnAMUYg")
+	//getRequest.AddParameter("relation_id", "")
+
+	//初始化结果类型
+	var getResponse DefaultResponse = &taobaotbkscmaterialrecommend.Response{}
+	//执行请求接口得到结果
+	err := client.Exec(getRequest, getResponse)
+	if err != nil {
+		t.Log(err)
+	} else {
+		result := getResponse.(*taobaotbkscmaterialrecommend.Response)
+
+		fmt.Println(result.TbkScMaterialRecommendResponse)
+
+	}
+}
+
+func TestTbkItemInfoUpgradeGetRequest(t *testing.T) {
+
+	//初始化TopClient
+	client := &TopClient{}
+	client.Init(appKey, appSecret, sessionKey)
+
+	//初始化请求接口信息
+	getRequest := &request2.TbkItemInfoUpgradeGetRequest{}
+
+	getRequest.AddParameter("item_id", "VrXqA4rs6twGnV2nozi79qseUV-m3reOPu7bmJOnAMUYg")
+	getRequest.AddParameter("biz_scene_id", "1")
+	//getRequest.AddParameter("relation_id", "")
+
+	//初始化结果类型
+	var getResponse DefaultResponse = &taobaotbkiteminfoupgradeget.Response{}
+	//执行请求接口得到结果
+	err := client.Exec(getRequest, getResponse)
+	if err != nil {
+		t.Log(err)
+	} else {
+		result := getResponse.(*taobaotbkiteminfoupgradeget.Response)
+
+		fmt.Println(result.TbkItemInfoUpgradeGetResponse)
 
 	}
 }
