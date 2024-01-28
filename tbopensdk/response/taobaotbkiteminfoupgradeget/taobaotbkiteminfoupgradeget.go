@@ -65,6 +65,9 @@ type ItemBasicInfo struct {
 	ShortTitle           string `json:"short_title"`
 	WhiteImage           string `json:"white_image"`
 	SellerID             int64  `json:"seller_id"`
+	SmallImages          struct {
+		String []string `json:"string"`
+	} `json:"small_images"`
 }
 
 type PresaleInfo struct {
