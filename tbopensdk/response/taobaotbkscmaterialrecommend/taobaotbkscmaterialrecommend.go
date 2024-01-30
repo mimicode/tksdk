@@ -2,6 +2,7 @@ package taobaotbkscmaterialrecommend
 
 import (
 	"encoding/json"
+
 	"github.com/mimicode/tksdk/tbopensdk/response"
 )
 
@@ -61,21 +62,28 @@ type FavoritesDetail struct {
 	FavoritesTitle string `json:"favorites_title"`
 }
 
+type SmallImages struct {
+	String []string `json:"string"`
+}
+
 type ItemBasicInfo struct {
-	Title                string `json:"title"`
-	ShortTitle           string `json:"short_title"`
-	PictURL              string `json:"pict_url"`
-	WhiteImage           string `json:"white_image"`
-	LevelOneCategoryID   int64  `json:"level_one_category_id"`
-	LevelOneCategoryName string `json:"level_one_category_name"`
-	CategoryID           int64  `json:"category_id"`
-	CategoryName         string `json:"category_name"`
-	SellerID             int64  `json:"seller_id"`
-	UserType             int64  `json:"user_type"`
-	ShopTitle            string `json:"shop_title"`
-	Volume               int64  `json:"volume"`
-	SubTitle             string `json:"sub_title"`
-	BrandName            string `json:"brand_name"`
+	Title                string      `json:"title"`
+	ShortTitle           string      `json:"short_title"`
+	PictURL              string      `json:"pict_url"`
+	WhiteImage           string      `json:"white_image"`
+	LevelOneCategoryID   int64       `json:"level_one_category_id"`
+	CategoryID           int64       `json:"category_id"`
+	CategoryName         string      `json:"category_name"`
+	SellerID             int64       `json:"seller_id"`
+	UserType             int64       `json:"user_type"`
+	ShopTitle            string      `json:"shop_title"`
+	Volume               int64       `json:"volume"`
+	SubTitle             string      `json:"sub_title"`
+	BrandName            string      `json:"brand_name"`
+	LevelOneCategoryName string      `json:"level_one_category_name"`
+	TkTotalSales         string      `json:"tk_total_sales"`
+	Provcity             string      `json:"provcity"`
+	SmallImages          SmallImages `json:"small_images"`
 }
 
 type PresaleInfo struct {
@@ -97,8 +105,8 @@ type PricePromotionInfo struct {
 	PromotionTagList                PromotionTagList                `json:"promotion_tag_list"`
 	PredictRoundingUpPrice          string                          `json:"predict_rounding_up_price"`
 	PredictRoundingUpPriceDesc      string                          `json:"predict_rounding_up_price_desc"`
-	MorePromotionList               MorePromotionList               `json:"more_promotion_list"`
 	PredictRoundingUpPathList       PredictRoundingUpPathList       `json:"predict_rounding_up_path_list"`
+	MorePromotionList               MorePromotionList               `json:"more_promotion_list"`
 }
 
 type FinalPromotionPathList struct {
@@ -141,14 +149,17 @@ type PromotionTagMapDatum struct {
 
 type PublishInfo struct {
 	IncomeRate                   string         `json:"income_rate"`
+	TopnInfo                     TopnInfo       `json:"topn_info"`
 	ClickURL                     string         `json:"click_url"`
 	CouponShareURL               string         `json:"coupon_share_url"`
-	SPCampaignList               SPCampaignList `json:"sp_campaign_list"`
 	FutureActivityCommissionRate string         `json:"future_activity_commission_rate"`
 	FutureActivityTime           string         `json:"future_activity_time"`
-	IncomeInfo                   IncomeInfo     `json:"income_info"`
+	SPCampaignList               SPCampaignList `json:"sp_campaign_list"`
+	RankPageURL                  string         `json:"rank_page_url"`
+	CommissionType               string         `json:"commission_type"`
 	CPARewardType                string         `json:"cpa_reward_type"`
 	CPARewardAmount              string         `json:"cpa_reward_amount"`
+	IncomeInfo                   IncomeInfo     `json:"income_info"`
 }
 
 type IncomeInfo struct {

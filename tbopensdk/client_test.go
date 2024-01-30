@@ -3,16 +3,17 @@ package tbopensdk
 import (
 	"encoding/json"
 	"fmt"
+	"io/ioutil"
+	"os"
+	"strings"
+	"testing"
+
 	"github.com/mimicode/tksdk/tbopensdk/response/taobaotbkitemidprivatetransform"
 	"github.com/mimicode/tksdk/tbopensdk/response/taobaotbkiteminfoupgradeget"
 	"github.com/mimicode/tksdk/tbopensdk/response/taobaotbkscadzonecreate"
 	"github.com/mimicode/tksdk/tbopensdk/response/taobaotbkscgenerallinkconvert"
 	"github.com/mimicode/tksdk/tbopensdk/response/taobaotbkscmaterialoptionalupgrade"
 	"github.com/mimicode/tksdk/tbopensdk/response/taobaotbkscmaterialrecommend"
-	"io/ioutil"
-	"os"
-	"strings"
-	"testing"
 
 	request2 "github.com/mimicode/tksdk/tbopensdk/request"
 	"github.com/mimicode/tksdk/tbopensdk/response/juitemssearch"
@@ -230,7 +231,7 @@ func TestTbkScMaterialOptionalUpgradeRequest(t *testing.T) {
 	getRequest.AddParameter("page_no", "1")
 	getRequest.AddParameter("page_size", "100")
 	getRequest.AddParameter("biz_scene_id", "1")
-	getRequest.AddParameter("get_topn_rate", "1")
+	// getRequest.AddParameter("get_topn_rate", "1")
 
 	//初始化结果类型
 	var getResponse DefaultResponse = &taobaotbkscmaterialoptionalupgrade.Response{}
@@ -241,7 +242,7 @@ func TestTbkScMaterialOptionalUpgradeRequest(t *testing.T) {
 	} else {
 		result := getResponse.(*taobaotbkscmaterialoptionalupgrade.Response)
 
-		fmt.Println(result.TbkScMaterialOptionalUpgradeResponse)
+		fmt.Println(result.Body)
 
 	}
 }
@@ -272,7 +273,7 @@ func TestTbkScMaterialRecommendRequest(t *testing.T) {
 	} else {
 		result := getResponse.(*taobaotbkscmaterialrecommend.Response)
 
-		fmt.Println(result.TbkScMaterialRecommendResponse)
+		fmt.Println(result.Body)
 
 	}
 }

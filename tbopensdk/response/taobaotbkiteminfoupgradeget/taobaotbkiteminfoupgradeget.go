@@ -2,6 +2,7 @@ package taobaotbkiteminfoupgradeget
 
 import (
 	"encoding/json"
+
 	"github.com/mimicode/tksdk/tbopensdk/response"
 )
 
@@ -80,15 +81,25 @@ type PresaleInfo struct {
 }
 
 type PricePromotionInfo struct {
-	ReservePrice               string                 `json:"reserve_price"`
-	ZkFinalPrice               string                 `json:"zk_final_price"`
-	FinalPromotionPrice        string                 `json:"final_promotion_price"`
-	FinalPromotionPathList     FinalPromotionPathList `json:"final_promotion_path_list"`
-	PromotionTagList           PromotionTagList       `json:"promotion_tag_list"`
-	PredictRoundingUpPrice     string                 `json:"predict_rounding_up_price"`
-	PredictRoundingUpPriceDesc string                 `json:"predict_rounding_up_price_desc"`
-	MorePromotionList          MorePromotionList      `json:"more_promotion_list"`
-	ActivityTagList            ActivityTagList        `json:"activity_tag_list"`
+	ReservePrice               string                    `json:"reserve_price"`
+	ZkFinalPrice               string                    `json:"zk_final_price"`
+	FinalPromotionPrice        string                    `json:"final_promotion_price"`
+	FinalPromotionPathList     FinalPromotionPathList    `json:"final_promotion_path_list"`
+	PromotionTagList           PromotionTagList          `json:"promotion_tag_list"`
+	PredictRoundingUpPrice     string                    `json:"predict_rounding_up_price"`
+	PredictRoundingUpPriceDesc string                    `json:"predict_rounding_up_price_desc"`
+	PredictRoundingUpPathList  PredictRoundingUpPathList `json:"predict_rounding_up_path_list"`
+	MorePromotionList          MorePromotionList         `json:"more_promotion_list"`
+	ActivityTagList            ActivityTagList           `json:"activity_tag_list"`
+}
+
+type PredictRoundingUpPathList struct {
+	PredictRoundingUpPathMapData []PredictRoundingUpPathMapDatum `json:"predict_rounding_up_path_map_data"`
+}
+
+type PredictRoundingUpPathMapDatum struct {
+	PromotionDesc  string `json:"promotion_desc"`
+	PromotionTitle string `json:"promotion_title"`
 }
 
 type ActivityTagList struct {
@@ -109,6 +120,7 @@ type MapDatum struct {
 	PromotionFee       *string `json:"promotion_fee,omitempty"`
 	PromotionStartTime string  `json:"promotion_start_time"`
 	PromotionEndTime   string  `json:"promotion_end_time"`
+	PromotionID        *string `json:"promotion_id,omitempty"`
 }
 
 type MorePromotionList struct {
@@ -120,8 +132,38 @@ type PromotionTagList struct {
 }
 
 type PublishInfo struct {
-	IncomeRate string   `json:"income_rate"`
-	TopnInfo   TopnInfo `json:"topn_info"`
+	IncomeRate                   string         `json:"income_rate"`
+	TopnInfo                     TopnInfo       `json:"topn_info"`
+	ClickURL                     string         `json:"click_url"`
+	CouponShareURL               string         `json:"coupon_share_url"`
+	FutureActivityCommissionRate string         `json:"future_activity_commission_rate"`
+	FutureActivityTime           string         `json:"future_activity_time"`
+	SPCampaignList               SPCampaignList `json:"sp_campaign_list"`
+	RankPageURL                  string         `json:"rank_page_url"`
+	CommissionType               string         `json:"commission_type"`
+	CPARewardType                string         `json:"cpa_reward_type"`
+	CPARewardAmount              string         `json:"cpa_reward_amount"`
+	IncomeInfo                   IncomeInfo     `json:"income_info"`
+}
+
+type SPCampaignList struct {
+	SPCampaign []SPCampaign `json:"sp_campaign"`
+}
+
+type SPCampaign struct {
+	SPCid        string `json:"sp_cid"`
+	SPName       string `json:"sp_name"`
+	SPRate       string `json:"sp_rate"`
+	SPLockStatus string `json:"sp_lock_status"`
+	SPApplyLink  string `json:"sp_apply_link"`
+	SPStatus     string `json:"sp_status"`
+}
+
+type IncomeInfo struct {
+	CommissionAmount string `json:"commission_amount"`
+	CommissionRate   string `json:"commission_rate"`
+	SubsidyAmount    string `json:"subsidy_amount"`
+	SubsidyRate      string `json:"subsidy_rate"`
 }
 
 type TopnInfo struct {

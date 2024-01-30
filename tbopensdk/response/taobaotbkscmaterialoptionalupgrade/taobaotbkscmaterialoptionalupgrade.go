@@ -2,6 +2,7 @@ package taobaotbkscmaterialoptionalupgrade
 
 import (
 	"encoding/json"
+
 	"github.com/mimicode/tksdk/tbopensdk/response"
 )
 
@@ -47,23 +48,28 @@ type MapDatum struct {
 	ISVMktid           string             `json:"isv_mktid"`
 }
 
+type SmallImages struct {
+	String []string `json:"string"`
+}
+
 type ItemBasicInfo struct {
-	Title                string `json:"title"`
-	ShortTitle           string `json:"short_title"`
-	PictURL              string `json:"pict_url"`
-	WhiteImage           string `json:"white_image"`
-	LevelOneCategoryID   int64  `json:"level_one_category_id"`
-	CategoryID           int64  `json:"category_id"`
-	CategoryName         string `json:"category_name"`
-	SellerID             int64  `json:"seller_id"`
-	UserType             int64  `json:"user_type"`
-	ShopTitle            string `json:"shop_title"`
-	Volume               int64  `json:"volume"`
-	SubTitle             string `json:"sub_title"`
-	BrandName            string `json:"brand_name"`
-	LevelOneCategoryName string `json:"level_one_category_name"`
-	TkTotalSales         string `json:"tk_total_sales"`
-	Provcity             string `json:"provcity"`
+	Title                string      `json:"title"`
+	ShortTitle           string      `json:"short_title"`
+	PictURL              string      `json:"pict_url"`
+	WhiteImage           string      `json:"white_image"`
+	LevelOneCategoryID   int64       `json:"level_one_category_id"`
+	CategoryID           int64       `json:"category_id"`
+	CategoryName         string      `json:"category_name"`
+	SellerID             int64       `json:"seller_id"`
+	UserType             int64       `json:"user_type"`
+	ShopTitle            string      `json:"shop_title"`
+	Volume               int64       `json:"volume"`
+	SubTitle             string      `json:"sub_title"`
+	BrandName            string      `json:"brand_name"`
+	LevelOneCategoryName string      `json:"level_one_category_name"`
+	TkTotalSales         string      `json:"tk_total_sales"`
+	Provcity             string      `json:"provcity"`
+	SmallImages          SmallImages `json:"small_images"`
 }
 
 type MgcInfo struct {
@@ -87,6 +93,7 @@ type PricePromotionInfo struct {
 	FinalPromotionPathList          FinalPromotionPathList          `json:"final_promotion_path_list"`
 	PredictRoundingUpPrice          string                          `json:"predict_rounding_up_price"`
 	PredictRoundingUpPriceDesc      string                          `json:"predict_rounding_up_price_desc"`
+	PredictRoundingUpPathList       PredictRoundingUpPathList       `json:"predict_rounding_up_path_list"`
 	MorePromotionList               MorePromotionList               `json:"more_promotion_list"`
 	ReservePrice                    string                          `json:"reserve_price"`
 	ZkFinalPrice                    string                          `json:"zk_final_price"`
@@ -94,6 +101,15 @@ type PricePromotionInfo struct {
 	FutureActivityPromotionPrice    string                          `json:"future_activity_promotion_price"`
 	FutureActivityPromotionPathList FutureActivityPromotionPathList `json:"future_activity_promotion_path_list"`
 	PromotionTagList                PromotionTagList                `json:"promotion_tag_list"`
+}
+
+type PredictRoundingUpPathList struct {
+	PredictRoundingUpPathMapData []PredictRoundingUpPathMapDatum `json:"predict_rounding_up_path_map_data"`
+}
+
+type PredictRoundingUpPathMapDatum struct {
+	PromotionDesc  string `json:"promotion_desc"`
+	PromotionTitle string `json:"promotion_title"`
 }
 
 type FinalPromotionPathList struct {
@@ -137,6 +153,14 @@ type PublishInfo struct {
 	CommissionType               string         `json:"commission_type"`
 	CPARewardType                string         `json:"cpa_reward_type"`
 	CPARewardAmount              string         `json:"cpa_reward_amount"`
+	IncomeInfo                   IncomeInfo     `json:"income_info"`
+}
+
+type IncomeInfo struct {
+	CommissionAmount string `json:"commission_amount"`
+	CommissionRate   string `json:"commission_rate"`
+	SubsidyAmount    string `json:"subsidy_amount"`
+	SubsidyRate      string `json:"subsidy_rate"`
 }
 
 type SPCampaignList struct {
