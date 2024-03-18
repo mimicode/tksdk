@@ -3,6 +3,7 @@ package jdopensdk
 import (
 	"encoding/json"
 	"fmt"
+	"github.com/mimicode/tksdk/jdopensdk/response/jdunionopengoodsmaterialquery"
 	"io/ioutil"
 	"os"
 	"testing"
@@ -71,7 +72,7 @@ func TestJdUnionOpenGoodsJingfenQueryRequest(t *testing.T) {
 func TestJdUnionOpenPromotionCommonGetRequest(t *testing.T) {
 	client := GetClient()
 	getRequest := &request.JdUnionOpenPromotionCommonGetRequest{}
-	getRequest.AddParameter("360buy_param_json", `{"promotionCodeReq":{"materialId":"https://item.jd.com/10030840282202.html","siteId":"223997188","positionId":"1631770896","subUnionId":"user_1","couponUrl":"","giftCouponKey":"","ext1":"user_1"}}`)
+	getRequest.AddParameter("360buy_param_json", `{"promotionCodeReq":{"materialId":"https://item.jd.com/100019386660.html","siteId":"223997188","positionId":"1631770896","subUnionId":"user_1","couponUrl":"","giftCouponKey":"","ext1":"user_1"}}`)
 	var getResponse DefaultResponse = &jdunionopenpromotioncommonget.Response{}
 	if err := client.Exec(getRequest, getResponse); err != nil {
 		fmt.Println(err)
@@ -267,6 +268,28 @@ func TestJdUnionOpenGoodsBigfieldQueryRequest(t *testing.T) {
 		fmt.Println(err)
 	} else {
 		commonGetResponse := getResponse.(*jdunionopengoodsbigfieldquery.Response)
+		fmt.Println(commonGetResponse.IsError())
+		fmt.Println(commonGetResponse.Body)
+	}
+}
+
+func TestJdUnionOpenGoodsMaterialQueryRequest(t *testing.T) {
+	client := GetClient()
+	getRequest := &request.JdUnionOpenGoodsMaterialQueryRequest{}
+	var param = map[string]interface{}{
+		"goodsReq": map[string]interface{}{
+			"eliteId": 1,
+			//"itemIds": []interface{}{"VgDXlT9hVVVmDDiCbofTFhV7_VIfTFhV7VVyGGPNs"},
+			//"sceneId": 1,
+		},
+	}
+	marshal, _ := json.Marshal(param)
+	getRequest.AddParameter("360buy_param_json", string(marshal))
+	var getResponse DefaultResponse = &jdunionopengoodsmaterialquery.Response{}
+	if err := client.Exec(getRequest, getResponse); err != nil {
+		fmt.Println(err)
+	} else {
+		commonGetResponse := getResponse.(*jdunionopengoodsmaterialquery.Response)
 		fmt.Println(commonGetResponse.IsError())
 		fmt.Println(commonGetResponse.Body)
 	}

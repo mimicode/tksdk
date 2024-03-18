@@ -9,7 +9,7 @@ import (
 // Response jd.union.open.goods.material.query 猜你喜欢商品推荐
 type Response struct {
 	response.TopResponse
-	Responce Responce `json:"jd_union_open_goods_material_query_response"`
+	Responce Responce `json:"jd_union_open_goods_material_query_responce"`
 }
 
 // WrapResult 解析输出结果
@@ -50,272 +50,123 @@ type Responce struct {
 // QueryResult 具体内容
 type QueryResult struct {
 	Code       int64  `json:"code"`
-	Data       Data   `json:"data"`
+	Data       []Data `json:"data"`
 	Message    string `json:"message"`
-	TotalCount string `json:"totalCount"`
 	RequestID  string `json:"requestId"`
-}
-
-type Data struct {
-	MaterialGoodsResp MaterialGoodsResp `json:"materialGoodsResp"`
-}
-
-type MaterialGoodsResp struct {
-	BookInfo               BookInfo                                `json:"bookInfo"`
-	MaterialURL            string                                  `json:"materialUrl"`
-	ImageInfo              ImageInfo                               `json:"imageInfo"`
-	PinGouInfo             PinGouInfo                              `json:"pinGouInfo"`
-	ForbidTypes            []int64                                 `json:"forbidTypes"`
-	ResourceInfo           ResourceInfo                            `json:"resourceInfo"`
-	SkuLabelInfo           SkuLabelInfo                            `json:"skuLabelInfo"`
-	AddCartPrice           string                                  `json:"addCartPrice"`
-	ActivityCardInfo       ActivityCardInfo                        `json:"activityCardInfo"`
-	SkuName                string                                  `json:"skuName"`
-	PriceInfo              PriceInfo                               `json:"priceInfo"`
-	IsOversea              string                                  `json:"isOversea"`
-	Spuid                  string                                  `json:"spuid"`
-	CommissionInfo         CommissionInfo                          `json:"commissionInfo"`
-	SkuID                  string                                  `json:"skuId"`
-	BrandCode              string                                  `json:"brandCode"`
-	Owner                  string                                  `json:"owner"`
-	KaAdowner              string                                  `json:"kaAdowner"`
-	ShopInfo               ShopInfo                                `json:"shopInfo"`
-	Comments               string                                  `json:"comments"`
-	SeckillInfo            SeckillInfo                             `json:"seckillInfo"`
-	CouponInfo             CouponInfo                              `json:"couponInfo"`
-	PreSaleInfo            PreSaleInfo                             `json:"preSaleInfo"`
-	CompanyType            string                                  `json:"companyType"`
-	VideoInfo              VideoInfo                               `json:"videoInfo"`
-	SecondPriceInfoList    SecondPriceInfoList                     `json:"secondPriceInfoList"`
-	DeliveryType           string                                  `json:"deliveryType"`
-	GoodCommentsShare      string                                  `json:"goodCommentsShare"`
-	PromotionInfo          PromotionInfo                           `json:"promotionInfo"`
-	CategoryInfo           CategoryInfo                            `json:"categoryInfo"`
-	InOrderCount30DaysSku  string                                  `json:"inOrderCount30DaysSku"`
-	InOrderCount30Days     string                                  `json:"inOrderCount30Days"`
-	ReserveInfo            ReserveInfo                             `json:"reserveInfo"`
-	ItemID                 string                                  `json:"itemId"`
-	PurchasePriceInfo      PurchasePriceInfo                       `json:"purchasePriceInfo"`
-	PromotionLabelInfoList MaterialGoodsRespPromotionLabelInfoList `json:"promotionLabelInfoList"`
-	IsHot                  string                                  `json:"isHot"`
-	JxFlags                []int64                                 `json:"jxFlags"`
-}
-
-type ActivityCardInfo struct {
-	Amount       string `json:"amount"`
-	ExpireDay    string `json:"expireDay"`
-	ActivityType string `json:"activityType"`
-}
-
-type BookInfo struct {
-	Isbn string `json:"isbn"`
+	TotalCount int64  `json:"totalCount"`
 }
 
 type CategoryInfo struct {
+	Cid1     int    `json:"cid1"`
 	Cid1Name string `json:"cid1Name"`
+	Cid2     int    `json:"cid2"`
 	Cid2Name string `json:"cid2Name"`
-	Cid2     string `json:"cid2"`
+	Cid3     int    `json:"cid3"`
 	Cid3Name string `json:"cid3Name"`
-	Cid3     string `json:"cid3"`
-	Cid1     string `json:"cid1"`
 }
 
 type CommissionInfo struct {
-	CommissionShare     string `json:"commissionShare"`
-	PlusCommissionShare string `json:"plusCommissionShare"`
-	Commission          string `json:"commission"`
-	CouponCommission    string `json:"couponCommission"`
+	Commission          float64 `json:"commission"`
+	CommissionShare     float64 `json:"commissionShare"`
+	CouponCommission    float64 `json:"couponCommission"`
+	PlusCommissionShare float64 `json:"plusCommissionShare"`
+}
+
+type CouponList struct {
+	BindType     int     `json:"bindType"`
+	CouponStyle  int     `json:"couponStyle"`
+	Discount     float64 `json:"discount"`
+	GetEndTime   int64   `json:"getEndTime"`
+	GetStartTime int64   `json:"getStartTime"`
+	IsBest       int     `json:"isBest"`
+	Link         string  `json:"link"`
+	PlatformType int     `json:"platformType"`
+	Quota        float64 `json:"quota"`
+	UseEndTime   int64   `json:"useEndTime"`
+	UseStartTime int64   `json:"useStartTime"`
 }
 
 type CouponInfo struct {
-	CouponList CouponInfoCouponList `json:"couponList"`
+	CouponList []CouponList `json:"couponList"`
 }
 
-type CouponInfoCouponList struct {
-	Coupon PurpleCoupon `json:"coupon"`
+type CardInfo struct {
+	ActivityType int `json:"activityType"`
+	Amount       int `json:"amount"`
+	ExpireDay    int `json:"expireDay"`
 }
 
-type PurpleCoupon struct {
-	UseEndTime   string `json:"useEndTime"`
-	GetEndTime   string `json:"getEndTime"`
-	UseStartTime string `json:"useStartTime"`
-	Quota        string `json:"quota"`
-	BindType     string `json:"bindType"`
-	Link         string `json:"link"`
-	PlatformType string `json:"platformType"`
-	Discount     string `json:"discount"`
-	GetStartTime string `json:"getStartTime"`
-	IsBest       string `json:"isBest"`
-	CouponStyle  string `json:"couponStyle"`
+type VideoInfo struct {
 }
 
-type ImageInfo struct {
-	WhiteImage string    `json:"whiteImage"`
-	ImageList  ImageList `json:"imageList"`
-}
-
-type ImageList struct {
-	URLInfo URLInfo `json:"urlInfo"`
-}
-
-type URLInfo struct {
-	URL string `json:"url"`
-}
-
-type PinGouInfo struct {
-	PingouEndTime   string `json:"pingouEndTime"`
-	PingouPrice     string `json:"pingouPrice"`
-	PingouTmCount   string `json:"pingouTmCount"`
-	PingouStartTime string `json:"pingouStartTime"`
-}
-
-type PreSaleInfo struct {
-	DepositWorth     string `json:"depositWorth"`
-	BalanceEndTime   string `json:"balanceEndTime"`
-	ShipTime         string `json:"shipTime"`
-	PreSalePayType   string `json:"preSalePayType"`
-	CurrentPrice     string `json:"currentPrice"`
-	PreSaleStartTime string `json:"preSaleStartTime"`
-	BalanceStartTime string `json:"balanceStartTime"`
-	PreSaleEndTime   string `json:"preSaleEndTime"`
-	PreSaleStatus    string `json:"preSaleStatus"`
-	AmountDeposit    string `json:"amountDeposit"`
-	DiscountType     string `json:"discountType"`
-	Earnest          string `json:"earnest"`
-	PreAmountDeposit string `json:"preAmountDeposit"`
+type ShopInfo struct {
+	AfsFactorScoreRankGrade       string  `json:"afsFactorScoreRankGrade,omitempty"`
+	AfterServiceScore             string  `json:"afterServiceScore,omitempty"`
+	CommentFactorScoreRankGrade   string  `json:"commentFactorScoreRankGrade,omitempty"`
+	LogisticsFactorScoreRankGrade string  `json:"logisticsFactorScoreRankGrade,omitempty"`
+	LogisticsLvyueScore           string  `json:"logisticsLvyueScore,omitempty"`
+	ScoreRankRate                 string  `json:"scoreRankRate,omitempty"`
+	ShopId                        int     `json:"shopId"`
+	ShopLabel                     string  `json:"shopLabel"`
+	ShopLevel                     float64 `json:"shopLevel"`
+	ShopName                      string  `json:"shopName"`
+	UserEvaluateScore             string  `json:"userEvaluateScore,omitempty"`
 }
 
 type PriceInfo struct {
-	LowestPrice       string `json:"lowestPrice"`
-	LowestCouponPrice string `json:"lowestCouponPrice"`
-	Price             string `json:"price"`
-	LowestPriceType   string `json:"lowestPriceType"`
+	LowestCouponPrice float64 `json:"lowestCouponPrice"`
+	LowestPrice       float64 `json:"lowestPrice"`
+	LowestPriceType   int     `json:"lowestPriceType"`
+	Price             float64 `json:"price"`
 }
 
 type PromotionInfo struct {
 	ClickURL string `json:"clickURL"`
 }
 
-type MaterialGoodsRespPromotionLabelInfoList struct {
-	PromotionLabelInfo PurplePromotionLabelInfo `json:"promotionLabelInfo"`
+type ImageList struct {
+	Url string `json:"url"`
 }
 
-type PurplePromotionLabelInfo struct {
-	PromotionLabel   string `json:"promotionLabel"`
-	LableName        string `json:"lableName"`
-	PromotionLableID string `json:"promotionLableId"`
-	StartTime        string `json:"startTime"`
-	EndTime          string `json:"endTime"`
+type ImageInfo struct {
+	ImageList  []ImageList `json:"imageList"`
+	WhiteImage string      `json:"whiteImage,omitempty"`
 }
 
-type PurchasePriceInfo struct {
-	ThresholdPrice         string                                  `json:"thresholdPrice"`
-	Code                   string                                  `json:"code"`
-	BasisPriceType         string                                  `json:"basisPriceType"`
-	CouponList             PurchasePriceInfoCouponList             `json:"couponList"`
-	PurchasePrice          string                                  `json:"purchasePrice"`
-	Message                string                                  `json:"message"`
-	PromotionLabelInfoList PurchasePriceInfoPromotionLabelInfoList `json:"promotionLabelInfoList"`
-}
-
-type PurchasePriceInfoCouponList struct {
-	Coupon FluffyCoupon `json:"coupon"`
-}
-
-type FluffyCoupon struct {
-	Quota        string `json:"quota"`
-	BindType     string `json:"bindType"`
-	Link         string `json:"link"`
-	PlatformType string `json:"platformType"`
-	Discount     string `json:"discount"`
-	CouponStyle  string `json:"couponStyle"`
-}
-
-type PurchasePriceInfoPromotionLabelInfoList struct {
-	PromotionLabelInfo FluffyPromotionLabelInfo `json:"promotionLabelInfo"`
-}
-
-type FluffyPromotionLabelInfo struct {
-	PromotionLabel   string `json:"promotionLabel"`
-	StartTime        string `json:"startTime"`
-	EndTime          string `json:"endTime"`
-	LabelName        string `json:"labelName"`
-	PromotionLabelID string `json:"promotionLabelId"`
-}
-
-type ReserveInfo struct {
-	Price                string `json:"price"`
-	PanicBuyingEndTime   string `json:"panicBuyingEndTime"`
-	StartTime            string `json:"startTime"`
-	EndTime              string `json:"endTime"`
-	Type                 string `json:"type"`
-	Status               string `json:"status"`
-	PanicBuyingStartTime string `json:"panicBuyingStartTime"`
+type PinGouInfo struct {
 }
 
 type ResourceInfo struct {
-	EliteID   string `json:"eliteId"`
+	EliteId   int    `json:"eliteId"`
 	EliteName string `json:"eliteName"`
 }
 
-type SeckillInfo struct {
-	SeckillOriPrice  string `json:"seckillOriPrice"`
-	SeckillPrice     string `json:"seckillPrice"`
-	SeckillStartTime string `json:"seckillStartTime"`
-	SeckillEndTime   string `json:"seckillEndTime"`
-}
-
-type SecondPriceInfoList struct {
-	SecondPriceInfo SecondPriceInfo `json:"secondPriceInfo"`
-}
-
-type SecondPriceInfo struct {
-	SecondPriceType string `json:"secondPriceType"`
-	SecondPrice     string `json:"secondPrice"`
-}
-
-type ShopInfo struct {
-	LogisticsLvyueScore           string `json:"logisticsLvyueScore"`
-	ShopLevel                     string `json:"shopLevel"`
-	UserEvaluateScore             string `json:"userEvaluateScore"`
-	ScoreRankRate                 string `json:"scoreRankRate"`
-	AfterServiceScore             string `json:"afterServiceScore"`
-	ShopName                      string `json:"shopName"`
-	ShopLabel                     string `json:"shopLabel"`
-	AfsFactorScoreRankGrade       string `json:"afsFactorScoreRankGrade"`
-	ShopID                        string `json:"shopId"`
-	LogisticsFactorScoreRankGrade string `json:"logisticsFactorScoreRankGrade"`
-	CommentFactorScoreRankGrade   string `json:"commentFactorScoreRankGrade"`
-}
-
-type SkuLabelInfo struct {
-	Is7ToReturn    string         `json:"is7ToReturn"`
-	Fxg            string         `json:"fxg"`
-	FxgServiceList FxgServiceList `json:"fxgServiceList"`
-}
-
-type FxgServiceList struct {
-	CharacteristicServiceInfo CharacteristicServiceInfo `json:"characteristicServiceInfo"`
-}
-
-type CharacteristicServiceInfo struct {
-	ServiceName string `json:"serviceName"`
-}
-
-type VideoInfo struct {
-	VideoList VideoList `json:"videoList"`
-}
-
-type VideoList struct {
-	Video Video `json:"video"`
-}
-
-type Video struct {
-	Duration  string `json:"duration"`
-	High      string `json:"high"`
-	PlayType  string `json:"playType"`
-	VideoType string `json:"videoType"`
-	ImageURL  string `json:"imageUrl"`
-	Width     string `json:"width"`
-	PlayURL   string `json:"playUrl"`
+type Data struct {
+	BrandCode             string         `json:"brandCode"`
+	BrandName             string         `json:"brandName"`
+	CategoryInfo          CategoryInfo   `json:"categoryInfo"`
+	Comments              int            `json:"comments"`
+	CommissionInfo        CommissionInfo `json:"commissionInfo"`
+	CouponInfo            CouponInfo     `json:"couponInfo"`
+	DeliveryType          int            `json:"deliveryType"`
+	ForbidTypes           []int          `json:"forbidTypes"`
+	GoodCommentsShare     float64        `json:"goodCommentsShare"`
+	ImageInfo             ImageInfo      `json:"imageInfo"`
+	InOrderCount30Days    int            `json:"inOrderCount30Days"`
+	InOrderCount30DaysSku int            `json:"inOrderCount30DaysSku"`
+	IsHot                 int            `json:"isHot"`
+	IsOversea             int            `json:"isOversea"`
+	ItemId                string         `json:"itemId"`
+	MaterialUrl           string         `json:"materialUrl"`
+	Owner                 string         `json:"owner"`
+	PinGouInfo            PinGouInfo     `json:"pinGouInfo"`
+	PriceInfo             PriceInfo      `json:"priceInfo"`
+	PromotionInfo         PromotionInfo  `json:"promotionInfo"`
+	ResourceInfo          ResourceInfo   `json:"resourceInfo"`
+	ShopInfo              ShopInfo       `json:"shopInfo"`
+	SkuId                 int64          `json:"skuId"`
+	SkuName               string         `json:"skuName"`
+	Spuid                 int64          `json:"spuid"`
+	VideoInfo             VideoInfo      `json:"videoInfo"`
+	ActivityCardInfo      CardInfo       `json:"activityCardInfo,omitempty"`
 }
