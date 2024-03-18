@@ -2,6 +2,7 @@ package jdunionopengoodsquery
 
 import (
 	"encoding/json"
+
 	"github.com/mimicode/tksdk/jdopensdk/response"
 )
 
@@ -70,6 +71,7 @@ type Datum struct {
 	InOrderCount30Days int64          `json:"inOrderCount30Days"`
 	IsHot              int64          `json:"isHot"`
 	IsJdSale           int64          `json:"isJdSale"`
+	ItemId             string         `json:"itemId"`
 	MaterialURL        string         `json:"materialUrl"`
 	Owner              string         `json:"owner"`
 	PinGouInfo         PinGouInfo     `json:"pinGouInfo"`

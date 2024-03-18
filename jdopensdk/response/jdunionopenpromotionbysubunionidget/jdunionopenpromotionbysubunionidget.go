@@ -2,6 +2,7 @@ package jdunionopenpromotionbysubunionidget
 
 import (
 	"encoding/json"
+
 	"github.com/mimicode/tksdk/jdopensdk/response"
 )
 

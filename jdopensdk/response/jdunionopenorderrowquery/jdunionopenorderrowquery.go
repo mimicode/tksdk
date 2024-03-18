@@ -2,6 +2,7 @@ package jdunionopenorderrowquery
 
 import (
 	"encoding/json"
+
 	"github.com/mimicode/tksdk/jdopensdk/response"
 )
 
@@ -90,6 +91,7 @@ type Datum struct {
 	Rid                 int64        `json:"rid"`
 	SiteID              int64        `json:"siteId"`
 	SkuFrozenNum        int64        `json:"skuFrozenNum"`
+	ItemId              string       `json:"itemId"`
 	SkuID               int64        `json:"skuId"`
 	SkuName             string       `json:"skuName"`
 	SkuNum              int64        `json:"skuNum"`

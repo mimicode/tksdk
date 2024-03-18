@@ -3,9 +3,14 @@ package jdopensdk
 import (
 	"encoding/json"
 	"fmt"
+	"io/ioutil"
+	"os"
+	"testing"
+
 	"github.com/mimicode/tksdk/jdopensdk/request"
 	"github.com/mimicode/tksdk/jdopensdk/response/jdunionopencoupongiftget"
 	"github.com/mimicode/tksdk/jdopensdk/response/jdunionopencoupongiftstop"
+	"github.com/mimicode/tksdk/jdopensdk/response/jdunionopengoodsbigfieldquery"
 	"github.com/mimicode/tksdk/jdopensdk/response/jdunionopengoodsjingfenquery"
 	"github.com/mimicode/tksdk/jdopensdk/response/jdunionopengoodspromotiongoodsinfoquery"
 	"github.com/mimicode/tksdk/jdopensdk/response/jdunionopengoodsquery"
@@ -15,9 +20,6 @@ import (
 	"github.com/mimicode/tksdk/jdopensdk/response/jdunionopenpromotionbysubunionidget"
 	"github.com/mimicode/tksdk/jdopensdk/response/jdunionopenpromotioncommonget"
 	"github.com/mimicode/tksdk/jdopensdk/response/jdunionopenstatisticsgiftcouponquery"
-	"io/ioutil"
-	"os"
-	"testing"
 )
 
 var (
@@ -54,7 +56,7 @@ func GetClient() *TopClient {
 func TestJdUnionOpenGoodsJingfenQueryRequest(t *testing.T) {
 	client := GetClient()
 	getRequest := &request.JdUnionOpenGoodsJingfenQueryRequest{}
-	getRequest.AddParameter("360buy_param_json", `{"goodsReq":{"eliteId":"9999","pid":"","sortName":"commission","sort":"desc","pageSize":"50","pageIndex":"1"}}`)
+	getRequest.AddParameter("360buy_param_json", `{"goodsReq":{"eliteId":"1","pid":"","sortName":"commission","sort":"desc","pageSize":"50","pageIndex":"1"}}`)
 	var getResponse DefaultResponse = &jdunionopengoodsjingfenquery.Response{}
 	if err := client.Exec(getRequest, getResponse); err != nil {
 		fmt.Println(err)
@@ -243,6 +245,28 @@ func TestJdUnionOpenCouponGiftStopRequest(t *testing.T) {
 		fmt.Println(err)
 	} else {
 		commonGetResponse := getResponse.(*jdunionopencoupongiftstop.Response)
+		fmt.Println(commonGetResponse.IsError())
+		fmt.Println(commonGetResponse.Body)
+	}
+}
+
+func TestJdUnionOpenGoodsBigfieldQueryRequest(t *testing.T) {
+	client := GetClient()
+	getRequest := &request.JdUnionOpenGoodsBigfieldQueryRequest{}
+	var param = map[string]interface{}{
+		"goodsReq": map[string]interface{}{
+			"skuIds":  []interface{}{},
+			"itemIds": []interface{}{"VgDXlT9hVVVmDDiCbofTFhV7_VIfTFhV7VVyGGPNs"},
+			"sceneId": 1,
+		},
+	}
+	marshal, _ := json.Marshal(param)
+	getRequest.AddParameter("360buy_param_json", string(marshal))
+	var getResponse DefaultResponse = &jdunionopengoodsbigfieldquery.Response{}
+	if err := client.Exec(getRequest, getResponse); err != nil {
+		fmt.Println(err)
+	} else {
+		commonGetResponse := getResponse.(*jdunionopengoodsbigfieldquery.Response)
 		fmt.Println(commonGetResponse.IsError())
 		fmt.Println(commonGetResponse.Body)
 	}

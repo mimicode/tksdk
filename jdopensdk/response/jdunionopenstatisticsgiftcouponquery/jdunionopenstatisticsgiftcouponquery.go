@@ -2,6 +2,7 @@ package jdunionopenstatisticsgiftcouponquery
 
 import (
 	"encoding/json"
+
 	"github.com/mimicode/tksdk/jdopensdk/response"
 )
 
@@ -72,6 +73,7 @@ type Data struct {
 	ShowInMedias       int64          `json:"showInMedias"`
 	ShowStatus         int64          `json:"showStatus"`
 	SkuIDList          []int64        `json:"skuIdList"`
+	ItemIdList         []string       `json:"itemIdList"`
 	Status             int64          `json:"status"`
 	Type               int64          `json:"type"`
 	UseEndTime         string         `json:"useEndTime"`

@@ -2,6 +2,7 @@ package jdunionopengoodsbigfieldquery
 
 import (
 	"encoding/json"
+
 	"github.com/mimicode/tksdk/jdopensdk/response"
 )
 
