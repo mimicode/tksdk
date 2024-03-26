@@ -106,7 +106,7 @@ type ShopInfo struct {
 	LogisticsFactorScoreRankGrade string  `json:"logisticsFactorScoreRankGrade,omitempty"`
 	LogisticsLvyueScore           string  `json:"logisticsLvyueScore,omitempty"`
 	ScoreRankRate                 string  `json:"scoreRankRate,omitempty"`
-	ShopId                        int     `json:"shopId"`
+	ShopID                        int     `json:"shopId"`
 	ShopLabel                     string  `json:"shopLabel"`
 	ShopLevel                     float64 `json:"shopLevel"`
 	ShopName                      string  `json:"shopName"`
@@ -125,7 +125,7 @@ type PromotionInfo struct {
 }
 
 type ImageList struct {
-	Url string `json:"url"`
+	URL string `json:"url"`
 }
 
 type ImageInfo struct {
@@ -145,18 +145,18 @@ type Data struct {
 	BrandCode             string         `json:"brandCode"`
 	BrandName             string         `json:"brandName"`
 	CategoryInfo          CategoryInfo   `json:"categoryInfo"`
-	Comments              int            `json:"comments"`
+	Comments              int64          `json:"comments"`
 	CommissionInfo        CommissionInfo `json:"commissionInfo"`
 	CouponInfo            CouponInfo     `json:"couponInfo"`
 	DeliveryType          int            `json:"deliveryType"`
-	ForbidTypes           []int          `json:"forbidTypes"`
+	ForbidTypes           []int64        `json:"forbidTypes"`
 	GoodCommentsShare     float64        `json:"goodCommentsShare"`
 	ImageInfo             ImageInfo      `json:"imageInfo"`
 	InOrderCount30Days    int            `json:"inOrderCount30Days"`
 	InOrderCount30DaysSku int            `json:"inOrderCount30DaysSku"`
 	IsHot                 int            `json:"isHot"`
 	IsOversea             int            `json:"isOversea"`
-	ItemId                string         `json:"itemId"`
+	ItemID                string         `json:"itemId"`
 	MaterialUrl           string         `json:"materialUrl"`
 	Owner                 string         `json:"owner"`
 	PinGouInfo            PinGouInfo     `json:"pinGouInfo"`
@@ -164,9 +164,10 @@ type Data struct {
 	PromotionInfo         PromotionInfo  `json:"promotionInfo"`
 	ResourceInfo          ResourceInfo   `json:"resourceInfo"`
 	ShopInfo              ShopInfo       `json:"shopInfo"`
-	SkuId                 int64          `json:"skuId"`
+	SkuID                 int64          `json:"skuId"`
 	SkuName               string         `json:"skuName"`
 	Spuid                 int64          `json:"spuid"`
 	VideoInfo             VideoInfo      `json:"videoInfo"`
 	ActivityCardInfo      CardInfo       `json:"activityCardInfo,omitempty"`
+	JxFlags               []int64        `json:"jxFlags"`
 }
