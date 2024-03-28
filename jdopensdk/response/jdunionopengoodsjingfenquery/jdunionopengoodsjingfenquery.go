@@ -2,6 +2,7 @@ package jdunionopengoodsjingfenquery
 
 import (
 	"encoding/json"
+
 	"github.com/mimicode/tksdk/jdopensdk/response"
 )
 
@@ -54,31 +55,36 @@ type QueryResult struct {
 }
 
 type Datum struct {
-	BrandCode             string         `json:"brandCode"`
-	BrandName             string         `json:"brandName"`
-	CategoryInfo          CategoryInfo   `json:"categoryInfo"`
-	Comments              int64          `json:"comments"`
-	CommissionInfo        CommissionInfo `json:"commissionInfo"`
-	CouponInfo            CouponInfo     `json:"couponInfo"`
-	DeliveryType          int64          `json:"deliveryType"`
-	ForbidTypes           []int64        `json:"forbidTypes"`
-	GoodCommentsShare     float64        `json:"goodCommentsShare"`
-	ImageInfo             ImageInfo      `json:"imageInfo"`
-	InOrderCount30Days    int64          `json:"inOrderCount30Days"`
-	InOrderCount30DaysSku int64          `json:"inOrderCount30DaysSku"`
-	IsHot                 int64          `json:"isHot"`
-	MaterialURL           string         `json:"materialUrl"`
-	Owner                 string         `json:"owner"`
-	PinGouInfo            PinGouInfo     `json:"pinGouInfo"`
-	PriceInfo             PriceInfo      `json:"priceInfo"`
-	ResourceInfo          ResourceInfo   `json:"resourceInfo"`
-	ShopInfo              ShopInfo       `json:"shopInfo"`
-	SkuID                 int64          `json:"skuId"`
-	SkuLabelInfo          SkuLabelInfo   `json:"skuLabelInfo"`
-	SkuName               string         `json:"skuName"`
-	Spuid                 int64          `json:"spuid"`
-	SeckillInfo           *SeckillInfo   `json:"seckillInfo,omitempty"`
-	JxFlags               []int64        `json:"jxFlags,omitempty"`
+	BrandCode             string          `json:"brandCode"`
+	BrandName             string          `json:"brandName"`
+	CategoryInfo          CategoryInfo    `json:"categoryInfo"`
+	Comments              int64           `json:"comments"`
+	CommissionInfo        CommissionInfo  `json:"commissionInfo"`
+	CouponInfo            CouponInfo      `json:"couponInfo"`
+	DeliveryType          int64           `json:"deliveryType"`
+	ForbidTypes           []int64         `json:"forbidTypes"`
+	GoodCommentsShare     float64         `json:"goodCommentsShare"`
+	ImageInfo             ImageInfo       `json:"imageInfo"`
+	InOrderCount30Days    int64           `json:"inOrderCount30Days"`
+	InOrderCount30DaysSku int64           `json:"inOrderCount30DaysSku"`
+	IsHot                 int64           `json:"isHot"`
+	MaterialURL           string          `json:"materialUrl"`
+	Owner                 string          `json:"owner"`
+	PinGouInfo            PinGouInfo      `json:"pinGouInfo"`
+	PriceInfo             PriceInfo       `json:"priceInfo"`
+	ResourceInfo          ResourceInfo    `json:"resourceInfo"`
+	ShopInfo              ShopInfo        `json:"shopInfo"`
+	SkuID                 int64           `json:"skuId"`
+	SkuLabelInfo          SkuLabelInfo    `json:"skuLabelInfo"`
+	SkuName               string          `json:"skuName"`
+	Spuid                 int64           `json:"spuid"`
+	SeckillInfo           *SeckillInfo    `json:"seckillInfo,omitempty"`
+	JxFlags               []int64         `json:"jxFlags,omitempty"`
+	BonusInfoList         []BonusInfoList `json:"bonusInfoList,omitempty"`
+	IsOversea             int64           `json:"isOversea"`
+	ItemID                string          `json:"itemId"`
+	VideoInfo             *VideoInfo      `json:"videoInfo,omitempty"`
+	BookInfo              *BookInfo       `json:"bookInfo,omitempty"`
 }
 
 type CategoryInfo struct {
@@ -116,11 +122,7 @@ type CouponList struct {
 	Quota        float64 `json:"quota"`
 	UseEndTime   int64   `json:"useEndTime"`
 	UseStartTime int64   `json:"useStartTime"`
-}
-
-type ImageInfo struct {
-	ImageList  []ImageList `json:"imageList"`
-	WhiteImage *string     `json:"whiteImage,omitempty"`
+	CouponStyle  int64   `json:"couponStyle"`
 }
 
 type ImageList struct {
@@ -133,14 +135,6 @@ type PinGouInfo struct {
 	PingouStartTime *int64   `json:"pingouStartTime,omitempty"`
 	PingouTmCount   *int64   `json:"pingouTmCount,omitempty"`
 	PingouURL       *string  `json:"pingouUrl,omitempty"`
-}
-
-type PriceInfo struct {
-	HistoryPriceDay   *int64  `json:"historyPriceDay,omitempty"`
-	LowestCouponPrice float64 `json:"lowestCouponPrice"`
-	LowestPrice       float64 `json:"lowestPrice"`
-	LowestPriceType   int64   `json:"lowestPriceType"`
-	Price             float64 `json:"price"`
 }
 
 type ResourceInfo struct {
@@ -172,4 +166,47 @@ type ShopInfo struct {
 type SkuLabelInfo struct {
 	FxgServiceList []interface{} `json:"fxgServiceList"`
 	Is7ToReturn    int64         `json:"is7ToReturn"`
+}
+
+type BonusInfoList struct {
+	ActivityType  int64   `json:"activityType"`
+	BeginTime     int64   `json:"beginTime"`
+	BonusSkuNum   int64   `json:"bonusSkuNum"`
+	EndTime       int64   `json:"endTime"`
+	EstimateBonus float64 `json:"estimateBonus"`
+	ID            int64   `json:"id"`
+	Name          string  `json:"name"`
+	State         int64   `json:"state"`
+	StockSkuNum   int64   `json:"stockSkuNum"`
+}
+
+type BookInfo struct {
+	Isbn string `json:"isbn"`
+}
+
+type ImageInfo struct {
+	ImageList  []ImageList `json:"imageList"`
+	WhiteImage *string     `json:"whiteImage,omitempty"`
+}
+
+type PriceInfo struct {
+	HistoryPriceDay   *int64  `json:"historyPriceDay,omitempty"`
+	LowestCouponPrice float64 `json:"lowestCouponPrice"`
+	LowestPrice       float64 `json:"lowestPrice"`
+	LowestPriceType   int64   `json:"lowestPriceType"`
+	Price             float64 `json:"price"`
+}
+
+type VideoInfo struct {
+	VideoList []VideoList `json:"videoList"`
+}
+
+type VideoList struct {
+	Duration  int64  `json:"duration"`
+	High      int64  `json:"high"`
+	ImageURL  string `json:"imageUrl"`
+	PlayType  string `json:"playType"`
+	PlayURL   string `json:"playUrl"`
+	VideoType int64  `json:"videoType"`
+	Width     int64  `json:"width"`
 }

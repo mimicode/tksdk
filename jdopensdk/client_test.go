@@ -3,10 +3,11 @@ package jdopensdk
 import (
 	"encoding/json"
 	"fmt"
-	"github.com/mimicode/tksdk/jdopensdk/response/jdunionopengoodsmaterialquery"
 	"io/ioutil"
 	"os"
 	"testing"
+
+	"github.com/mimicode/tksdk/jdopensdk/response/jdunionopengoodsmaterialquery"
 
 	"github.com/mimicode/tksdk/jdopensdk/request"
 	"github.com/mimicode/tksdk/jdopensdk/response/jdunionopencoupongiftget"
