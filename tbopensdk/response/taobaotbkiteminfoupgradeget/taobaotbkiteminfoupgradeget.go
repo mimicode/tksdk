@@ -64,6 +64,7 @@ type ItemBasicInfo struct {
 	FreeShipment         bool   `json:"free_shipment"`
 	BrandName            string `json:"brand_name"`
 	ShortTitle           string `json:"short_title"`
+	AnnualVol            string `json:"annual_vol"`
 	WhiteImage           string `json:"white_image"`
 	SellerID             int64  `json:"seller_id"`
 	SmallImages          struct {

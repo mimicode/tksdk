@@ -83,6 +83,7 @@ type ItemBasicInfo struct {
 	LevelOneCategoryName string      `json:"level_one_category_name"`
 	TkTotalSales         string      `json:"tk_total_sales"`
 	Provcity             string      `json:"provcity"`
+	AnnualVol            string      `json:"annual_vol"`
 	SmallImages          SmallImages `json:"small_images"`
 }
 
