@@ -1304,13 +1304,14 @@ func Test_TbkScGeneralLinkConvertRequest(t *testing.T) {
 	//1-自购省，2-推广赚（代理模式专属ID，代理模式必填，其它模式不用填写本字段）
 	getRequest.AddParameter("promotion_type", "1")
 	//卖家ID列表,多个时使用英文逗号拼接传入
-	getRequest.AddParameter("seller_id_list", "2215954685411,216174575401109650")
+	getRequest.AddParameter("seller_id_list", "2201196082363")
 	//商品ID列表,多个时使用英文逗号拼接传入
-	getRequest.AddParameter("item_id_list", "v6vdBWxuZt6rAb6OAVIAQmijUe-OJzVevmuZGJaJkDMT89,qoDNKWVH2t4XY0rNq8igNdspU0-3qWJxPGu0vz5JB4wtk")
+	getRequest.AddParameter("item_id_list", "w5Z2pOjCgtDwZDnmWxfozwtZUO-R76VAveS2mZv0Jm7HO")
+	//getRequest.AddParameter("item_id_list", "609625061236")
 	//会场ID列表,多个时使用英文逗号拼接传入
-	getRequest.AddParameter("page_id_list", "20150318020006422,20150318020000462")
+	getRequest.AddParameter("page_id_list", "20150318020019160")
 	//物料列表，可以为url或淘口令,多个时使用英文逗号拼接传入
-	getRequest.AddParameter("material_list", "https://s.click.taobao.com/dVB2Q3u,89( CZ3031 9TO3WTxYHoz):/")
+	getRequest.AddParameter("material_list", "https://s.click.taobao.com/NvHrhOs,￥wseKeQ8Eae9￥")
 
 	//初始化结果类型
 	var getResponse DefaultResponse = &taobaotbkscgenerallinkconvert.Response{}
