@@ -694,6 +694,18 @@ func createAPIS() {
 		},
 	}
 
+	request = ApiInfo{
+		APIDESC:    "taobao.tbk.sc.general.link.parse( 淘宝客-服务商-万能解析 )",
+		APIORGNAME: "taobao.tbk.sc.general.link.parse",
+		APIURL:     "https://open.taobao.com/api.htm?docId=70535&docType=2&scopeId=31093",
+		CHECKFIELDS: []CheckField{
+			{
+				FieldName:         "adzone_id",
+				FieldNotNullCheck: true,
+			},
+		},
+	}
+
 	//request = ApiInfo{
 	//	APIDESC:    "taobao.tbk.sc.relation.refund( 淘宝客-服务商-维权退款订单查询 )",
 	//	APIORGNAME: "taobao.tbk.sc.relation.refund",
