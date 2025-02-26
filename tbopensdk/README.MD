@@ -11,6 +11,7 @@
 - [taobao.tbk.item.info.upgrade.get( 淘宝客-公用-淘宝客商品详情查询升级版（简易版） )](https://open.taobao.com/api.htm?docId=64763&docType=2&scopeId=16189)
 - [taobao.tbk.sc.adzone.create( 淘宝客-服务商-创建推广者位 )](https://open.taobao.com/api.htm?docId=34751&docType=2&scopeId=13878)
 - [taobao.tbk.sc.general.link.convert( 淘宝客-服务商-万能转链 )](https://open.taobao.com/api.htm?docId=65412&docType=2&scopeId=28320)
+- [taobao.tbk.sc.general.link.parse( 淘宝客-服务商-万能解析 )](https://open.taobao.com/api.htm?docId=70535&docType=2&scopeId=31093)
 - [taobao.tbk.sc.material.optional.upgrade( 淘宝客-服务商-物料搜索升级版 )](https://open.taobao.com/api.htm?docId=64758&docType=2&scopeId=13991)
 - [taobao.tbk.sc.material.recommend( 淘宝客-服务商-物料精选升级版 )](https://open.taobao.com/api.htm?docId=62191&docType=2&scopeId=16287)
 - [taobao.tbk.sc.relation.refund( 淘宝客-服务商-维权退款订单查询 )](https://open.taobao.com/api.htm?docId=43874&docType=2&scopeId=16322)

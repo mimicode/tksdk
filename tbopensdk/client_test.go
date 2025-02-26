@@ -3,6 +3,7 @@ package tbopensdk
 import (
 	"encoding/json"
 	"fmt"
+	"github.com/mimicode/tksdk/tbopensdk/response/taobaotbkscgenerallinkparse"
 	"io/ioutil"
 	"os"
 	"strings"
@@ -1322,6 +1323,39 @@ func Test_TbkScGeneralLinkConvertRequest(t *testing.T) {
 	} else {
 		result := getResponse.(*taobaotbkscgenerallinkconvert.Response)
 
+		fmt.Println(result.Body)
+
+	}
+}
+
+func Test_TbkScGeneralLinkParseRequest(t *testing.T) {
+
+	//初始化TopClient
+	client := &TopClient{}
+	client.Init(appKey, appSecret, sessionKey)
+
+	//初始化请求接口信息
+	getRequest := &request2.TbkScGeneralLinkParseRequest{}
+	getRequest.AddParameter("adzone_id", pid.AdzoneID)
+	getRequest.AddParameter("relation_id", pid.RelationID)
+	getRequest.AddParameter("fields", "")
+
+	materialDtoBytes, _ := json.Marshal(map[string]interface{}{
+		//"material_url": "￥wseKeQ8Eae9￥", //物料链接，可以为url或淘口令 只能是单个
+		"material_url": "https://s.click.taobao.com/NvHrhOs", //物料链接，可以为url或淘口令 只能是单个
+		//"material_url": "https://s.click.taobao.com/NvHrhOs扎心了老铁，那还好吗，￥wseKeQ8Eae9￥", //物料链接，可以为url或淘口令 只能是单个
+	})
+	getRequest.AddParameter("material_dto", string(materialDtoBytes))
+
+	//初始化结果类型
+	var getResponse DefaultResponse = &taobaotbkscgenerallinkparse.Response{}
+	//执行请求接口得到结果
+	err := client.Exec(getRequest, getResponse)
+	if err != nil {
+		t.Log(err)
+	} else {
+		result := getResponse.(*taobaotbkscgenerallinkparse.Response)
+		//	{"tbk_sc_general_link_parse_response":{"data":{"material_url_list":{"material_url_list":[{"input_material_url":"￥wseKeQ8Eae9￥","link_info_dto":{"material_id":"NbKBdpOC5tnKr8bSZG7uRtB-rZ9xkXF2QOndGQgHv","material_type":1,"tk_biz_type":1,"tpwd_origin_url":"https:\/\/s.click.taobao.com\/t?e=m%3D2%26s%3D8K7Iml1vlFNw4vFB6t2Z2ueEDrYVVa64yK8Cckff7TVRAdhuF14FMR%2F63mr1MO9uRitN3%2FurF3yWZIHuAfb160WeA7w%2BGhevk8tDEZYjwO%2FQaJ1Uan6hrPJi%2FB4SdxHVax%2BJLOEMomOM%2BK42QxlTAPJ%2BQj1g5vIrDCfT%2B86ifnCi1jMNxDhLMmuCMDETpg3itthcQic1bk0jE%2BZg8s25eGYijWD1dZmigtPPK%2B%2BRUVKRLVxRpcORA%2FuLuj82LRyWkYa%2B6kEEIxim6p2ONLZUzc7AMx9cWAx%2BEiM%2FlSG%2FbZRi647CDvvranctQqHt5GY8C%2FdQeSX7Vr6uOLrdHTHPFeDQMZ%2FA7AEiREwvT%2B0IE%2F0hhQs2DjqgEA%3D%3D&union_lens=lensId%3ATAPI%401740494671%40213e71e2_0e9f_1953d910f7e_a95a%40026Z9vLsbPhnLYHoveqxgxtV&relationId=2145841445&un=f91ad7de04e6dc7e7a811649f8da3e26&share_crt_v=1&un_site=0&ut_sk=1.utdid_null_1740494671864.TaoPassword-Outside.taoketop&spm=a2159r.13376465.0.0&sp_tk=d3NlS2VROEVhZTk%3D&bxsign=tcdB9mQLEOO9LJIR5sdisW0a5j78Vr6yyI5W5rTyQwLLujpHijT5lhCyTcgcH-hdVNZCrEu8K4YKCc_gNTUE76r6OogPPt3ND42ZmA_YI17jMI&bc_fl_src=share-707651363197-1-0"}}]}},"request_id":"15qzhcg5s559e"}}
 		fmt.Println(result.Body)
 
 	}
