@@ -3,6 +3,10 @@ package vipopensdk
 import (
 	"encoding/json"
 	"fmt"
+	"io/ioutil"
+	"os"
+	"testing"
+
 	utils2 "github.com/mimicode/tksdk/utils"
 	request2 "github.com/mimicode/tksdk/vipopensdk/request"
 	"github.com/mimicode/tksdk/vipopensdk/response/comvipadpapiopenserviceuniongoodsservicegetbygoodsidsv2withoauth"
@@ -17,9 +21,14 @@ import (
 	comvipadpapiopenserviceunionurlservicegenbygoodsidwithoauth2 "github.com/mimicode/tksdk/vipopensdk/response/comvipadpapiopenserviceunionurlservicegenbygoodsidwithoauth"
 	comvipadpapiopenserviceunionurlservicegenbyvipurlwithoauth2 "github.com/mimicode/tksdk/vipopensdk/response/comvipadpapiopenserviceunionurlservicegenbyvipurlwithoauth"
 	comvipadpapiopenserviceunionurlserviceviplinkcheckwithouth2 "github.com/mimicode/tksdk/vipopensdk/response/comvipadpapiopenserviceunionurlserviceviplinkcheckwithouth"
-	"io/ioutil"
-	"os"
-	"testing"
+	response2 "github.com/mimicode/tksdk/vipopensdk/response/comvipadpapiopenserviceunionurlv2servicegenbygoodsidwithoauth"
+	comvipadpapiopenserviceunionuserservicecheckuser "github.com/mimicode/tksdk/vipopensdk/response/comvipadpapiopenserviceunionuserservicecheckuser"
+	comvipadpapiopenserviceunionuserservicecheckuserwithoauth "github.com/mimicode/tksdk/vipopensdk/response/comvipadpapiopenserviceunionuserservicecheckuserwithoauth"
+	"github.com/mimicode/tksdk/vipopensdk/response/comvipadpapiopenserviceunionuserserviceuserverifywithoauth"
+	comvipadpapiopenserviceunionuserv2servicecheckuser "github.com/mimicode/tksdk/vipopensdk/response/comvipadpapiopenserviceunionuserv2servicecheckuser"
+	comvipadpapiopenserviceunionuserv2serviceunbindopenidwithoauth "github.com/mimicode/tksdk/vipopensdk/response/comvipadpapiopenserviceunionuserv2serviceunbindopenidwithoauth"
+	comvipadpapiopenserviceunionuserv2serviceuserverifywithoauth "github.com/mimicode/tksdk/vipopensdk/response/comvipadpapiopenserviceunionuserv2serviceuserverifywithoauth"
+	vipapisoauthoauthservicerefreshtoken "github.com/mimicode/tksdk/vipopensdk/response/vipapisoauthoauthservicerefreshtoken"
 )
 
 var (
@@ -628,4 +637,457 @@ func TestComVipAdpApiOpenServiceUnionGoodsServiceGoodsListV2WithOauthRequest(t *
 		fmt.Println(result.Body)
 
 	}
+}
+
+func TestComVipAdpApiOpenServiceUnionUserV2ServiceCheckUserRequest(t *testing.T) {
+	client := GetClient()
+	//初始化请求接口信息
+	getRequest := &request2.ComVipAdpApiOpenServiceUnionUserV2ServiceCheckUserRequest{}
+
+	getRequest.AddParameter("request", map[string]interface{}{
+		"openId":    "test_open_id",
+		"requestId": utils2.GetUUID(),
+		"scene":     1,
+		"commonParams": map[string]interface{}{
+			"plat":        2,
+			"deviceType":  "IMEI",
+			"deviceValue": "test_device_value",
+			"ip":          "127.0.0.1",
+		},
+	})
+
+	//初始化结果类型
+	var getResponse DefaultResponse = &comvipadpapiopenserviceunionuserv2servicecheckuser.Response{}
+	//执行请求接口得到结果
+	err := client.Exec(getRequest, getResponse)
+	if err != nil {
+		t.Log(err)
+	} else {
+		result := getResponse.(*comvipadpapiopenserviceunionuserv2servicecheckuser.Response)
+		fmt.Println(result.Body)
+	}
+}
+
+func TestComVipAdpApiOpenServiceUnionUserV2ServiceUnbindOpenIdWithOauthRequest(t *testing.T) {
+	client := GetClient()
+	//初始化请求接口信息
+	getRequest := &request2.ComVipAdpApiOpenServiceUnionUserV2ServiceUnbindOpenIdWithOauthRequest{}
+
+	getRequest.AddParameter("request", map[string]interface{}{
+		"requestId": utils2.GetUUID(),
+		"openId":    "test_open_id",
+	})
+
+	//初始化结果类型
+	var getResponse DefaultResponse = &comvipadpapiopenserviceunionuserv2serviceunbindopenidwithoauth.Response{}
+	//执行请求接口得到结果
+	err := client.Exec(getRequest, getResponse)
+	if err != nil {
+		t.Log(err)
+	} else {
+		result := getResponse.(*comvipadpapiopenserviceunionuserv2serviceunbindopenidwithoauth.Response)
+		fmt.Println(result.Body)
+	}
+}
+
+func TestComVipAdpApiOpenServiceUnionUserV2ServiceUserVerifyWithOauthRequest(t *testing.T) {
+	client := GetClient()
+	//初始化请求接口信息
+	getRequest := &request2.ComVipAdpApiOpenServiceUnionUserV2ServiceUserVerifyWithOauthRequest{}
+
+	getRequest.AddParameter("request", map[string]interface{}{
+		"scene":          "oldUser",
+		"attributeValue": "",
+		"requestId":      utils2.GetUUID(),
+		"openId":         "test_open_id",
+		"commonParams": map[string]interface{}{
+			"plat":        2,
+			"deviceType":  "IMEI",
+			"deviceValue": "test_device_value",
+			"ip":          "127.0.0.1",
+		},
+	})
+
+	//初始化结果类型
+	var getResponse DefaultResponse = &comvipadpapiopenserviceunionuserv2serviceuserverifywithoauth.Response{}
+	//执行请求接口得到结果
+	err := client.Exec(getRequest, getResponse)
+	if err != nil {
+		t.Log(err)
+	} else {
+		result := getResponse.(*comvipadpapiopenserviceunionuserv2serviceuserverifywithoauth.Response)
+		fmt.Println(result.Body)
+	}
+}
+
+func TestVipapisOauthOauthServiceRefreshTokenRequest(t *testing.T) {
+	client := GetClient()
+	//初始化请求接口信息
+	getRequest := &request2.VipapisOauthOauthServiceRefreshTokenRequest{}
+
+	getRequest.AddParameter("request", map[string]interface{}{
+		"refresh_token":     "test_refresh_token",
+		"client_id":         appKey,
+		"client_secret":     appSecret,
+		"request_client_ip": "127.0.0.1",
+	})
+
+	//初始化结果类型
+	var getResponse DefaultResponse = &vipapisoauthoauthservicerefreshtoken.Response{}
+	//执行请求接口得到结果
+	err := client.Exec(getRequest, getResponse)
+	if err != nil {
+		t.Log(err)
+	} else {
+		result := getResponse.(*vipapisoauthoauthservicerefreshtoken.Response)
+		fmt.Println(result.Body)
+	}
+}
+
+func TestComVipAdpApiOpenServiceUnionUserServiceCheckUserRequest(t *testing.T) {
+	client := GetClient()
+	//初始化请求接口信息
+	getRequest := &request2.ComVipAdpApiOpenServiceUnionUserServiceCheckUserRequest{}
+
+	getRequest.AddParameter("request", map[string]interface{}{
+		"openId":    "test_open_id",
+		"requestId": utils2.GetUUID(),
+		"scene":     1,
+		"commonParams": map[string]interface{}{
+			"plat":        2,
+			"deviceType":  "IMEI",
+			"deviceValue": "test_device_value",
+			"ip":          "127.0.0.1",
+		},
+	})
+
+	//初始化结果类型
+	var getResponse DefaultResponse = &comvipadpapiopenserviceunionuserservicecheckuser.Response{}
+	//执行请求接口得到结果
+	err := client.Exec(getRequest, getResponse)
+	if err != nil {
+		t.Log(err)
+	} else {
+		result := getResponse.(*comvipadpapiopenserviceunionuserservicecheckuser.Response)
+		fmt.Println(result.Body)
+	}
+}
+
+func TestComVipAdpApiOpenServiceUnionUserServiceCheckUserWithOauthRequest(t *testing.T) {
+	client := GetClient()
+	//初始化请求接口信息
+	getRequest := &request2.ComVipAdpApiOpenServiceUnionUserServiceCheckUserWithOauthRequest{}
+
+	getRequest.AddParameter("request", map[string]interface{}{
+		"openId":    "test_open_id",
+		"requestId": utils2.GetUUID(),
+		"scene":     1,
+		"commonParams": map[string]interface{}{
+			"plat":        2,
+			"deviceType":  "IMEI",
+			"deviceValue": "test_device_value",
+			"ip":          "127.0.0.1",
+		},
+	})
+
+	//初始化结果类型
+	var getResponse DefaultResponse = &comvipadpapiopenserviceunionuserservicecheckuserwithoauth.Response{}
+	//执行请求接口得到结果
+	err := client.Exec(getRequest, getResponse)
+	if err != nil {
+		t.Log(err)
+	} else {
+		result := getResponse.(*comvipadpapiopenserviceunionuserservicecheckuserwithoauth.Response)
+		fmt.Println(result.Body)
+	}
+}
+
+func TestComVipAdpApiOpenServiceUnionUserServiceUserVerifyWithOauthRequest(t *testing.T) {
+	client := GetClient()
+	//初始化请求接口信息
+	getRequest := &request2.ComVipAdpApiOpenServiceUnionUserServiceUserVerifyWithOauthRequest{}
+
+	getRequest.AddParameter("request", map[string]interface{}{
+		"scene":          "oldUser",
+		"attributeValue": "",
+		"requestId":      utils2.GetUUID(),
+		"openId":         "test_open_id",
+		"commonParams": map[string]interface{}{
+			"plat":        2,
+			"deviceType":  "IMEI",
+			"deviceValue": "test_device_value",
+			"ip":          "127.0.0.1",
+		},
+	})
+
+	//初始化结果类型
+	var getResponse DefaultResponse = &comvipadpapiopenserviceunionuserserviceuserverifywithoauth.Response{}
+	//执行请求接口得到结果
+	err := client.Exec(getRequest, getResponse)
+	if err != nil {
+		t.Log(err)
+	} else {
+		result := getResponse.(*comvipadpapiopenserviceunionuserserviceuserverifywithoauth.Response)
+		fmt.Println(result.Body)
+	}
+}
+
+func TestComVipAdpApiOpenServiceUnionUrlV2ServiceGenByGoodsIdWithOauthRequest(t *testing.T) {
+	client := GetClient()
+
+	request := &request2.ComVipAdpApiOpenServiceUnionUrlV2ServiceGenByGoodsIdWithOauthRequest{}
+	request.AddParameter("goodsIdList", []string{"123456"})
+	request.AddParameter("chanTag", "default_pid")
+	request.AddParameter("requestId", utils2.GetUUID())
+	request.AddParameter("statParam", "test_param")
+	request.AddParameter("evokeQuickApp", false)
+	request.AddParameter("queryExclusiveCoupon", true)
+	request.AddParameter("genShortUrl", false)
+
+	urlGenByGoodsIdRequest := map[string]interface{}{
+		"openId":    "default_open_id",
+		"realCall":  true,
+		"platform":  1,
+		"adCode":    "unionapi",
+		"sizeIdMap": make(map[string]string),
+	}
+	request.AddParameter("urlGenByGoodsIdRequest", urlGenByGoodsIdRequest)
+
+	response := &response2.Response{}
+	err := client.Exec(request, response)
+	if err != nil {
+		t.Errorf("Failed to process UnionUrlV2Service.genByGoodsIdWithOauth request: %v", err)
+		return
+	}
+
+	fmt.Printf("Response: %#v\n", response)
+}
+
+func TestComVipAdpApiOpenServiceUnionUrlV2ServiceGenByVIPUrlWithOauthRequest(t *testing.T) {
+	client := GetClient()
+
+	request := &request2.ComVipAdpApiOpenServiceUnionUrlV2ServiceGenByVIPUrlWithOauthRequest{}
+	request.AddParameter("urlList", []string{
+		"https://www.vip.com/detail-1710614067-6917924644994118739.html",
+	})
+	request.AddParameter("chanTag", "default_pid")
+	request.AddParameter("requestId", utils2.GetUUID())
+	request.AddParameter("statParam", "test_param")
+
+	urlGenRequest := map[string]interface{}{
+		"openId":     "default_open_id",
+		"realCall":   true,
+		"platform":   1,
+		"adCode":     "unionapi",
+		"sizeIdMap":  make(map[string]string),
+		"targetType": "URL",
+		"targetValueList": []string{
+			"https://www.vip.com/detail-1710614067-6917924644994118739.html",
+		},
+	}
+	request.AddParameter("urlGenRequest", urlGenRequest)
+
+	var response DefaultResponse = &response2.Response{}
+	err := client.Exec(request, response)
+	if err != nil {
+		t.Errorf("Failed to process UnionUrlV2Service.genByVIPUrlWithOauth request: %v", err)
+		return
+	}
+
+	result := response.(*response2.Response)
+	fmt.Printf("Response: %#v\n", result)
+}
+
+func TestComVipAdpApiOpenServiceUnionUrlV2ServiceGetChannelUrlByTypeWithOauthRequest(t *testing.T) {
+	client := GetClient()
+
+	request := &request2.ComVipAdpApiOpenServiceUnionUrlV2ServiceGetChannelUrlByTypeWithOauthRequest{}
+	request.AddParameter("request", map[string]interface{}{
+		"type":            "CHANNEL_SUBSIDY",
+		"chanTag":         "default_pid",
+		"requestId":       utils2.GetUUID(),
+		"openId":          "default_open_id",
+		"realCall":        true,
+		"jxCode":          "7hfpy0m4",
+		"urlParam":        make(map[string]string),
+		"genAuthorityUrl": false,
+	})
+
+	var response DefaultResponse = &response2.Response{}
+	err := client.Exec(request, response)
+	if err != nil {
+		t.Errorf("Failed to process UnionUrlV2Service.getChannelUrlByTypeWithOauth request: %v", err)
+		return
+	}
+
+	result := response.(*response2.Response)
+	fmt.Printf("Response: %#v\n", result)
+}
+
+func TestComVipAdpApiOpenServiceUnionUrlV2ServiceGetWxCodeWithOauthRequest(t *testing.T) {
+	client := GetClient()
+
+	request := &request2.ComVipAdpApiOpenServiceUnionUrlV2ServiceGetWxCodeWithOauthRequest{}
+	request.AddParameter("request", map[string]interface{}{
+		"targetType":  "GOODSID",
+		"targetValue": "123456",
+		"chanTag":     "default_pid",
+		"requestId":   utils2.GetUUID(),
+		"statParam":   "test_param",
+	})
+
+	var response DefaultResponse = &response2.Response{}
+	err := client.Exec(request, response)
+	if err != nil {
+		t.Errorf("Failed to process UnionUrlV2Service.getWxCodeWithOauth request: %v", err)
+		return
+	}
+
+	result := response.(*response2.Response)
+	fmt.Printf("Response: %#v\n", result)
+}
+
+func TestComVipAdpApiOpenServiceUnionUrlV2ServiceVipLinkCheckWithOuthRequest(t *testing.T) {
+	client := GetClient()
+
+	request := &request2.ComVipAdpApiOpenServiceUnionUrlV2ServiceVipLinkCheckWithOuthRequest{}
+	request.AddParameter("vipLinkCheckReq", map[string]interface{}{
+		"source":  "weixin",
+		"content": "很不错的换一个购买 https://www.vip.com/detail-1710614067-6917924644994118739.html 这个也是不错的 https://t.vip.com/Ma2qFqMX5e9?chanTag=user_1&wq=1",
+	})
+
+	var response DefaultResponse = &response2.Response{}
+	err := client.Exec(request, response)
+	if err != nil {
+		t.Errorf("Failed to process UnionUrlV2Service.vipLinkCheckWithOuth request: %v", err)
+		return
+	}
+
+	result := response.(*response2.Response)
+	fmt.Printf("Response: %#v\n", result)
+}
+
+func TestComVipAdpApiOpenServiceUnionPromotionMaterialV2ServiceGetPromotionMaterialWithOauthRequest(t *testing.T) {
+	client := GetClient()
+
+	request := &request2.ComVipAdpApiOpenServiceUnionPromotionMaterialV2ServiceGetPromotionMaterialWithOauthRequest{}
+	request.AddParameter("request", map[string]interface{}{
+		"page":      1,
+		"pageSize":  20,
+		"requestId": utils2.GetUUID(),
+		"chanTag":   "default_pid",
+		"openId":    "default_open_id",
+		"realCall":  true,
+		"commonParams": map[string]interface{}{
+			"plat": 2,
+		},
+	})
+
+	var response DefaultResponse = &response2.Response{}
+	err := client.Exec(request, response)
+	if err != nil {
+		t.Errorf("Failed to process UnionPromotionMaterialV2Service.getPromotionMaterialWithOauth request: %v", err)
+		return
+	}
+
+	result := response.(*response2.Response)
+	fmt.Printf("Response: %#v\n", result)
+}
+
+func TestComVipAdpApiOpenServiceUnionPromotionMaterialV2ServiceGetPromotionMaterialDetailWithOauthRequest(t *testing.T) {
+	client := GetClient()
+
+	request := &request2.ComVipAdpApiOpenServiceUnionPromotionMaterialV2ServiceGetPromotionMaterialDetailWithOauthRequest{}
+	request.AddParameter("request", map[string]interface{}{
+		"itemId":       "123456",
+		"itemType":     "GOODS",
+		"materialType": "PICTURE",
+		"requestId":    utils2.GetUUID(),
+		"chanTag":      "default_pid",
+		"openId":       "default_open_id",
+		"realCall":     true,
+		"commonParams": map[string]interface{}{
+			"plat": 2,
+		},
+	})
+
+	var response DefaultResponse = &response2.Response{}
+	err := client.Exec(request, response)
+	if err != nil {
+		t.Errorf("Failed to process UnionPromotionMaterialV2Service.getPromotionMaterialDetailWithOauth request: %v", err)
+		return
+	}
+
+	result := response.(*response2.Response)
+	fmt.Printf("Response: %#v\n", result)
+}
+
+func TestComVipAdpApiOpenServiceUnionTaskServiceGetSubsidyTaskGoodsInfoRequest(t *testing.T) {
+	client := GetClient()
+
+	request := &request2.ComVipAdpApiOpenServiceUnionTaskServiceGetSubsidyTaskGoodsInfoRequest{}
+	request.AddParameter("request", map[string]interface{}{
+		"page":      1,
+		"pageSize":  20,
+		"requestId": utils2.GetUUID(),
+		"taskNo":    "test_task_no",
+	})
+
+	var response DefaultResponse = &response2.Response{}
+	err := client.Exec(request, response)
+	if err != nil {
+		t.Errorf("Failed to process UnionTaskService.getSubsidyTaskGoodsInfo request: %v", err)
+		return
+	}
+
+	result := response.(*response2.Response)
+	fmt.Printf("Response: %#v\n", result)
+}
+
+func TestComVipAdpApiOpenServiceUnionPidServiceQueryPidWithOauthRequest(t *testing.T) {
+	client := GetClient()
+
+	request := &request2.ComVipAdpApiOpenServiceUnionPidServiceQueryPidWithOauthRequest{}
+	request.AddParameter("pidQueryRequest", map[string]interface{}{
+		"pidList": []string{
+			"test_pid_1",
+			"test_pid_2",
+		},
+		"requestId": utils2.GetUUID(),
+		"page":      1,
+		"pageSize":  100,
+	})
+
+	var response DefaultResponse = &response2.Response{}
+	err := client.Exec(request, response)
+	if err != nil {
+		t.Errorf("Failed to process UnionPidService.queryPidWithOauth request: %v", err)
+		return
+	}
+
+	result := response.(*response2.Response)
+	fmt.Printf("Response: %#v\n", result)
+}
+
+func TestComVipAdpApiOpenServiceUnionPidV2ServiceGenPidWithOauthRequest(t *testing.T) {
+	client := GetClient()
+
+	request := &request2.ComVipAdpApiOpenServiceUnionPidV2ServiceGenPidWithOauthRequest{}
+	request.AddParameter("pidGenRequest", map[string]interface{}{
+		"pidNameList": []string{
+			"test_pid_name_1",
+			"test_pid_name_2",
+		},
+		"requestId": utils2.GetUUID(),
+	})
+
+	var response DefaultResponse = &response2.Response{}
+	err := client.Exec(request, response)
+	if err != nil {
+		t.Errorf("Failed to process UnionPidV2Service.genPidWithOauth request: %v", err)
+		return
+	}
+
+	result := response.(*response2.Response)
+	fmt.Printf("Response: %#v\n", result)
 }

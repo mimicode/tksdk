@@ -2,13 +2,14 @@ package comvipadpapiopenserviceuniongoodsservicegoodslistv2withoauth
 
 import (
 	"encoding/json"
+
 	"github.com/mimicode/tksdk/vipopensdk/response"
 )
 
 // com.vip.adp.api.open.service.UnionGoodsService 获取联盟在推商品列表V2-需要oauth授权
 type Response struct {
 	response.TopResponse
-	Result Result `json:"result"`
+	Success Success `json:"success"`
 }
 
 // 解析输出结果
@@ -23,10 +24,16 @@ func (t *Response) WrapResult(result string) {
 	}
 }
 
-type Result struct {
-	LastPage       bool            `json:"lastPage"`
-	GoodsInfoList  []GoodsInfoList `json:"goodsInfoList"`
-	NextPageOffset int64           `json:"nextPageOffset"`
+type Success struct {
+	Code int    `json:"code"` // 状态码，1-成功，0-失败
+	Msg  string `json:"msg"`  // 状态信息
+	Data Data   `json:"data"` // 数据
+}
+
+type Data struct {
+	LastPage       bool            `json:"lastPage"`       // 是否最后一页
+	GoodsInfoList  []GoodsInfoList `json:"goodsInfoList"`  // 商品信息列表
+	NextPageOffset int64           `json:"nextPageOffset"` // 下一页偏移量
 }
 
 /*

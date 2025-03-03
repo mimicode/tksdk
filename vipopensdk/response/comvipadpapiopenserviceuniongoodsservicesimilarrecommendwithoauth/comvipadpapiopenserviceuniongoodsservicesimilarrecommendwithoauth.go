@@ -2,16 +2,17 @@ package comvipadpapiopenserviceuniongoodsservicesimilarrecommendwithoauth
 
 import (
 	"encoding/json"
+
 	response2 "github.com/mimicode/tksdk/vipopensdk/response"
 )
 
-//com.vip.adp.api.open.service.UnionGoodsService 相似推荐商品列表-需要oauth授权
+// com.vip.adp.api.open.service.UnionGoodsService 相似推荐商品列表-需要oauth授权
 type Response struct {
 	response2.TopResponse
-	Result Result `json:"result"`
+	Success Success `json:"success"`
 }
 
-//解析输出结果
+// 解析输出结果
 func (t *Response) WrapResult(result string) {
 	unmarshal := json.Unmarshal([]byte(result), t)
 	//保存原始信息
@@ -23,11 +24,17 @@ func (t *Response) WrapResult(result string) {
 	}
 }
 
-type Result struct {
-	Total         int64           `json:"total"`
-	GoodsInfoList []GoodsInfoList `json:"goodsInfoList"`
-	PageSize      int64           `json:"pageSize"`
-	Page          int64           `json:"page"`
+type Success struct {
+	Code int    `json:"code"` // 状态码，1-成功，0-失败
+	Msg  string `json:"msg"`  // 状态信息
+	Data Data   `json:"data"` // 数据
+}
+
+type Data struct {
+	Total         int64           `json:"total"`         // 总记录数
+	GoodsInfoList []GoodsInfoList `json:"goodsInfoList"` // 商品信息列表
+	PageSize      int64           `json:"pageSize"`      // 每页条数
+	Page          int64           `json:"page"`          // 页码
 }
 
 type GoodsInfoList struct {
