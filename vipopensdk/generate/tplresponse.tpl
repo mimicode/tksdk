@@ -8,7 +8,7 @@ import (
 //--APIDESC--
 type Response struct {
 	response.TopResponse
-	Result Result `json:"result"`
+	--RESULT2-- --RESULT2-- `json:"--RESULT--"`
 }
 
 //解析输出结果
@@ -23,5 +23,5 @@ func (t *Response) WrapResult(result string) {
 	}
 }
 
-type Result struct {
+type --RESULT2-- struct {
 }
