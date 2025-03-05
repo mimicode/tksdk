@@ -3,6 +3,10 @@ package vipopensdk
 import (
 	"encoding/json"
 	"fmt"
+	"io/ioutil"
+	"os"
+	"testing"
+
 	utils2 "github.com/mimicode/tksdk/utils"
 	request2 "github.com/mimicode/tksdk/vipopensdk/request"
 	"github.com/mimicode/tksdk/vipopensdk/response/comvipadpapiopenserviceuniongoodsservicegetbygoodsidsv2withoauth"
@@ -17,9 +21,10 @@ import (
 	comvipadpapiopenserviceunionurlservicegenbygoodsidwithoauth2 "github.com/mimicode/tksdk/vipopensdk/response/comvipadpapiopenserviceunionurlservicegenbygoodsidwithoauth"
 	comvipadpapiopenserviceunionurlservicegenbyvipurlwithoauth2 "github.com/mimicode/tksdk/vipopensdk/response/comvipadpapiopenserviceunionurlservicegenbyvipurlwithoauth"
 	comvipadpapiopenserviceunionurlserviceviplinkcheckwithouth2 "github.com/mimicode/tksdk/vipopensdk/response/comvipadpapiopenserviceunionurlserviceviplinkcheckwithouth"
-	"io/ioutil"
-	"os"
-	"testing"
+	comvipadpapiopenserviceunionurlv2servicegetwxcodewithoauth2 "github.com/mimicode/tksdk/vipopensdk/response/comvipadpapiopenserviceunionurlv2servicegetwxcodewithoauth"
+	comvipadpapiopenserviceunionuserv2servicecheckuserwithoauth2 "github.com/mimicode/tksdk/vipopensdk/response/comvipadpapiopenserviceunionuserv2servicecheckuserwithoauth"
+	comvipadpapiopenserviceunionuserv2serviceunbindopenidwithoauth2 "github.com/mimicode/tksdk/vipopensdk/response/comvipadpapiopenserviceunionuserv2serviceunbindopenidwithoauth"
+	comvipadpapiopenserviceunionuserv2serviceuserverifywithoauth2 "github.com/mimicode/tksdk/vipopensdk/response/comvipadpapiopenserviceunionuserv2serviceuserverifywithoauth"
 )
 
 var (
@@ -627,5 +632,133 @@ func TestComVipAdpApiOpenServiceUnionGoodsServiceGoodsListV2WithOauthRequest(t *
 
 		fmt.Println(result.Body)
 
+	}
+}
+
+// TestComVipAdpApiOpenServiceUnionUserV2ServiceCheckUserWithOauthRequest 测试根据openId判断用户是否是渠道用户信息
+func TestComVipAdpApiOpenServiceUnionUserV2ServiceCheckUserWithOauthRequest(t *testing.T) {
+	client := GetClient()
+	// 初始化请求接口信息
+	getRequest := &request2.ComVipAdpApiOpenServiceUnionUserV2ServiceCheckUserWithOauthRequest{}
+
+	getRequest.AddParameter("request", map[string]interface{}{
+		"openId":    "test_open_id",   // openId
+		"requestId": utils2.GetUUID(), // 请求id：调用方自行定义，用于追踪请求，单次请求唯一，建议使用UUID
+		"scene":     1,                // 校验场景id(默认不传为1):1-校验是否为新用户，2-校验用户是否已授权
+		"commonParams": map[string]interface{}{ // 通用参数：能获取到则须传入
+			"plat":            2,                    // 用户平台：1-PC,2-APP,3-小程序,不传默认为APP
+			"deviceType":      "IMEI",               // 设备号类型：IMEI，IDFA，OAID，有则传入
+			"deviceValue":     "device_md5_value",   // 设备号MD5加密后的值，有则传入,IDFA大写后md5，IMER小写后md5，OAID原文md5
+			"ip":              "127.0.0.1",          // 用户ip地址
+			"longitude":       "29.590961456298828", // 经度 如:29.590961456298828
+			"latitude":        "106.51573181152344", // 纬度 如:106.51573181152344
+			"warehouse":       "VIP_NH",             // 分仓 VIP_NH：广州仓， VIP_SH：上海仓， VIP_BJ：北京仓， VIP_CD：成都仓， VIP_HZ：华中仓， ALL：全国仓
+			"mobileEncrypted": "encrypted_mobile",   // 加密手机号（密钥从联盟PC前台获取）
+		},
+	})
+
+	// 初始化结果类型
+	var getResponse DefaultResponse = &comvipadpapiopenserviceunionuserv2servicecheckuserwithoauth2.Response{}
+	// 执行请求接口得到结果
+	err := client.Exec(getRequest, getResponse)
+	if err != nil {
+		t.Log(err)
+	} else {
+		result := getResponse.(*comvipadpapiopenserviceunionuserv2servicecheckuserwithoauth2.Response)
+		fmt.Println(result.Body)
+	}
+}
+
+// TestComVipAdpApiOpenServiceUnionUserV2ServiceUnbindOpenIdWithOauthRequest 测试解绑已授权的openId接口
+func TestComVipAdpApiOpenServiceUnionUserV2ServiceUnbindOpenIdWithOauthRequest(t *testing.T) {
+	client := GetClient()
+	// 初始化请求接口信息
+	getRequest := &request2.ComVipAdpApiOpenServiceUnionUserV2ServiceUnbindOpenIdWithOauthRequest{}
+
+	getRequest.AddParameter("request", map[string]interface{}{
+		"requestId": utils2.GetUUID(), // 请求id：调用方自行定义，用于追踪请求，单次请求唯一，建议使用UUID
+		"openId":    "test_open_id",   // 用户openId
+	})
+
+	// 初始化结果类型
+	var getResponse DefaultResponse = &comvipadpapiopenserviceunionuserv2serviceunbindopenidwithoauth2.Response{}
+	// 执行请求接口得到结果
+	err := client.Exec(getRequest, getResponse)
+	if err != nil {
+		t.Log(err)
+	} else {
+		result := getResponse.(*comvipadpapiopenserviceunionuserv2serviceunbindopenidwithoauth2.Response)
+		fmt.Println(result.Body)
+	}
+}
+
+// TestComVipAdpApiOpenServiceUnionUserV2ServiceUserVerifyWithOauthRequest 测试CPS联盟用户校验
+func TestComVipAdpApiOpenServiceUnionUserV2ServiceUserVerifyWithOauthRequest(t *testing.T) {
+	client := GetClient()
+	// 初始化请求接口信息
+	getRequest := &request2.ComVipAdpApiOpenServiceUnionUserV2ServiceUserVerifyWithOauthRequest{}
+
+	getRequest.AddParameter("request", map[string]interface{}{
+		"requestId": utils2.GetUUID(), // 请求id：调用方自行定义，用于追踪请求，单次请求唯一，建议使用UUID
+		"scene":     "oldUser",        // 业务场景:
+		// oldUser:当判定使用该设备的用户为唯品会老用户时返回1
+		// superRedEnvelope:当判定使用该设备的用户已领取指定的超级红包时返回1
+		// surpriseRedEnvelope:当判定使用该设备的用户已领取指定的惊喜红包时返回1
+		// sanDanLi:当判定用户可以领取新客三单礼时返回1
+		// inactiveUser:判定传入的加密手机号的用户是否是沉睡用户,返回1是表示沉睡用户,返回0则非沉睡用户
+		"attributeValue": "red_envelope_code", // 业务场景为superRedEnvelope时，该属性值必须设置为超级红包code;业务场景为surpriseRedEnvelope时，该属性值必须设置为惊喜红包code;其他场景非必填
+		"commonParams": map[string]interface{}{ // 通用参数：能获取到则须传入
+			"plat":            2,                    // 用户平台：1-PC,2-APP,3-小程序,不传默认为APP
+			"deviceType":      "IMEI",               // 设备号类型：IMEI，IDFA，OAID，有则传入
+			"deviceValue":     "device_md5_value",   // 设备号MD5加密后的值，有则传入,IDFA大写后md5，IMER小写后md5，OAID原文md5
+			"ip":              "127.0.0.1",          // 用户ip地址
+			"longitude":       "29.590961456298828", // 经度 如:29.590961456298828
+			"latitude":        "106.51573181152344", // 纬度 如:106.51573181152344
+			"warehouse":       "VIP_NH",             // 分仓 VIP_NH：广州仓， VIP_SH：上海仓， VIP_BJ：北京仓， VIP_CD：成都仓， VIP_HZ：华中仓， ALL：全国仓
+			"mobileEncrypted": "encrypted_mobile",   // 加密手机号（密钥从联盟PC前台获取）
+		},
+		"openId": "test_open_id", // 渠道用户openId
+	})
+
+	// 初始化结果类型
+	var getResponse DefaultResponse = &comvipadpapiopenserviceunionuserv2serviceuserverifywithoauth2.Response{}
+	// 执行请求接口得到结果
+	err := client.Exec(getRequest, getResponse)
+	if err != nil {
+		t.Log(err)
+	} else {
+		result := getResponse.(*comvipadpapiopenserviceunionuserv2serviceuserverifywithoauth2.Response)
+		fmt.Println(result.Body)
+	}
+}
+
+// TestComVipAdpApiOpenServiceUnionUrlV2ServiceGetWxCodeWithOauthRequest 测试生成微信小程序码接口
+func TestComVipAdpApiOpenServiceUnionUrlV2ServiceGetWxCodeWithOauthRequest(t *testing.T) {
+	client := GetClient()
+	// 初始化请求接口信息
+	getRequest := &request2.ComVipAdpApiOpenServiceUnionUrlV2ServiceGetWxCodeWithOauthRequest{}
+
+	getRequest.AddParameter("request", map[string]interface{}{
+		"requestId":       utils2.GetUUID(),      // 请求id：UUID
+		"targetType":      "GOODSID",             // 目标字段类型：GOODSID-商详转链
+		"targetValue":     "6919190827778651268", // 目标值：商品ID
+		"chanTag":         "default_pid",         // 推广位标识
+		"openId":          "default_open_id",     // 用户唯一标识
+		"realCall":        true,                  // 是否实时调用
+		"adCode":          "unionapi",            // 推广物料来源
+		"genShortLink":    true,                  // 是否需要生成小程序短链
+		"genWxCode":       true,                  // 是否需要生成小程序码
+		"genAuthorityUrl": false,                 // 是否生成带授权功能的cps链接
+	})
+
+	// 初始化结果类型
+	var getResponse DefaultResponse = &comvipadpapiopenserviceunionurlv2servicegetwxcodewithoauth2.Response{}
+	// 执行请求接口得到结果
+	err := client.Exec(getRequest, getResponse)
+	if err != nil {
+		t.Log(err)
+	} else {
+		result := getResponse.(*comvipadpapiopenserviceunionurlv2servicegetwxcodewithoauth2.Response)
+		fmt.Println(result.Body)
 	}
 }
