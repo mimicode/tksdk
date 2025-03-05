@@ -1,7 +1,8 @@
 package request
 
-//--APIDESC--
-//--APIURL--
+// --APINAME--Request --APIORGNAME--
+// --APIMETHOD-- --APIVERSION-- --APIDESC--
+// --APIURL--
 type --APINAME--Request struct {
 	Parameters map[string]interface{} //请求参数
 }
