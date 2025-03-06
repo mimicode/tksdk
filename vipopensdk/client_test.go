@@ -3,9 +3,22 @@ package vipopensdk
 import (
 	"encoding/json"
 	"fmt"
+	"github.com/mimicode/tksdk/vipopensdk/response/comvipadpapiopenserviceuniongoodsv2servicegoodslistv2withoauth"
+	"github.com/mimicode/tksdk/vipopensdk/response/comvipadpapiopenserviceuniongoodsv2servicequerywithoauth"
+	"github.com/mimicode/tksdk/vipopensdk/response/comvipadpapiopenserviceuniongoodsv2servicesimilarrecommendwithoauth"
+	"github.com/mimicode/tksdk/vipopensdk/response/comvipadpapiopenserviceuniongoodsv2serviceuserrecommendwithoauth"
+	"github.com/mimicode/tksdk/vipopensdk/response/comvipadpapiopenserviceunionorderv2serviceorderlistwithoauth"
 	"io/ioutil"
 	"os"
 	"testing"
+	"time"
+
+	"github.com/mimicode/tksdk/vipopensdk/response/comvipadpapiopenserviceuniongoodsv2servicegetbygoodsidsv2withoauth"
+	"github.com/mimicode/tksdk/vipopensdk/response/comvipadpapiopenserviceuniongoodsv2servicegetgoodsdetailmarketingwithoauth"
+	"github.com/mimicode/tksdk/vipopensdk/response/comvipadpapiopenserviceunionurlv2servicegenbygoodsidwithoauth"
+	"github.com/mimicode/tksdk/vipopensdk/response/comvipadpapiopenserviceunionurlv2servicegenbyvipurlwithoauth"
+	"github.com/mimicode/tksdk/vipopensdk/response/comvipadpapiopenserviceunionurlv2servicegetchannelurlbytypewithoauth"
+	"github.com/mimicode/tksdk/vipopensdk/response/comvipadpapiopenserviceunionurlv2serviceviplinkcheckwithouth"
 
 	utils2 "github.com/mimicode/tksdk/utils"
 	request2 "github.com/mimicode/tksdk/vipopensdk/request"
@@ -642,19 +655,19 @@ func TestComVipAdpApiOpenServiceUnionUserV2ServiceCheckUserWithOauthRequest(t *t
 	getRequest := &request2.ComVipAdpApiOpenServiceUnionUserV2ServiceCheckUserWithOauthRequest{}
 
 	getRequest.AddParameter("request", map[string]interface{}{
-		"openId":    "test_open_id",   // openId
+		"openId":    "user1",          // openId
 		"requestId": utils2.GetUUID(), // 请求id：调用方自行定义，用于追踪请求，单次请求唯一，建议使用UUID
-		"scene":     1,                // 校验场景id(默认不传为1):1-校验是否为新用户，2-校验用户是否已授权
-		"commonParams": map[string]interface{}{ // 通用参数：能获取到则须传入
-			"plat":            2,                    // 用户平台：1-PC,2-APP,3-小程序,不传默认为APP
-			"deviceType":      "IMEI",               // 设备号类型：IMEI，IDFA，OAID，有则传入
-			"deviceValue":     "device_md5_value",   // 设备号MD5加密后的值，有则传入,IDFA大写后md5，IMER小写后md5，OAID原文md5
-			"ip":              "127.0.0.1",          // 用户ip地址
-			"longitude":       "29.590961456298828", // 经度 如:29.590961456298828
-			"latitude":        "106.51573181152344", // 纬度 如:106.51573181152344
-			"warehouse":       "VIP_NH",             // 分仓 VIP_NH：广州仓， VIP_SH：上海仓， VIP_BJ：北京仓， VIP_CD：成都仓， VIP_HZ：华中仓， ALL：全国仓
-			"mobileEncrypted": "encrypted_mobile",   // 加密手机号（密钥从联盟PC前台获取）
-		},
+		"scene":     2,                // 校验场景id(默认不传为1):1-校验是否为新用户，2-校验用户是否已授权
+		//"commonParams": map[string]interface{}{ // 通用参数：能获取到则须传入
+		//	"plat":            2,                    // 用户平台：1-PC,2-APP,3-小程序,不传默认为APP
+		//	"deviceType":      "IMEI",               // 设备号类型：IMEI，IDFA，OAID，有则传入
+		//	"deviceValue":     "device_md5_value",   // 设备号MD5加密后的值，有则传入,IDFA大写后md5，IMER小写后md5
+		//	"ip":              "127.0.0.1",          // 用户ip地址
+		//	"longitude":       "29.590961456298828", // 经度 如:29.590961456298828
+		//	"latitude":        "106.51573181152344", // 纬度 如:106.51573181152344
+		//	"warehouse":       "VIP_NH",             // 分仓 VIP_NH：广州仓， VIP_SH：上海仓， VIP_BJ：北京仓， VIP_CD：成都仓， VIP_HZ：华中仓， ALL：全国仓
+		//	"mobileEncrypted": "encrypted_mobile",   // 加密手机号（密钥从联盟PC前台获取）
+		//},
 	})
 
 	// 初始化结果类型
@@ -759,6 +772,340 @@ func TestComVipAdpApiOpenServiceUnionUrlV2ServiceGetWxCodeWithOauthRequest(t *te
 		t.Log(err)
 	} else {
 		result := getResponse.(*comvipadpapiopenserviceunionurlv2servicegetwxcodewithoauth2.Response)
+		fmt.Println(result.Body)
+	}
+}
+
+func TestComVipAdpApiOpenServiceUnionUrlV2ServiceGetChannelUrlByTypeWithOauthRequest(t *testing.T) {
+	client := GetClient()
+	// 初始化请求接口信息
+	getRequest := &request2.ComVipAdpApiOpenServiceUnionUrlV2ServiceGetChannelUrlByTypeWithOauthRequest{}
+	getRequest.AddParameter("request", map[string]interface{}{
+		"requestId":        utils2.GetUUID(),
+		"type":             "BIND_FILING_LINK",
+		"chanTag":          "default_pid",
+		"compressShortUrl": true,
+		"realCall":         true,
+		"openId":           "user1",
+	})
+
+	// 初始化结果类型
+	var getResponse DefaultResponse = &comvipadpapiopenserviceunionurlv2servicegetchannelurlbytypewithoauth.Response{}
+	// 执行请求接口得到结果
+	err := client.Exec(getRequest, getResponse)
+	if err != nil {
+		t.Log(err)
+	} else {
+		result := getResponse.(*comvipadpapiopenserviceunionurlv2servicegetchannelurlbytypewithoauth.Response)
+		fmt.Println(result.Body)
+	}
+}
+
+func TestComVipAdpApiOpenServiceUnionUrlV2ServiceGenByGoodsIdWithOauthRequest(t *testing.T) {
+	client := GetClient()
+	// 初始化请求接口信息
+	getRequest := &request2.ComVipAdpApiOpenServiceUnionUrlV2ServiceGenByGoodsIdWithOauthRequest{}
+
+	getRequest.AddParameter("requestId", utils2.GetUUID())
+	getRequest.AddParameter("chanTag", "default_pid")
+	getRequest.AddParameter("queryExclusiveCoupon", true)
+	getRequest.AddParameter("genShortUrl", true)
+	getRequest.AddParameter("goodsIdList", []string{
+		"6920529178476349386",
+	})
+	getRequest.AddParameter("urlGenByGoodsIdRequest", map[string]interface{}{
+		"openId":          "user2",
+		"realCall":        true,
+		"platform":        3,
+		"adCode":          "vendoapi",
+		"genAuthorityUrl": true,
+	})
+	getRequest.AddParameter("statParam", "")
+	// 初始化结果类型
+	var getResponse DefaultResponse = &comvipadpapiopenserviceunionurlv2servicegenbygoodsidwithoauth.Response{}
+	// 执行请求接口得到结果
+	err := client.Exec(getRequest, getResponse)
+	if err != nil {
+		t.Log(err)
+	} else {
+		result := getResponse.(*comvipadpapiopenserviceunionurlv2servicegenbygoodsidwithoauth.Response)
+		fmt.Println(result.Body)
+	}
+}
+
+func TestComVipAdpApiOpenServiceUnionUrlV2ServiceGenByVIPUrlWithOauthRequest(t *testing.T) {
+	client := GetClient()
+	// 初始化请求接口信息
+	getRequest := &request2.ComVipAdpApiOpenServiceUnionUrlV2ServiceGenByVIPUrlWithOauthRequest{}
+
+	getRequest.AddParameter("requestId", utils2.GetUUID())
+	getRequest.AddParameter("chanTag", "default_pid")
+	getRequest.AddParameter("statParam", "")
+	getRequest.AddParameter("urlList", []string{
+		"https://t.vip.com/qujk8p",
+	})
+	getRequest.AddParameter("urlGenRequest", map[string]interface{}{
+		"openId":          "user2",
+		"realCall":        true,
+		"platform":        3,
+		"adCode":          "vendoapi",
+		"genAuthorityUrl": true,
+		"genShortUrl":     true,
+	})
+
+	// 初始化结果类型
+	var getResponse DefaultResponse = &comvipadpapiopenserviceunionurlv2servicegenbyvipurlwithoauth.Response{}
+	// 执行请求接口得到结果
+	err := client.Exec(getRequest, getResponse)
+	if err != nil {
+		t.Log(err)
+	} else {
+		result := getResponse.(*comvipadpapiopenserviceunionurlv2servicegenbyvipurlwithoauth.Response)
+		fmt.Println(result.Body)
+	}
+}
+
+func TestComVipAdpApiOpenServiceUnionUrlV2ServiceVipLinkCheckWithOuthRequest(t *testing.T) {
+	client := GetClient()
+	// 初始化请求接口信息
+	getRequest := &request2.ComVipAdpApiOpenServiceUnionUrlV2ServiceVipLinkCheckWithOuthRequest{}
+	getRequest.AddParameter("vipLinkCheckReq", map[string]interface{}{
+		"requestId": utils2.GetUUID(),
+		"source":    "wwww",
+		"content":   "fadfa达到发达https://t.vip.com/qujk8p的时代",
+	})
+	// 初始化结果类型
+	var getResponse DefaultResponse = &comvipadpapiopenserviceunionurlv2serviceviplinkcheckwithouth.Response{}
+	// 执行请求接口得到结果
+	err := client.Exec(getRequest, getResponse)
+	if err != nil {
+		t.Log(err)
+	} else {
+		result := getResponse.(*comvipadpapiopenserviceunionurlv2serviceviplinkcheckwithouth.Response)
+		fmt.Println(result.Body)
+	}
+}
+
+func TestComVipAdpApiOpenServiceUnionGoodsV2ServiceGetGoodsDetailMarketingWithOauthRequest(t *testing.T) {
+	client := GetClient()
+	// 初始化请求接口信息
+	getRequest := &request2.ComVipAdpApiOpenServiceUnionGoodsV2ServiceGetGoodsDetailMarketingWithOauthRequest{}
+	getRequest.AddParameter("request", map[string]interface{}{
+		"goodsId":                     "6920529178476349386", // 商品id
+		"queryDetail":                 true,                  // 是否查询详情信息：此参数设为true，将查询出商品轮播图和详情图，默认为false
+		"queryReputation":             true,                  // 是否查询商品评价信息：默认为false
+		"queryStoreServiceCapability": true,                  // 是否查询商品所属店铺服务能力信息：默认为false
+		"queryStock":                  true,                  // 是否查询商品库存状态：默认为false
+		"queryPrepay":                 true,                  // 是否查询商品预付信息:默认为false
+		"chanTag":                     "default_pid",         // chanTag=pid，即推广位标识 (必传)，用来标记推广中的某个资源位，比如APP的banner、icon等（必传）
+		"extendBySpu":                 true,                  // 是否按照同spu扩展:此参数为true时，将根据传入的商品id扩展查询出同spu下的所有商品id，默认为false
+		"requestId":                   utils2.GetUUID(),      // 请求id：调用方自行定义，用于追踪请求，单次请求唯一，建议使用UUID
+		"sizeIdMap": map[string]interface{}{ // 商品id对应sizeId集合:指定查询商品id下sizeId对应信息,key为goodsId，value为sizeId(等同于skuId)
+			"6919190827778651268": "123456789",
+		},
+		"extendSku": true, // 是否扩展查询商品sku信息: 此参数为true时，将根据传入的商品id扩展查询出对应的sku信息，默认为false
+		"commonParams": map[string]interface{}{ // 通用参数
+			"plat":            2,                    // 用户平台：1-PC,2-APP,3-小程序,不传默认为APP
+			"deviceType":      "IMEI",               // 设备号类型：IMEI，IDFA，OAID，有则传入
+			"deviceValue":     "device_md5_value",   // 设备号MD5加密后的值，有则传入,IDFA大写后md5，IMER小写后md5，OAID原文md5
+			"ip":              "127.0.0.1",          // 用户ip地址
+			"longitude":       "29.590961456298828", // 经度 如:29.590961456298828
+			"latitude":        "106.51573181152344", // 纬度 如:106.51573181152344
+			"warehouse":       "VIP_NH",             // 分仓 VIP_NH：广州仓， VIP_SH：上海仓， VIP_BJ：北京仓， VIP_CD：成都仓， VIP_HZ：华中仓， ALL：全国仓
+			"mobileEncrypted": "encrypted_mobile",   // 加密手机号（密钥从联盟PC前台获取）对于查询商品信息场景下，会通过该手机号匹配人群信息返回该人群可使用的最优价格以及个性化排序
+		},
+		"queryCpsInfo":        3,              // 是否返回cps链接：0-不查询，1-tra_from参数,2-小程序链接，默认为0，查询多个时按照位运算处理，例如：3表示查询tra_from参数+小程序链接
+		"querySubsidyActFlag": false,          // 是否查询补贴活动商品信息 (废弃字段，功能已下线)
+		"openId":              "test_open_id", // 用户在渠道侧的用户唯一标识，用于识别用户并给用户返利分佣等
+		"realCall":            true,           // 是否实时调用（必传），true：由用户实时触发的请求，实时给用户展示联盟返回的商品信息或者实时给用户转链生成推广链接
+		"goodsPriceScene":     1,              // 商品价格场景：此参数用于控制商品返回的vipPrice使用的价格类型
+	})
+	// 初始化结果类型
+	var getResponse DefaultResponse = &comvipadpapiopenserviceuniongoodsv2servicegetgoodsdetailmarketingwithoauth.Response{}
+	// 执行请求接口得到结果
+	err := client.Exec(getRequest, getResponse)
+	if err != nil {
+		t.Log(err)
+	} else {
+		result := getResponse.(*comvipadpapiopenserviceuniongoodsv2servicegetgoodsdetailmarketingwithoauth.Response)
+		fmt.Println(result.Body)
+	}
+}
+
+func TestComVipAdpApiOpenServiceUnionGoodsV2ServiceGetByGoodsIdsV2WithOauthRequest(t *testing.T) {
+	client := GetClient()
+	// 初始化请求接口信息
+	getRequest := &request2.ComVipAdpApiOpenServiceUnionGoodsV2ServiceGetByGoodsIdsV2WithOauthRequest{}
+	getRequest.AddParameter("request", map[string]interface{}{
+		"goodsIds":                    []string{"6920529178476349386"}, // 商品id列表，最多不超过10个
+		"queryDetail":                 true,                            // 是否查询详情信息：此参数设为true，将查询出商品轮播图和详情图，默认为false
+		"queryStock":                  true,                            // 是否查询商品库存状态：默认为false
+		"queryReputation":             true,                            // 是否查询商品评价信息：默认为false
+		"queryStoreServiceCapability": true,                            // 是否查询商品所属店铺服务能力信息：默认为false
+		"queryPMSAct":                 true,                            // 是否查询商品活动信息:默认为false
+		"queryPrepay":                 true,                            // 是否查询商品预付信息:默认为false
+		"chanTag":                     "default_pid",                   // chanTag=pid，即推广位标识 (必传)，用来标记推广中的某个资源位，比如APP的banner、icon等（必传）
+		"extendBySpu":                 true,                            // 是否按照同spu扩展:此参数为true时，将根据传入的商品id扩展查询出同spu下的所有商品id，默认为false
+		"requestId":                   utils2.GetUUID(),                // 请求id：调用方自行定义，用于追踪请求，单次请求唯一，建议使用UUID
+		"sizeIdMap": map[string]interface{}{ // 商品id对应sizeId集合:指定查询商品id下sizeId对应信息,key为goodsId，value为sizeId(等同于skuId)
+			"6919190827778651268": "123456789",
+		},
+		"queryExclusiveCoupon": true, // 是否查询渠道专属红包信息： 默认查询
+		"extendSku":            true, // 是否扩展查询商品sku信息: 此参数为true时，将根据传入的商品id扩展查询出对应的sku信息，默认为false
+		"commonParams": map[string]interface{}{ // 通用参数
+			"plat":            2,                    // 用户平台：1-PC,2-APP,3-小程序,不传默认为APP
+			"deviceType":      "IMEI",               // 设备号类型：IMEI，IDFA，OAID，有则传入
+			"deviceValue":     "device_md5_value",   // 设备号MD5加密后的值，有则传入,IDFA大写后md5，IMER小写后md5，OAID原文md5
+			"ip":              "127.0.0.1",          // 用户ip地址
+			"longitude":       "29.590961456298828", // 经度 如:29.590961456298828
+			"latitude":        "106.51573181152344", // 纬度 如:106.51573181152344
+			"warehouse":       "VIP_NH",             // 分仓 VIP_NH：广州仓， VIP_SH：上海仓， VIP_BJ：北京仓， VIP_CD：成都仓， VIP_HZ：华中仓， ALL：全国仓
+			"mobileEncrypted": "encrypted_mobile",   // 加密手机号（密钥从联盟PC前台获取）对于查询商品信息场景下，会通过该手机号匹配人群信息返回该人群可使用的最优价格以及个性化排序
+		},
+		"queryCpsInfo":        3,              // 是否返回cps链接：0-不查询，1-tra_from参数,2-小程序链接，默认为0，查询多个时按照位运算处理，例如：3表示查询tra_from参数+小程序链接
+		"queryFuturePrice":    true,           // 是否查询未来价信息：默认不查询
+		"querySubsidyActFlag": false,          // 是否查询补贴活动商品信息 (废弃字段，功能已下线)
+		"openId":              "test_open_id", // 用户在渠道侧的用户唯一标识，用于识别用户并给用户返利分佣等
+		"realCall":            true,           // 是否实时调用（必传），true：由用户实时触发的请求，实时给用户展示联盟返回的商品信息或者实时给用户转链生成推广链接
+		"goodsPriceScene":     1,              // 商品价格场景：此参数用于控制商品返回的vipPrice使用的价格类型
+	})
+	// 初始化结果类型
+	var getResponse DefaultResponse = &comvipadpapiopenserviceuniongoodsv2servicegetbygoodsidsv2withoauth.Response{}
+	// 执行请求接口得到结果
+	err := client.Exec(getRequest, getResponse)
+	if err != nil {
+		t.Log(err)
+	} else {
+		result := getResponse.(*comvipadpapiopenserviceuniongoodsv2servicegetbygoodsidsv2withoauth.Response)
+		fmt.Println(result.Body)
+	}
+}
+
+func TestComVipAdpApiOpenServiceUnionGoodsV2ServiceQueryWithOauthRequest(t *testing.T) {
+	client := GetClient()
+	// 初始化请求接口信息
+	getRequest := &request2.ComVipAdpApiOpenServiceUnionGoodsV2ServiceQueryWithOauthRequest{}
+	getRequest.AddParameter("request", map[string]interface{}{
+		"requestId":            utils2.GetUUID(),
+		"page":                 1,
+		"keyword":              "南孚",
+		"chanTag":              "default_pid",
+		"queryExclusiveCoupon": true,
+		"openId":               "default_open_id", // 用户在渠道侧的用户唯一标识，用于识别用户并给用户返利分佣等
+		"realCall":             true,              // 是否实时调用（必传），true：由用户实时触发的请求，实时给用户展示联盟返回的商品信息或者实时给用户转链生成推广链接
+		"goodsPriceScene":      1,                 // 商品价格场景：此参数用于控制商品返回的vipPrice使用的价格类型
+	})
+	// 初始化结果类型
+	var getResponse DefaultResponse = &comvipadpapiopenserviceuniongoodsv2servicequerywithoauth.Response{}
+	// 执行请求接口得到结果
+	err := client.Exec(getRequest, getResponse)
+	if err != nil {
+		t.Log(err)
+	} else {
+		result := getResponse.(*comvipadpapiopenserviceuniongoodsv2servicequerywithoauth.Response)
+		fmt.Println(result.Body)
+	}
+}
+
+func TestComVipAdpApiOpenServiceUnionGoodsV2ServiceSimilarRecommendWithOauthRequest(t *testing.T) {
+	client := GetClient()
+	// 初始化请求接口信息
+	getRequest := &request2.ComVipAdpApiOpenServiceUnionGoodsV2ServiceSimilarRecommendWithOauthRequest{}
+	getRequest.AddParameter("request", map[string]interface{}{
+		"requestId":            utils2.GetUUID(),
+		"page":                 1,
+		"goodsId":              "6920529178476349386",
+		"chanTag":              "default_pid",
+		"queryExclusiveCoupon": true,
+		"openId":               "default_open_id", // 用户在渠道侧的用户唯一标识，用于识别用户并给用户返利分佣等
+		"realCall":             true,              // 是否实时调用（必传），true：由用户实时触发的请求，实时给用户展示联盟返回的商品信息或者实时给用户转链生成推广链接
+		"goodsPriceScene":      1,                 // 商品价格场景：此参数用于控制商品返回的vipPrice使用的价格类型
+	})
+	// 初始化结果类型
+	var getResponse DefaultResponse = &comvipadpapiopenserviceuniongoodsv2servicesimilarrecommendwithoauth.Response{}
+	// 执行请求接口得到结果
+	err := client.Exec(getRequest, getResponse)
+	if err != nil {
+		t.Log(err)
+	} else {
+		result := getResponse.(*comvipadpapiopenserviceuniongoodsv2servicesimilarrecommendwithoauth.Response)
+		fmt.Println(result.Body)
+	}
+}
+
+func TestComVipAdpApiOpenServiceUnionGoodsV2ServiceGoodsListV2WithOauthRequest(t *testing.T) {
+	client := GetClient()
+	// 初始化请求接口信息
+	getRequest := &request2.ComVipAdpApiOpenServiceUnionGoodsV2ServiceGoodsListV2WithOauthRequest{}
+	getRequest.AddParameter("request", map[string]interface{}{
+		"requestId":            utils2.GetUUID(),
+		"offset":               0,
+		"channelType":          1,
+		"sourceType":           0,
+		"chanTag":              "default_pid",
+		"queryExclusiveCoupon": true,
+		"openId":               "default_open_id", // 用户在渠道侧的用户唯一标识，用于识别用户并给用户返利分佣等
+		"realCall":             false,             // 是否实时调用（必传），true：由用户实时触发的请求，实时给用户展示联盟返回的商品信息或者实时给用户转链生成推广链接
+		"goodsPriceScene":      1,                 // 商品价格场景：此参数用于控制商品返回的vipPrice使用的价格类型
+	})
+	// 初始化结果类型
+	var getResponse DefaultResponse = &comvipadpapiopenserviceuniongoodsv2servicegoodslistv2withoauth.Response{}
+	// 执行请求接口得到结果
+	err := client.Exec(getRequest, getResponse)
+	if err != nil {
+		t.Log(err)
+	} else {
+		result := getResponse.(*comvipadpapiopenserviceuniongoodsv2servicegoodslistv2withoauth.Response)
+		fmt.Println(result.Body)
+	}
+}
+
+func TestComVipAdpApiOpenServiceUnionGoodsV2ServiceUserRecommendWithOauthRequest(t *testing.T) {
+	client := GetClient()
+	// 初始化请求接口信息
+	getRequest := &request2.ComVipAdpApiOpenServiceUnionGoodsV2ServiceUserRecommendWithOauthRequest{}
+	getRequest.AddParameter("request", map[string]interface{}{
+		"requestId":            utils2.GetUUID(),
+		"page":                 1,
+		"channelType":          1,
+		"sourceType":           0,
+		"chanTag":              "default_pid",
+		"queryExclusiveCoupon": true,
+		"openId":               "default_open_id", // 用户在渠道侧的用户唯一标识，用于识别用户并给用户返利分佣等
+		"realCall":             false,             // 是否实时调用（必传），true：由用户实时触发的请求，实时给用户展示联盟返回的商品信息或者实时给用户转链生成推广链接
+		"goodsPriceScene":      1,                 // 商品价格场景：此参数用于控制商品返回的vipPrice使用的价格类型
+	})
+	// 初始化结果类型
+	var getResponse DefaultResponse = &comvipadpapiopenserviceuniongoodsv2serviceuserrecommendwithoauth.Response{}
+	// 执行请求接口得到结果
+	err := client.Exec(getRequest, getResponse)
+	if err != nil {
+		t.Log(err)
+	} else {
+		result := getResponse.(*comvipadpapiopenserviceuniongoodsv2serviceuserrecommendwithoauth.Response)
+		fmt.Println(result.Body)
+	}
+}
+
+func TestComVipAdpApiOpenServiceUnionOrderV2ServiceOrderListWithOauthRequest(t *testing.T) {
+	client := GetClient()
+	// 初始化请求接口信息
+	getRequest := &request2.ComVipAdpApiOpenServiceUnionOrderV2ServiceOrderListWithOauthRequest{}
+	orderTimeStart, _ := time.Parse(time.DateTime, "2025-01-23 16:00:00")
+	getRequest.AddParameter("queryModel", map[string]interface{}{
+		"requestId":      utils2.GetUUID(),
+		"page":           1,
+		"orderTimeStart": orderTimeStart.UnixMilli(),
+		"orderTimeEnd":   orderTimeStart.Add(1 * time.Hour).UnixMilli(),
+	})
+	// 初始化结果类型
+	var getResponse DefaultResponse = &comvipadpapiopenserviceunionorderv2serviceorderlistwithoauth.Response{}
+	// 执行请求接口得到结果
+	err := client.Exec(getRequest, getResponse)
+	if err != nil {
+		t.Log(err)
+	} else {
+		result := getResponse.(*comvipadpapiopenserviceunionorderv2serviceorderlistwithoauth.Response)
 		fmt.Println(result.Body)
 	}
 }

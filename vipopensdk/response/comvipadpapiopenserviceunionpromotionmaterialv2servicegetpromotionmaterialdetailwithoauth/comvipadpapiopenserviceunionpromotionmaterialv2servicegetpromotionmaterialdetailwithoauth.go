@@ -11,7 +11,7 @@ import (
 // https://vop.vip.com/home#/api/method/detail/com.vip.adp.api.open.service.UnionPromotionMaterialV2Service-2.0.0/getPromotionMaterialDetailWithOauth
 type Response struct {
 	response.TopResponse
-	Success PromotionMaterialDetailResponse `json:"success"`
+	Success PromotionMaterialDetailResponse `json:"result"`
 }
 
 // 解析输出结果

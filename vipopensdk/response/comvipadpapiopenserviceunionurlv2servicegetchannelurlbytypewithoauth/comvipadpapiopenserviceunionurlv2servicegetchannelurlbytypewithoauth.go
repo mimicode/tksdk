@@ -12,7 +12,7 @@ import (
 // https://vop.vip.com/home#/api/method/detail/com.vip.adp.api.open.service.UnionUrlV2Service-2.0.0/getChannelUrlByTypeWithOauth
 type Response struct {
 	response.TopResponse
-	Success GetChannelUrlByTypeResponse `json:"success"` // 响应结果
+	Success GetChannelUrlByTypeResponse `json:"result"` // 响应结果
 }
 
 // 解析输出结果
