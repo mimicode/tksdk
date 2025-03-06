@@ -11,7 +11,7 @@ import (
 // http://vop.vip.com/apicenter/method?serviceName=com.vip.adp.api.open.service.UnionPidV2Service-2.0.0&methodName=queryPidWithOauth
 type Response struct {
 	response.TopResponse
-	Success Success `json:"success"`
+	Success Success `json:"result"`
 }
 
 // 解析输出结果

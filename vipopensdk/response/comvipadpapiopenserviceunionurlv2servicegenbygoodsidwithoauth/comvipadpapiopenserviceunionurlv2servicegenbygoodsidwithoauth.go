@@ -11,7 +11,7 @@ import (
 // https://vop.vip.com/home#/api/method/detail/com.vip.adp.api.open.service.UnionUrlV2Service-2.0.0/genByGoodsIdWithOauth
 type Response struct {
 	response.TopResponse
-	Success UrlGenResponse `json:"success"`
+	Success UrlGenResponse `json:"result"`
 }
 
 // 解析输出结果
