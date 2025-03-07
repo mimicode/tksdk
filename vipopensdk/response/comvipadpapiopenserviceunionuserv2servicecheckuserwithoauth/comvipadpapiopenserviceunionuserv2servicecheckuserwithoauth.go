@@ -11,7 +11,7 @@ import (
 // https://vop.vip.com/home#/api/method/detail/com.vip.adp.api.open.service.UnionUserV2Service-2.0.0/checkUserWithOauth
 type Response struct {
 	response.TopResponse
-	Success CheckUserResponse `json:"success"`
+	Success CheckUserResponse `json:"result"`
 }
 
 // 解析输出结果
