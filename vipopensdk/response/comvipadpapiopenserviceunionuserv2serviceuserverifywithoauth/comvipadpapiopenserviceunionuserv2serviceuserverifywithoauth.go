@@ -11,7 +11,7 @@ import (
 // https://vop.vip.com/home#/api/method/detail/com.vip.adp.api.open.service.UnionUserV2Service-2.0.0/userVerifyWithOauth
 type Response struct {
 	response.TopResponse
-	Success UserVerifyResponse `json:"success"`
+	Success UserVerifyResponse `json:"result"`
 }
 
 // 解析输出结果

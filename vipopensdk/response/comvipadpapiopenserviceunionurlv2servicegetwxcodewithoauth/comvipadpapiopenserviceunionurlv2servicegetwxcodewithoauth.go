@@ -11,7 +11,7 @@ import (
 // https://vop.vip.com/home#/api/method/detail/com.vip.adp.api.open.service.UnionUrlV2Service-2.0.0/getWxCodeWithOauth
 type Response struct {
 	response.TopResponse
-	Success WxCodeGenResponse `json:"success"`
+	Success WxCodeGenResponse `json:"result"`
 }
 
 // 解析输出结果
