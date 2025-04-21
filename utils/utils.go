@@ -23,6 +23,14 @@ func SortParamters(params url.Values) []string {
 	sort.Strings(keys)
 	return keys
 }
+func SortMapParamters(params map[string]interface{}) []string {
+	var keys []string
+	for k := range params {
+		keys = append(keys, k)
+	}
+	sort.Strings(keys)
+	return keys
+}
 func Round(f float64, n int) float64 {
 	pow10N := math.Pow10(n)
 	return math.Trunc((f+0.5/pow10N)*pow10N) / pow10N

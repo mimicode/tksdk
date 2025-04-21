@@ -34,5 +34,9 @@
     "pid": "",
     "sid": "",
     "session_key": ""
+  },
+  "csjdy": {
+    "app_key": "",
+    "app_secret": ""
   }
 }
