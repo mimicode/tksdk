@@ -1,20 +1,26 @@
-package response
+package productsearch
 
 import (
 	"encoding/json"
+	"github.com/mimicode/tksdk/csjdyopensdk/response"
 )
 
-type ProductSearchResponse struct {
-	TopResponse
-	Data ProductSearchResponseData `json:"data"`
+type Response struct {
+	response.TopResponse
+	Data ResponseData `json:"data"`
 }
 
-func (r *ProductSearchResponse) WrapResult(result string) {
+func (r *Response) WrapResult(result string) {
 	r.Body = result
-	json.Unmarshal([]byte(result), r)
+	err := json.Unmarshal([]byte(result), r)
+	//解析错误
+	if err != nil {
+		r.Code = -1
+		r.Desc = err.Error()
+	}
 }
 
-type ProductSearchResponseData struct {
+type ResponseData struct {
 	Total    int64     `json:"total"`
 	Products []Product `json:"products"`
 }

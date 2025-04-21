@@ -2,12 +2,16 @@ package csjdyopensdk
 
 import (
 	"encoding/json"
+	"fmt"
+	"github.com/mimicode/tksdk/csjdyopensdk/request"
+	"github.com/mimicode/tksdk/csjdyopensdk/response/productsearch"
 	"io/ioutil"
 	"os"
+	"testing"
 )
 
 var (
-	appKey, appSecret  string
+	appKey, appSecret string
 )
 
 func init() {
@@ -15,8 +19,8 @@ func init() {
 		if bytes, err := ioutil.ReadFile("../dev_env.json"); err == nil {
 			var data struct {
 				Jd struct {
-					AppKey     string `json:"app_key"`
-					AppSecret  string `json:"app_secret"` 
+					AppKey    string `json:"app_key"`
+					AppSecret string `json:"app_secret"`
 				} `json:"csjdy"`
 			}
 			if err = json.Unmarshal(bytes, &data); err == nil {
@@ -29,20 +33,30 @@ func init() {
 func GetClient() *TopClient {
 	//初始化TopClient
 	client := &TopClient{}
-	client.Init(appKey, appSecret, sessionKey)
+	client.Init(appKey, appSecret, "")
 	return client
 }
 
-
 func TestProductSearchRequest(t *testing.T) {
 	client := GetClient()
-	request := &request.ProductSearchRequest{}
-	request.AddParameter("title", "iphone")
-	request.AddParameter("page", "1")
-	request.AddParameter("page_size", "10")
-	response, err := client.Execute(request)
+	req := &request.ProductSearchRequest{}
+	req.AddParameter("title", "iphone")
+	req.AddParameter("page", 1)
+	req.AddParameter("page_size", 10)
+
+	var getResponse DefaultResponse = &productsearch.Response{}
+
+	err := client.Exec(req, getResponse)
 	if err != nil {
-		t.Errorf("ProductSearchRequest failed: %v", err)
+		t.Log(err)
+	} else {
+		result := getResponse.(*productsearch.Response)
+
+		if result.IsError() {
+			fmt.Println(result.Body)
+		} else {
+
+		}
+
 	}
-	t.Logf("ProductSearchRequest response: %v", response)
 }

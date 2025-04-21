@@ -7,7 +7,6 @@ import (
 	"net"
 	"net/http"
 	"net/url"
-	"strconv"
 	"strings"
 	"time"
 
@@ -21,14 +20,13 @@ const (
 )
 
 type DefaultRequest interface {
-	AddParameter(string, string)
+	AddParameter(string, interface{})
 	GetParameters() map[string]interface{} // data参数，此时传入的是map
 	GetApiName() string                    // 接口名称 其实是接口的path
-	CheckParameters()
+	CheckParameters() error
 }
 
 type DefaultResponse interface {
-	//解析返回结果
 	WrapResult(result string)
 	IsError() bool
 }
@@ -62,19 +60,12 @@ func (u *TopClient) Init(appKey, appSecret, sessionkey string) {
 }
 
 func (u *TopClient) createSign(params map[string]interface{}) string {
-	//排序
-	newParamsKey := utils.SortMapParamters(params)
-	//拼装签名字符串
-	signStr := ""
-	for _, k := range newParamsKey {
-		signStr += fmt.Sprintf("%s=%v", k, params[k]) + "&"
-	}
-	signStr = strings.TrimSuffix(signStr, "&")
-	signStr += u.AppSecret
-	return utils.Md5(signStr)
+	return utils.Md5(fmt.Sprintf("app_id=%v&data=%v&req_id=%v&timestamp=%v%v", params["app_id"], params["data"], params["req_id"], params["timestamp"], u.AppSecret))
 }
 
-// 穿入 data 参数
+// CreateRequestParams
+//
+// data 参数
 func (u *TopClient) CreateRequestParams(params map[string]interface{}) map[string]interface{} {
 	// 合并参数
 	newParams := map[string]interface{}{}
@@ -84,7 +75,7 @@ func (u *TopClient) CreateRequestParams(params map[string]interface{}) map[strin
 	}
 
 	//秒时间戳，和服务器时间相差超过 10分钟会报错。和服务器时间相差超过
-	newParams["timestamp"] = strconv.FormatInt(utils.NowTime().Unix(), 10)
+	newParams["timestamp"] = utils.NowTime().Unix()
 	//唯一id，方便问题排查
 	newParams["req_id"] = utils.GetUUID()
 
@@ -95,7 +86,7 @@ func (u *TopClient) CreateRequestParams(params map[string]interface{}) map[strin
 	return newParams
 }
 
-// 发送POST请求
+// PostRequest 发送POST请求
 func (u *TopClient) PostRequest(uri string, jsonData []byte) (string, error) {
 	if u.HttpClient == nil {
 		dc := &net.Dialer{Timeout: 5 * time.Second}
@@ -151,7 +142,10 @@ func (u *TopClient) Execute(method string, params map[string]interface{}) (strin
 }
 func (u *TopClient) Exec(request DefaultRequest, response DefaultResponse) error {
 	//检测参数
-	request.CheckParameters()
+	if err := request.CheckParameters(); err != nil {
+		return err
+	}
+
 	//API接口名称
 	method := request.GetApiName()
 	if method == "" {
