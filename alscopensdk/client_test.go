@@ -267,7 +267,7 @@ func TestAlibabaAlscUnionElemePromotionOfficialactivityGetRequest(t *testing.T) 
 	getRequest := &request.AlibabaAlscUnionElemePromotionOfficialactivityGetRequest{}
 	var data = map[string]string{
 		"pid":             pid.WholePID,
-		"activity_id":     "10144",
+		"activity_id":     "12628",
 		"sid":             pid.SID,
 		"include_wx_img":  "true",
 		"include_qr_code": "true",
