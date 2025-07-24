@@ -233,7 +233,7 @@ func TestAlibabaAlscUnionElemePromotionStorepromotionGetRequest(t *testing.T) {
 	getRequest := &request.AlibabaAlscUnionElemePromotionStorepromotionGetRequest{}
 	var data = map[string]string{
 		"pid":     pid.WholePID,
-		"shop_id": "E3072025203382751092",
+		"shop_id": "331C32D5262C7CAA6A1CE279B9D14C4A",
 		//"activity_id": "10144",
 		"sid": pid.SID,
 	}
