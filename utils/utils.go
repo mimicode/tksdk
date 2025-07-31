@@ -3,6 +3,7 @@ package utils
 import (
 	"crypto/hmac"
 	"crypto/md5"
+	"crypto/sha1"
 	"encoding/hex"
 	"fmt"
 	"math"
@@ -156,4 +157,11 @@ func StrFirstToUpper(str string, step string) string {
 		}
 	}
 	return upperStr
+}
+
+// HmacSha1 使用HMAC-SHA1算法计算签名
+func HmacSha1(data, secret string) string {
+	h := hmac.New(sha1.New, []byte(secret))
+	h.Write([]byte(data))
+	return hex.EncodeToString(h.Sum(nil))
 }

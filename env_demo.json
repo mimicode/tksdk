@@ -38,5 +38,11 @@
   "csjdy": {
     "app_key": "",
     "app_secret": ""
+  },
+  "i688": {
+    "app_key": "",
+    "app_secret": "",
+    "session_key": "",
+    "pid": ""
   }
 }
