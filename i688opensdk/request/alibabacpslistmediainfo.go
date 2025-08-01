@@ -22,14 +22,21 @@ func (r *AlibabaCpsListMediaInfoRequest) AddParameter(key, val string) {
 	r.Parameters.Add(key, val)
 }
 
+// /////////////////////// 应用级参数 ///////////////////////////
 // SetMediaId 设置媒体id
 func (r *AlibabaCpsListMediaInfoRequest) SetMediaId(mediaId int64) {
 	r.AddParameter("mediaId", strconv.FormatInt(mediaId, 10))
 }
 
+// /////////////////////// 接口信息 ///////////////////////////
 // 返回接口名称
 func (r *AlibabaCpsListMediaInfoRequest) GetApiName() string {
 	return "alibaba.cps.listMediaInfo"
+}
+
+// 返回接口版本
+func (r *AlibabaCpsListMediaInfoRequest) GetApiVersion() string {
+	return "param2/1"
 }
 
 // 返回业务模块
