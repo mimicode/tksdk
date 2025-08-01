@@ -24,7 +24,12 @@ func (tk *SystemCurrentTimeRequest) AddParameter(key, val string) {
 
 // 返回接口名称
 func (tk *SystemCurrentTimeRequest) GetApiName() string {
-	return "system/currentTime"
+	return "currentTime"
+}
+
+// 返回业务模块
+func (tk *SystemCurrentTimeRequest) GetBusinessModule() string {
+	return "system"
 }
 
 // 返回请求参数

@@ -52,10 +52,11 @@ func createReadmeApiList() {
 }
 
 type ApiInfo struct {
-	APIDESC     string
-	APIORGNAME  string
-	APIURL      string
-	CHECKFIELDS []CheckField
+	APIDESC        string
+	APIORGNAME     string
+	APIURL         string
+	BUSINESSMODULE string
+	CHECKFIELDS    []CheckField
 }
 
 type CheckField struct {
@@ -134,6 +135,7 @@ func createRequestFile(apiInfo ApiInfo) {
 	tplRequest = strings.Replace(tplRequest, "--APIURL--", apiInfo.APIURL, -1)
 	tplRequest = strings.Replace(tplRequest, "--APINAME--", utils.StrFirstToUpper(fileName, ""), -1)
 	tplRequest = strings.Replace(tplRequest, "--APIORGNAME--", apiInfo.APIORGNAME, -1)
+	tplRequest = strings.Replace(tplRequest, "--BUSINESSMODULE--", apiInfo.BUSINESSMODULE, -1)
 	tplRequest = strings.Replace(tplRequest, "--APIPARAMCHECK--", createMustCheck(apiInfo.CHECKFIELDS), -1)
 
 	//判断是否需要引入工具包

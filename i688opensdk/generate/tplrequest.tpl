@@ -24,11 +24,20 @@ func (tk *--APINAME--Request) AddParameter(key, val string) {
 }
 
 //返回接口名称
-func (tk *--APINAME--Request) GetApiName() string {
+func (r *--APINAME--Request) GetApiName() string {
 	return "--APIORGNAME--"
+}
+
+  
+//返回业务模块
+func (tk *--APINAME--Request) GetBusinessModule() string {
+	return "--BUSINESSMODULE--"
 }
 
 //返回请求参数
 func (tk *--APINAME--Request) GetParameters() url.Values {
+	if tk.Parameters == nil {
+		tk.Parameters = &url.Values{}
+	}
 	return *tk.Parameters
 }

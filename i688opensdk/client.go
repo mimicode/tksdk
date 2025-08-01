@@ -25,6 +25,7 @@ type DefaultRequest interface {
 	AddParameter(string, string)
 	GetParameters() url.Values
 	GetApiName() string
+	GetBusinessModule() string
 	CheckParameters()
 }
 
@@ -69,9 +70,9 @@ func (u *TopClient) Init(appKey, appSecret, sessionkey string) {
 	u.SysParameters.Add("_aop_response_format", ApiFormat)
 }
 
-func (u *TopClient) CreateSign(method string, params url.Values) string {
+func (u *TopClient) CreateSign(businessModule, method string, params url.Values) string {
 	// 1. 构造签名因子：urlPath
-	urlPath := fmt.Sprintf("%s/%s/%s", ApiVersion, method, u.AppKey)
+	urlPath := fmt.Sprintf("%s/%s/%s/%s", ApiVersion, businessModule, method, u.AppKey)
 
 	// 2. 构造签名因子：拼装的参数
 	// 将参数的key和value拼在一起，按照首字母排序
@@ -96,7 +97,7 @@ func (u *TopClient) CreateSign(method string, params url.Values) string {
 	return sign
 }
 
-func (u *TopClient) CreateStrParam(method string, params url.Values) string {
+func (u *TopClient) CreateStrParam(businessModule, method string, params url.Values) string {
 	//合并参数
 	newParams := url.Values{}
 	for k, v := range *u.SysParameters {
@@ -112,14 +113,14 @@ func (u *TopClient) CreateStrParam(method string, params url.Values) string {
 	}
 
 	// 添加签名
-	sign := u.CreateSign(method, newParams)
+	sign := u.CreateSign(businessModule, method, newParams)
 	newParams.Add("_aop_signature", sign)
 
 	return newParams.Encode()
 }
 
 // 发送POST请求
-func (u *TopClient) PostRequest(method string, uri string) (string, error) {
+func (u *TopClient) PostRequest(businessModule, method string, uri string) (string, error) {
 	if u.HttpClient == nil {
 		dc := &net.Dialer{Timeout: 5 * time.Second}
 		if len(u.ProxyUrl) > 0 {
@@ -145,7 +146,7 @@ func (u *TopClient) PostRequest(method string, uri string) (string, error) {
 	}
 
 	// 构建完整的API URL
-	apiUrl := fmt.Sprintf("%s/%s/%s/%s?%s", ApiGatewayUrl, ApiVersion, method, u.AppKey, uri)
+	apiUrl := fmt.Sprintf("%s/%s/%s/%s/%s?%s", ApiGatewayUrl, ApiVersion, businessModule, method, u.AppKey, uri)
 
 	request, err := http.NewRequest(http.MethodPost, apiUrl, nil)
 	if err != nil {
@@ -173,11 +174,11 @@ func (u *TopClient) PostRequest(method string, uri string) (string, error) {
 	return string(bytes), err
 }
 
-func (u *TopClient) Execute(method string, params url.Values) (string, error) {
+func (u *TopClient) Execute(businessModule, method string, params url.Values) (string, error) {
 	//拼装请求参数
-	uri := u.CreateStrParam(method, params)
+	uri := u.CreateStrParam(businessModule, method, params)
 
-	return u.PostRequest(method, uri)
+	return u.PostRequest(businessModule, method, uri)
 }
 
 func (u *TopClient) Exec(request DefaultRequest, response DefaultResponse) error {
@@ -188,10 +189,15 @@ func (u *TopClient) Exec(request DefaultRequest, response DefaultResponse) error
 	if method == "" {
 		panic("API name missing")
 	}
+	//业务模块
+	businessModule := request.GetBusinessModule()
+	if businessModule == "" {
+		panic("Business module missing")
+	}
 
 	//请求参数
 	params := request.GetParameters()
-	result, err := u.Execute(method, params)
+	result, err := u.Execute(businessModule, method, params)
 	if err != nil {
 		return err
 	}

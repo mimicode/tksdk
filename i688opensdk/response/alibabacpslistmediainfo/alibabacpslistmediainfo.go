@@ -30,6 +30,13 @@ type OpenUnionMediaDTO struct {
 	AdzoneId    int64  `json:"adzoneId"`    // 广告位ID
 }
 
-func (r *Response) WrapResult(body []byte) error {
-	return json.Unmarshal(body, r)
+func (r *Response) WrapResult(result string) {
+	unmarshal := json.Unmarshal([]byte(result), r)
+	//保存原始信息
+	r.Body = result
+	//解析错误
+	if unmarshal != nil {
+		r.ErrorResponse.Code = -1
+		r.ErrorResponse.Msg = unmarshal.Error()
+	}
 }

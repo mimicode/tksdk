@@ -32,6 +32,11 @@ func (r *AlibabaCpsListMediaInfoRequest) GetApiName() string {
 	return "alibaba.cps.listMediaInfo"
 }
 
+// 返回业务模块
+func (r *AlibabaCpsListMediaInfoRequest) GetBusinessModule() string {
+	return "com.alibaba.p4p"
+}
+
 // 返回请求参数
 func (r *AlibabaCpsListMediaInfoRequest) GetParameters() url.Values {
 	if r.Parameters == nil {

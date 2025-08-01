@@ -12,13 +12,22 @@ go get github.com/mimicode/tksdk
 
 1688开放平台的签名规则如下：
 
-1. 构造签名因子：urlPath。url中的一部分，从协议（param2）开始截取，到"?"为止，urlPath=param2/1/system/currentTime/1000000
+1. 构造签名因子：urlPath。URL路径格式为：`param2/1/{业务模块}/{接口名}/{appKey}`
+   - 例如：`param2/1/system/currentTime/1000000`
+   - 例如：`param2/1/com.alibaba.p4p/alibaba.cps.listMediaInfo/1000000`
 
 2. 构造签名因子：拼装的参数。参数按照首字母排序，然后将key和value拼在一起，最后按顺序拼在一起
 
 3. 合并两个签名因子。把前两步的字符串拼起来
 
 4. 对合并后的签名因子执行hmac_sha1算法。Signature=uppercase(hex(hmac_sha1(s, secretKey)))
+
+### URL结构
+
+完整的API请求URL格式为：
+```
+http://gw.open.1688.com/openapi/param2/1/{业务模块}/{接口名}/{appKey}?{参数}
+```
 
 ### 配置文件
 
@@ -106,4 +115,13 @@ func main() {
 
 ## API列表
 
+### 系统API
 - [alibaba.system.currentTime( 获取系统当前时间 )](https://open.1688.com/api/system/currentTime.html)
+  - 业务模块：`system`
+  - 接口名：`currentTime`
+
+### CPS推广API
+- [alibaba.cps.listMediaInfo( 获取媒体推广位信息 )](https://open.1688.com/api/cps/listMediaInfo.html)
+  - 业务模块：`com.alibaba.p4p`
+  - 接口名：`alibaba.cps.listMediaInfo`
+  - 参数：mediaId（可选）- 媒体ID

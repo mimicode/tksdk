@@ -9,8 +9,8 @@ import (
 
 	"github.com/mimicode/tksdk/i688opensdk"
 	"github.com/mimicode/tksdk/i688opensdk/request"
-	"github.com/mimicode/tksdk/i688opensdk/response/systemcurrenttime"
 	"github.com/mimicode/tksdk/i688opensdk/response/alibabacpslistmediainfo"
+	"github.com/mimicode/tksdk/i688opensdk/response/systemcurrenttime"
 )
 
 var (
@@ -19,8 +19,8 @@ var (
 
 func init() {
 	// 优先从env_dev.json读取配置
-	if _, err := os.Stat("../env_dev.json"); err == nil {
-		if bytes, err := ioutil.ReadFile("../env_dev.json"); err == nil {
+	if _, err := os.Stat("/Users/zhang/project/golang/tksdk/dev_env.json"); err == nil {
+		if bytes, err := ioutil.ReadFile("/Users/zhang/project/golang/tksdk/dev_env.json"); err == nil {
 			var data struct {
 				I688 struct {
 					AppKey     string `json:"app_key"`
@@ -104,7 +104,7 @@ func TestAlibabaCpsListMediaInfo(t *testing.T) {
 	// 打印结果
 	fmt.Printf("媒体信息数量: %d\n", len(resp.AlibabaCpsListMediaInfoResponse.Result))
 	for i, media := range resp.AlibabaCpsListMediaInfoResponse.Result {
-		fmt.Printf("媒体%d - ID: %d, 名称: %s, 类型: %s, 状态: %s\n", 
+		fmt.Printf("媒体%d - ID: %d, 名称: %s, 类型: %s, 状态: %s\n",
 			i+1, media.MediaId, media.MediaName, media.MediaType, media.MediaStatus)
 	}
 	fmt.Printf("请求ID: %s\n", resp.AlibabaCpsListMediaInfoResponse.RequestID)
