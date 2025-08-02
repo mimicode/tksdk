@@ -6,6 +6,7 @@ import (
 )
 
 // alibaba.cps.listMediaInfo( 获取媒体推广位信息 )
+// https://open.1688.com/api/apidocdetail.htm?spm=1688open.solution-detail.0.0.1d472cceEddODt&id=com.alibaba.p4p%3Aalibaba.cps.listMediaInfo-1&aopApiCategory=category_new
 type AlibabaCpsListMediaInfoRequest struct {
 	Parameters *url.Values //请求参数
 }
