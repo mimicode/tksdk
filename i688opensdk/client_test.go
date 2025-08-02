@@ -12,11 +12,13 @@ import (
 	"github.com/mimicode/tksdk/i688opensdk"
 	"github.com/mimicode/tksdk/i688opensdk/request"
 	"github.com/mimicode/tksdk/i688opensdk/response/alibabacategoryget"
+	"github.com/mimicode/tksdk/i688opensdk/response/alibabacpsgenclickurl"
 	"github.com/mimicode/tksdk/i688opensdk/response/alibabacpsgensearchpjjxintroduceurlbykeyword"
 	"github.com/mimicode/tksdk/i688opensdk/response/alibabacpsgetcpsrecommendsameofferlist"
 	"github.com/mimicode/tksdk/i688opensdk/response/alibabacpslistactivitypagequery"
 	"github.com/mimicode/tksdk/i688opensdk/response/alibabacpslistmediainfo"
 	"github.com/mimicode/tksdk/i688opensdk/response/alibabacpslistofferpagequery"
+	"github.com/mimicode/tksdk/i688opensdk/response/alibabacpslistshoppagequery"
 )
 
 var (
@@ -307,4 +309,81 @@ func TestAlibabaCpsListOfferPageQuery(t *testing.T) {
 		fmt.Printf("  类目ID: %s\n", offer.CategoryId)
 		fmt.Printf("\n")
 	}
+}
+
+func TestAlibabaCpsListShopPageQuery(t *testing.T) {
+	// 创建客户端实例
+	client := &i688opensdk.TopClient{}
+	// 初始化客户端
+	client.Init(appKey, appSecret, sessionKey)
+	// 创建请求
+	req := &request.AlibabaCpsListShopPageQueryRequest{}
+	// 设置参数
+	req.SetCategoryId(0) // 全部类目
+	req.SetPageNo(1)
+	req.SetPageSize(10)
+	// 创建响应
+	resp := &alibabacpslistshoppagequery.Response{}
+	// 执行请求
+	err := client.Exec(req, resp)
+	// 打印原始响应body
+	t.Logf("body: %s", resp.Body)
+
+	if err != nil {
+		t.Fatalf("执行请求失败: %v", err)
+	}
+
+	// 处理响应
+	if resp.IsError() {
+		t.Fatalf("API返回错误: %v", resp.ErrorResponse)
+	}
+
+	// 打印结果进行验证
+	fmt.Printf("总记录数: %d\n", resp.TotalRow)
+	fmt.Printf("商家列表:\n")
+	for i, shop := range resp.Result {
+		fmt.Printf("第%d个商家:\n", i+1)
+		fmt.Printf("  卖家ID: %d\n", shop.SellerId)
+		fmt.Printf("  登录ID: %s\n", shop.LoginId)
+		fmt.Printf("  公司名称: %s\n", shop.CompanyName)
+		fmt.Printf("  交易勋章: %.2f\n", shop.TradeGrade)
+		fmt.Printf("  平均佣金比例: %.2f%%\n", shop.Ratio*100)
+		fmt.Printf("  商品数量: %d\n", shop.ProductCnt)
+		fmt.Printf("  30天推广量: %d\n", shop.TkCnt)
+		fmt.Printf("  店铺首页: %s\n", shop.LinkUrl)
+		fmt.Printf("\n")
+	}
+}
+
+func TestAlibabaCpsGenClickUrl(t *testing.T) {
+	// 创建客户端实例
+	client := &i688opensdk.TopClient{}
+	// 初始化客户端
+	client.Init(appKey, appSecret, sessionKey)
+	// 创建请求
+	req := request.NewAlibabaCpsGenClickUrlRequest()
+	// 设置参数
+	req.SetType(0) // 0商品;1店铺;2活动;7优惠券; 12 图搜
+	req.SetMediaId(mediaID)
+	req.SetMediaZoneId(mediaZoneID)
+	req.SetObjectValueList(strconv.FormatInt(offerID, 10)) // 商品传offerId
+	req.SetExt("{\"p1\":\"123\",\"p2\":\"456\",\"p3\":\"789\"}")
+	// 创建响应
+	resp := &alibabacpsgenclickurl.Response{}
+	// 执行请求
+	err := client.Exec(req, resp)
+	// 打印原始响应body
+	t.Logf("body: %s", resp.Body)
+
+	if err != nil {
+		t.Fatalf("执行请求失败: %v", err)
+	}
+
+	// 处理响应
+	if resp.IsError() {
+		t.Fatalf("API返回错误: %v", resp.ErrorResponse)
+	}
+
+	// 打印结果进行验证
+	fmt.Printf("响应结果: %+v\n", resp.Result)
 }
