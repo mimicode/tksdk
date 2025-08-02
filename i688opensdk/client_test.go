@@ -14,6 +14,7 @@ import (
 	"github.com/mimicode/tksdk/i688opensdk/response/alibabacategoryget"
 	"github.com/mimicode/tksdk/i688opensdk/response/alibabacpsgenclickurl"
 	"github.com/mimicode/tksdk/i688opensdk/response/alibabacpsgensearchpjjxintroduceurlbykeyword"
+	"github.com/mimicode/tksdk/i688opensdk/response/alibabacpsgetcpsrecommendofferlist"
 	"github.com/mimicode/tksdk/i688opensdk/response/alibabacpsgetcpsrecommendsameofferlist"
 	"github.com/mimicode/tksdk/i688opensdk/response/alibabacpslistactivitypagequery"
 	"github.com/mimicode/tksdk/i688opensdk/response/alibabacpslistmediainfo"
@@ -282,8 +283,6 @@ func TestAlibabaCpsListOfferPageQuery(t *testing.T) {
 	resp := &alibabacpslistofferpagequery.Response{}
 	// 执行请求
 	err := client.Exec(req, resp)
-	// 打印原始响应body
-	t.Logf("body: %s", resp.Body)
 
 	if err != nil {
 		t.Fatalf("执行请求失败: %v", err)
@@ -291,7 +290,7 @@ func TestAlibabaCpsListOfferPageQuery(t *testing.T) {
 
 	// 处理响应
 	if resp.IsError() {
-		t.Fatalf("API返回错误: %v", resp.ErrorResponse)
+		t.Fatalf("API返回错误")
 	}
 
 	// 打印结果进行验证
@@ -386,4 +385,46 @@ func TestAlibabaCpsGenClickUrl(t *testing.T) {
 
 	// 打印结果进行验证
 	fmt.Printf("响应结果: %+v\n", resp.Result)
+}
+
+// TestAlibabaCpsGetCpsRecommendOfferList 测试获取个性化推荐的cps商品(含推广链接)
+func TestAlibabaCpsGetCpsRecommendOfferList(t *testing.T) {
+	// 创建客户端实例
+	client := &i688opensdk.TopClient{}
+	// 初始化客户端
+	client.Init(appKey, appSecret, sessionKey)
+	// 创建请求
+	req := request.NewAlibabaCpsGetCpsRecommendOfferListRequest()
+	req.SetLoginId("test_login_id")
+	req.SetMediaId(mediaID)
+	req.SetMediaZoneId(strconv.FormatInt(mediaZoneID, 10))
+	req.SetExt("{}")
+	req.SetPageNo(1)
+	req.SetPageSize(10)
+
+	// 创建响应
+	resp := &alibabacpsgetcpsrecommendofferlist.Response{}
+	// 执行请求
+	err := client.Exec(req, resp)
+	// 打印原始响应body
+	t.Logf("body: %s", resp.Body)
+
+	if err != nil {
+		t.Fatalf("执行请求失败: %v", err)
+	}
+
+	// 打印结果进行验证
+	if resp.Result != nil {
+		t.Logf("Success: %v, ErrorCode: %s, ErrorMsg: %s", resp.Result.Success, resp.Result.ErrorCode, resp.Result.ErrorMsg)
+		if resp.Result.Result != nil && len(resp.Result.Result) > 0 {
+			t.Logf("First offer - OfferId: %d, Title: %s, Price: %.2f",
+				resp.Result.Result[0].OfferId,
+				resp.Result.Result[0].Title,
+				resp.Result.Result[0].Price)
+		} else {
+			t.Logf("No offers returned or API error occurred")
+		}
+	} else {
+		t.Logf("Response result is nil, this may be expected for this test case")
+	}
 }
