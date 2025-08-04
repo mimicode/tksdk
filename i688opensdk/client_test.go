@@ -13,6 +13,7 @@ import (
 	"github.com/mimicode/tksdk/i688opensdk/request"
 	"github.com/mimicode/tksdk/i688opensdk/response/alibabacategoryget"
 	"github.com/mimicode/tksdk/i688opensdk/response/alibabacpsgenclickurl"
+	"github.com/mimicode/tksdk/i688opensdk/response/alibabacpsgenerateintroduceurlbyparam"
 	"github.com/mimicode/tksdk/i688opensdk/response/alibabacpsgensearchpjjxintroduceurlbykeyword"
 	"github.com/mimicode/tksdk/i688opensdk/response/alibabacpsgetcpsrecommendofferlist"
 	"github.com/mimicode/tksdk/i688opensdk/response/alibabacpsgetcpsrecommendsameofferlist"
@@ -323,6 +324,8 @@ func TestAlibabaCpsListShopPageQuery(t *testing.T) {
 	req.SetPageSize(10)
 	// 创建响应
 	resp := &alibabacpslistshoppagequery.Response{}
+	// 打印请求参数进行调试
+	t.Logf("请求参数: %+v", req.GetParameters())
 	// 执行请求
 	err := client.Exec(req, resp)
 	// 打印原始响应body
@@ -385,6 +388,47 @@ func TestAlibabaCpsGenClickUrl(t *testing.T) {
 
 	// 打印结果进行验证
 	fmt.Printf("响应结果: %+v\n", resp.Result)
+}
+
+func TestAlibabaCpsGenerateIntroduceUrlByParam(t *testing.T) {
+	// 创建客户端实例
+	client := &i688opensdk.TopClient{}
+	// 初始化客户端
+	client.Init(appKey, appSecret, sessionKey)
+	// 创建请求
+	req := &request.AlibabaCpsGenerateIntroduceUrlByParamRequest{}
+	// 设置参数
+	req.SetMediaId(mediaID)
+	req.SetMediaZoneId(mediaZoneID)
+	// 使用已定义的商品ID
+	req.SetOfferIds(strconv.FormatInt(offerID, 10))
+	req.SetExt("{\"p1\":\"123\",\"p2\":\"456\",\"p3\":\"789\"}")
+	// 创建响应
+	resp := &alibabacpsgenerateintroduceurlbyparam.Response{}
+	// 打印请求参数进行调试
+	t.Logf("请求参数: %+v", req.GetParameters())
+
+	// 执行请求
+	err := client.Exec(req, resp)
+	// 打印原始响应body
+	t.Logf("body: %s", resp.Body)
+
+	if err != nil {
+		t.Logf("执行请求失败: %v", err)
+		return
+	}
+
+	// 处理响应
+	if resp.IsError() {
+		t.Logf("API返回错误: %v", resp.ErrorResponse)
+		return
+	}
+
+	// 打印结果进行验证
+	fmt.Printf("响应结果: %+v\n", resp.Result)
+	for i, item := range resp.Result.Result {
+		fmt.Printf("推广链接 %d: ObjectId=%d, LongClickUrl=%s\n", i+1, item.ClickUrlVO.ObjectId, item.ClickUrlVO.LongClickUrl)
+	}
 }
 
 // TestAlibabaCpsGetCpsRecommendOfferList 测试获取个性化推荐的cps商品(含推广链接)
