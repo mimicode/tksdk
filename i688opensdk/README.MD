@@ -178,3 +178,26 @@ func main() {
     - mediaZoneId（必需）- 媒体推广位id
     - objectValueList（必需）- 推广实体 商品：传offerId；活动：传活动id；商铺：卖家sellerId；优惠券：offerId ; 图搜传：图片url
     - ext（可选）- 其他自定义参数，查询订单会返回该参数
+
+- [alibaba.cps.parseUrlOrToken( 解析推广物料信息 )](https://open.1688.com/api/apidocdetail.htm?spm=a260s.develop-solution-detail.0.0.36ad55edishgBb&id=com.alibaba.p4p%3Aalibaba.cps.parseUrlOrToken-1&aopApiCategory=category_new)
+  - 业务模块：`com.alibaba.p4p`
+  - 接口名：`alibaba.cps.parseUrlOrToken`
+  - 参数：
+    - urlOrToken（必需）- 待解析内容，示例值：111
+
+- [alibaba.cps.tradeBillList( 联盟账单列表查询 )](https://open.1688.com/api/apidocdetail.htm?spm=a260s.develop-solution-detail.0.0.36ad55edishgBb&id=com.alibaba.p4p%3Aalibaba.cps.tradeBillList-1&aopApiCategory=category_new)
+  - 业务模块：`com.alibaba.p4p`
+  - 接口名：`alibaba.cps.tradeBillList`
+  - 参数：
+    - queryOrderType（必需）- 订单状态查询类型，可选值：orderAll(全部订单)、orderSettle(订单结算)、orderPay(订单付款)、orderMain(主订单号查询)、orderSub(子订单号查询)
+    - queryTimeType（可选）- 订单时间查询类型，非订单号查询时必传，可选值：gmtCreateTime(订单创建)、confirmTime(订单成功)、settleTime(订单结算)、rightsStartTime(维权创建时间)、rightsEndTime(维权完成时间)
+    - queryStartTime（可选）- 查询开始时间，非订单号查询时必传，格式：2017-12-01
+    - queryEndTime（可选）- 查询结束时间，非订单号查询时必传，格式：2017-12-31
+    - bizId（可选）- 主订单id，订单号查询时必传
+    - bizSubId（可选）- 子订单id，订单号查询时必传
+    - orderState（可选）- 订单状态，可选值：10(订单创建)、20(已付款)、50(交易成功)、80(交易关闭)
+    - settleState（可选）- 结算状态，可选值：1(结算成功状态)、2(结算失败状态)
+    - rightsState（可选）- 维权状态，可选值：10(维权中)、30(维权成功)、40(退款关闭)
+    - pageNo（可选）- 页码，默认1
+    - pageSize（可选）- 页面大小，默认100
+    - orderId（可选）- 订单号，订单号查询时必传

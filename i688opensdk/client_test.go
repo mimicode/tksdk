@@ -21,6 +21,8 @@ import (
 	"github.com/mimicode/tksdk/i688opensdk/response/alibabacpslistmediainfo"
 	"github.com/mimicode/tksdk/i688opensdk/response/alibabacpslistofferpagequery"
 	"github.com/mimicode/tksdk/i688opensdk/response/alibabacpslistshoppagequery"
+	"github.com/mimicode/tksdk/i688opensdk/response/alibabacpsparseurlortoken"
+	"github.com/mimicode/tksdk/i688opensdk/response/alibabacpstradebilllist"
 )
 
 var (
@@ -471,4 +473,76 @@ func TestAlibabaCpsGetCpsRecommendOfferList(t *testing.T) {
 	} else {
 		t.Logf("Response result is nil, this may be expected for this test case")
 	}
+}
+
+func TestAlibabaCpsParseUrlOrToken(t *testing.T) {
+	// 创建客户端实例
+	client := &i688opensdk.TopClient{}
+	// 初始化客户端
+	client.Init(appKey, appSecret, sessionKey)
+	// 创建请求
+	req := &request.AlibabaCpsParseUrlOrTokenRequest{}
+	// 设置参数
+	req.SetUrlOrToken("吱口令：【灰色针织开衫外套女春装2024新款软糯小众设计感短款高级气质上衣】￥EjlWVUC96BIav￥，复制这条信息，打开【支付宝】在首页搜索中粘贴该信息查看或打开【手机阿里】查看。CZ1449。 SearchCode:￥1688精选353589601￥，复制这条信息，打开【支付宝】在首页搜索中粘贴该信息即可查看商品详情。【灰色针织开衫外套女春装2024新款软糯小众设计感短款高级气质上衣】CZ2772")
+	// 创建响应
+	resp := &alibabacpsparseurlortoken.Response{}
+	// 执行请求
+	err := client.Exec(req, resp)
+	// 打印原始响应body
+	t.Logf("body: %s", resp.Body)
+
+	if err != nil {
+		t.Fatalf("执行请求失败: %v", err)
+	}
+
+	// 处理响应
+	if resp.IsError() {
+		t.Fatalf("API返回错误: %v", resp.ErrorResponse)
+	}
+
+	// 打印结果进行验证
+	fmt.Printf("响应结果: %+v\n", resp.Result)
+	if resp.Result.Data.MaterialId != "" {
+		t.Logf("解析成功 - MaterialId: %s, ParseType: %s, PromotionType: %s",
+			resp.Result.Data.MaterialId,
+			resp.Result.Data.ParseType,
+			resp.Result.Data.PromotionType)
+	} else {
+		t.Logf("Response result data is empty, this may be expected for this test case")
+	}
+}
+
+func TestAlibabaCpsTradeBillList(t *testing.T) {
+	// 创建客户端实例
+	client := &i688opensdk.TopClient{}
+	// 初始化客户端
+	client.Init(appKey, appSecret, sessionKey)
+	// 创建请求
+	req := &request.AlibabaCpsTradeBillListRequest{}
+	// 设置参数
+	req.SetQueryOrderType("orderAll")
+	req.SetQueryTimeType("gmtCreateTime")
+	req.SetQueryStartTime("2023-01-01")
+	req.SetQueryEndTime("2023-12-31")
+	req.SetPageNo("1")
+	req.SetPageSize("10")
+	// 创建响应
+	resp := &alibabacpstradebilllist.Response{}
+	// 执行请求
+	err := client.Exec(req, resp)
+	// 打印原始响应body
+	t.Logf("body: %s", resp.Body)
+
+	if err != nil {
+		t.Fatalf("执行请求失败: %v", err)
+	}
+
+	// 处理响应
+	if resp.IsError() {
+		t.Fatalf("API返回错误: %v", resp.ErrorResponse)
+	}
+
+	// 打印结果进行验证
+	fmt.Printf("响应结果: %+v\n", resp.Result)
+	fmt.Printf("总记录数: %d\n", resp.TotalRow)
 }
