@@ -3,6 +3,7 @@ package alibabatradegetbuyerview
 import (
 	"encoding/json"
 	"fmt"
+
 	"github.com/mimicode/tksdk/i688opensdk/response"
 )
 
@@ -445,21 +446,6 @@ func (r *Response) WrapResult(result string) {
 
 	// 保存原始结果到Body
 	r.Body = result
-
-	// 尝试解析为错误响应
-	var errorResp struct {
-		ErrorMsg  string `json:"errorMsg"`
-		ErrorCode string `json:"errorCode"`
-	}
-
-	if err := json.Unmarshal([]byte(result), &errorResp); err == nil {
-		if errorResp.ErrorMsg != "" || errorResp.ErrorCode != "" {
-			r.ErrorResponse.Code = -1
-			r.ErrorResponse.Msg = fmt.Sprintf("errorMsg: %s, errorCode: %s", errorResp.ErrorMsg, errorResp.ErrorCode)
-			return
-		}
-	}
-
 	// 解析正常响应
 	if err := json.Unmarshal([]byte(result), r); err != nil {
 		r.ErrorResponse.Code = 500

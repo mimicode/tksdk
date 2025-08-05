@@ -17,14 +17,14 @@ import (
 	"github.com/mimicode/tksdk/i688opensdk/response/alibabacpsgensearchpjjxintroduceurlbykeyword"
 	"github.com/mimicode/tksdk/i688opensdk/response/alibabacpsgetcpsrecommendofferlist"
 	"github.com/mimicode/tksdk/i688opensdk/response/alibabacpsgetcpsrecommendsameofferlist"
+	"github.com/mimicode/tksdk/i688opensdk/response/alibabacpsgetcpssettlesummaryinfo"
 	"github.com/mimicode/tksdk/i688opensdk/response/alibabacpslistactivitypagequery"
+	"github.com/mimicode/tksdk/i688opensdk/response/alibabacpslistcpssettleinfodetail"
 	"github.com/mimicode/tksdk/i688opensdk/response/alibabacpslistmediainfo"
 	"github.com/mimicode/tksdk/i688opensdk/response/alibabacpslistofferpagequery"
 	"github.com/mimicode/tksdk/i688opensdk/response/alibabacpslistshoppagequery"
 	"github.com/mimicode/tksdk/i688opensdk/response/alibabacpsparseurlortoken"
 	"github.com/mimicode/tksdk/i688opensdk/response/alibabacpstradebilllist"
-	"github.com/mimicode/tksdk/i688opensdk/response/alibabacpslistcpssettleinfodetail"
-	"github.com/mimicode/tksdk/i688opensdk/response/alibabacpsgetcpssettlesummaryinfo"
 	"github.com/mimicode/tksdk/i688opensdk/response/alibabatradegetbuyerorderlist"
 	"github.com/mimicode/tksdk/i688opensdk/response/alibabatradegetbuyerview"
 )
@@ -429,10 +429,6 @@ func TestAlibabaCpsListCpsSettleInfoDetail(t *testing.T) {
 
 // TestAlibabaTradeGetBuyerView 测试订单详情查看(买家视角)接口
 func TestAlibabaTradeGetBuyerView(t *testing.T) {
-	// 跳过测试，如果没有配置
-	if appKey == "" || appSecret == "" || sessionKey == "" {
-		t.Skip("跳过测试：缺少必要的配置信息")
-	}
 
 	// 创建客户端实例
 	client := &i688opensdk.TopClient{}
