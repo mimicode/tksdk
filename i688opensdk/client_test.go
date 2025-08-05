@@ -23,6 +23,10 @@ import (
 	"github.com/mimicode/tksdk/i688opensdk/response/alibabacpslistshoppagequery"
 	"github.com/mimicode/tksdk/i688opensdk/response/alibabacpsparseurlortoken"
 	"github.com/mimicode/tksdk/i688opensdk/response/alibabacpstradebilllist"
+	"github.com/mimicode/tksdk/i688opensdk/response/alibabacpslistcpssettleinfodetail"
+	"github.com/mimicode/tksdk/i688opensdk/response/alibabacpsgetcpssettlesummaryinfo"
+	"github.com/mimicode/tksdk/i688opensdk/response/alibabatradegetbuyerorderlist"
+	"github.com/mimicode/tksdk/i688opensdk/response/alibabatradegetbuyerview"
 )
 
 var (
@@ -390,6 +394,148 @@ func TestAlibabaCpsGenClickUrl(t *testing.T) {
 
 	// 打印结果进行验证
 	fmt.Printf("响应结果: %+v\n", resp.Result)
+}
+
+func TestAlibabaCpsListCpsSettleInfoDetail(t *testing.T) {
+	// 创建客户端实例
+	client := &i688opensdk.TopClient{}
+	// 初始化客户端
+	client.Init(appKey, appSecret, sessionKey)
+	// 创建请求
+	req := &request.AlibabaCpsListCpsSettleInfoDetailRequest{}
+	// 设置参数
+	req.SetPageNo(1)
+	req.SetPageSize(10)
+	// 创建响应
+	resp := &alibabacpslistcpssettleinfodetail.Response{}
+	// 执行请求
+	err := client.Exec(req, resp)
+	// 打印原始响应body
+	t.Logf("body: %s", resp.Body)
+
+	if err != nil {
+		t.Fatalf("执行请求失败: %v", err)
+	}
+
+	// 处理响应
+	if resp.IsError() {
+		t.Fatalf("API返回错误: %v", resp.ErrorResponse)
+	}
+
+	// 打印结果进行验证
+	fmt.Printf("响应结果: %+v\n", resp.Result)
+	fmt.Printf("总记录数: %d\n", resp.TotalRow)
+}
+
+// TestAlibabaTradeGetBuyerView 测试订单详情查看(买家视角)接口
+func TestAlibabaTradeGetBuyerView(t *testing.T) {
+	// 跳过测试，如果没有配置
+	if appKey == "" || appSecret == "" || sessionKey == "" {
+		t.Skip("跳过测试：缺少必要的配置信息")
+	}
+
+	// 创建客户端实例
+	client := &i688opensdk.TopClient{}
+	// 初始化客户端
+	client.Init(appKey, appSecret, sessionKey)
+
+	// 创建请求
+	req := &request.AlibabaTradeGetBuyerViewRequest{}
+	req.SetWebSite("1688")
+	req.SetOrderId(123456789) // 请替换为实际的订单ID
+	req.SetIncludeFields("baseInfo,orderEntries")
+
+	// 创建响应
+	resp := &alibabatradegetbuyerview.Response{}
+	// 执行请求
+	err := client.Exec(req, resp)
+	// 打印原始响应body
+	t.Logf("body: %s", resp.Body)
+
+	if err != nil {
+		t.Fatalf("执行请求失败: %v", err)
+	}
+
+	// 处理响应
+	if resp.IsError() {
+		t.Fatalf("API返回错误: %v", resp.ErrorResponse)
+	}
+
+	// 打印结果进行验证
+	fmt.Printf("订单详情: %+v\n", resp.Result)
+	if resp.Result != nil && resp.Result.BaseInfo.Id != 0 {
+		fmt.Printf("订单ID: %d\n", resp.Result.BaseInfo.Id)
+		fmt.Printf("订单状态: %s\n", resp.Result.BaseInfo.Status)
+		fmt.Printf("买家ID: %s\n", resp.Result.BaseInfo.BuyerID)
+		fmt.Printf("卖家ID: %s\n", resp.Result.BaseInfo.SellerID)
+		fmt.Printf("订单金额: %s\n", resp.Result.BaseInfo.TotalAmount)
+	}
+}
+
+func TestAlibabaTradeGetBuyerOrderList(t *testing.T) {
+	// 创建客户端实例
+	client := &i688opensdk.TopClient{}
+	// 初始化客户端
+	client.Init(appKey, appSecret, sessionKey)
+	// 创建请求
+	req := &request.AlibabaTradeGetBuyerOrderListRequest{}
+	// 设置参数
+	req.SetPage(1)
+	req.SetPageSize(20)
+	req.SetOrderStatus("success")
+	req.SetBizTypes([]string{"cn", "ws"})
+	// 创建响应
+	resp := &alibabatradegetbuyerorderlist.Response{}
+	// 执行请求
+	err := client.Exec(req, resp)
+	// 打印原始响应body
+	t.Logf("body: %s", resp.Body)
+
+	if err != nil {
+		t.Fatalf("执行请求失败: %v", err)
+	}
+
+	// 处理响应
+	if resp.IsError() {
+		t.Fatalf("API返回错误: %v", resp.ErrorResponse)
+	}
+
+	// 打印结果进行验证
+	fmt.Printf("订单列表: %+v\n", resp.Result)
+	fmt.Printf("总记录数: %d\n", resp.TotalRecord)
+}
+
+func TestAlibabaCpsGetCpsSettleSummaryInfo(t *testing.T) {
+	// 创建客户端实例
+	client := &i688opensdk.TopClient{}
+	// 初始化客户端
+	client.Init(appKey, appSecret, sessionKey)
+	// 创建请求
+	req := &request.AlibabaCpsGetCpsSettleSummaryInfoRequest{}
+	// 该接口无需设置参数
+	// 创建响应
+	resp := &alibabacpsgetcpssettlesummaryinfo.Response{}
+	// 执行请求
+	err := client.Exec(req, resp)
+	// 打印原始响应body
+	t.Logf("body: %s", resp.Body)
+
+	if err != nil {
+		t.Fatalf("执行请求失败: %v", err)
+	}
+
+	// 处理响应
+	if resp.IsError() {
+		t.Fatalf("API返回错误: %v", resp.ErrorResponse)
+	}
+
+	// 打印结果进行验证
+	fmt.Printf("响应结果: %+v\n", resp.Result)
+	fmt.Printf("昨日预估收入: %.2f\n", resp.Result.YesterdayEstimateAmount)
+	fmt.Printf("本月预估收入: %.2f\n", resp.Result.ThisMonthEstimateAmount)
+	fmt.Printf("上月预估收入: %.2f\n", resp.Result.LastMonthEstimateAmount)
+	fmt.Printf("预估未结算收入: %.2f\n", resp.Result.UnsettleEstimateAmount)
+	fmt.Printf("可提现余额: %.2f\n", resp.Result.SettleAmount)
 }
 
 func TestAlibabaCpsGenerateIntroduceUrlByParam(t *testing.T) {

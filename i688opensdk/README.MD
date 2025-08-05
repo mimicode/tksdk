@@ -121,6 +121,38 @@ func main() {
   - 接口名：`alibaba.category.get`
   - 参数：categoryID（必需）- 类目ID，为0时查询所有一级类目
 
+### 订单API
+- [alibaba.trade.getBuyerOrderList( 订单列表查看(买家视角) )](https://open.1688.com/api/apidocdetail.htm?spm=a260s.develop-solution-detail.0.0.36ad55edishgBb&id=com.alibaba.trade%3Aalibaba.trade.getBuyerOrderList-1&aopApiCategory=category_new)
+  - 业务模块：`com.alibaba.trade`
+  - 接口名：`alibaba.trade.getBuyerOrderList`
+  - 参数：
+    - bizTypes（可选）- 业务类型，支持："cn"(普通订单类型), "ws"(大额批发订单类型), "yp"(普通拿样订单类型), "yf"(一分钱拿样订单类型), "fs"(倒批(限时折扣)订单类型), "cz"(加工定制订单类型), "ag"(协议采购订单类型), "hp"(伙拼订单类型), "gc"(国采订单类型), "supply"(供销订单类型), "nyg"(nyg订单类型), "factory"(淘工厂订单类型), "quick"(快订下单), "xiangpin"(享拼订单), "nest"(采购商城-鸟巢), "f2f"(当面付), "cyfw"(存样服务), "sp"(代销订单标记), "wg"(微供订单), "factorysamp"(淘工厂打样订单), "factorybig"(淘工厂大货订单)
+    - createEndTime（可选）- 下单结束时间，格式：20180802211113000+0800
+    - createStartTime（可选）- 下单开始时间，格式：20180102211113000+0800
+    - isHis（可选）- 是否查询历史订单表，默认false
+    - modifyEndTime（可选）- 查询修改时间结束，格式：20180802211113000+0800
+    - modifyStartTime（可选）- 查询修改时间开始，格式：20180102211113000+0800
+    - orderStatus（可选）- 订单状态，值有：success, cancel(交易取消，违约金等交割完毕), waitbuyerpay(等待卖家付款), waitsellersend(等待卖家发货), waitbuyerreceive(等待买家收货)
+    - page（可选）- 查询分页页码，从1开始
+    - pageSize（可选）- 查询的每页的数量
+    - refundStatus（可选）- 退款状态，支持："waitselleragree"(等待卖家同意), "refundsuccess"(退款成功), "refundclose"(退款关闭), "waitbuyermodify"(待买家修改), "waitbuyersend"(等待买家退货), "waitsellerreceive"(等待卖家确认收货)
+    - sellerMemberId（可选）- 卖家memberId
+    - sellerLoginId（可选）- 卖家loginId
+    - sellerRateStatus（可选）- 卖家评价状态 (4:已评价,5:未评价,6;不需要评价)
+    - tradeType（可选）- 交易类型：担保交易(1), 预存款交易(2), ETC境外收单交易(3), 即时到帐交易(4), 保障金安全交易(5), 统一交易流程(6), 分阶段交易(7), 货到付款交易(8), 信用凭证支付交易(9), 账期支付交易(10), 1688交易4.0，新分阶段交易(50060), 当面付的交易流程(50070), 服务类的交易流程(50080)
+    - productName（可选）- 商品名称
+    - needBuyerAddressAndPhone（可选）- 是否需要查询买家的详细地址信息和电话
+    - needMemoInfo（可选）- 是否需要查询备注信息
+    - outOrderId（可选）- 外部订单号，可用于控制幂等
+
+- [alibaba.trade.get.buyerView( 订单详情查看(买家视角) )](https://open.1688.com/api/apidocdetail.htm?spm=a260s.develop-solution-detail.0.0.211d55edtSHFBC&id=com.alibaba.trade%3Aalibaba.trade.get.buyerView-1&aopApiCategory=category_new)
+  - 业务模块：`com.alibaba.trade`
+  - 接口名：`alibaba.trade.get.buyerView`
+  - 参数：
+    - webSite（必需）- 站点信息，固定值：1688
+    - orderId（必需）- 订单ID
+    - includeFields（可选）- 返回字段，多个字段用逗号分隔，如：baseInfo,orderEntries
+
 ### CPS推广API
 - [alibaba.cps.listMediaInfo( 获取媒体推广位信息 )](https://open.1688.com/api/cps/listMediaInfo.html)
   - 业务模块：`com.alibaba.p4p`
@@ -201,3 +233,16 @@ func main() {
     - pageNo（可选）- 页码，默认1
     - pageSize（可选）- 页面大小，默认100
     - orderId（可选）- 订单号，订单号查询时必传
+
+- [alibaba.cps.listCPSSettleInfoDetail( 获取联盟结算明细列表(按月) )](https://open.1688.com/api/apidocdetail.htm?spm=a260s.develop-solution-detail.0.0.36ad55edishgBb&id=com.alibaba.p4p%3Aalibaba.cps.listCPSSettleInfoDetail-1&aopApiCategory=category_new)
+  - 业务模块：`com.alibaba.p4p`
+  - 接口名：`alibaba.cps.listCPSSettleInfoDetail`
+  - 参数：
+    - pageNo（必需）- 页偏移量
+    - pageSize（必需）- 分页大小
+
+- [alibaba.cps.getCPSSettleSummaryInfo( 获取联盟结算摘要账单 )](https://open.1688.com/api/apidocdetail.htm?spm=a260s.develop-solution-detail.0.0.36ad55edishgBb&id=com.alibaba.p4p%3Aalibaba.cps.getCPSSettleSummaryInfo-1&aopApiCategory=category_new)
+  - 业务模块：`com.alibaba.p4p`
+  - 接口名：`alibaba.cps.getCPSSettleSummaryInfo`
+  - 参数：无需参数
+  - 返回：昨日预估收入、本月预估收入、上月预估收入、预估未结算收入、可提现余额
