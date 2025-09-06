@@ -129,9 +129,8 @@ type ChannelExclusiveCoupon struct {
 
 // StoreInfo 店铺信息
 type StoreInfo struct {
-	StoreId   int64  `json:"storeId"`   // 店铺id
+	StoreId   string `json:"storeId"`   // 店铺id
 	StoreName string `json:"storeName"` // 店铺名称
-	StoreType int    `json:"storeType"` // 店铺类型：0-自营，1-MP
 }
 
 // GoodsCommentsInfo 商品评价信息
