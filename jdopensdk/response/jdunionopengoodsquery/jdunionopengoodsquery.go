@@ -57,35 +57,36 @@ type QueryResult struct {
 }
 
 type Datum struct {
-	BrandCode          string         `json:"brandCode"`
-	BrandName          string         `json:"brandName"`
-	CategoryInfo       CategoryInfo   `json:"categoryInfo"`
-	Comments           int64          `json:"comments"`
-	CommissionInfo     CommissionInfo `json:"commissionInfo"`
-	CouponInfo         CouponInfo     `json:"couponInfo"`
-	DeliveryType       int64          `json:"deliveryType"`
-	ForbidTypes        []int64        `json:"forbidTypes"` // 0普通商品，10微信京东购物小程序禁售，11微信京喜小程序禁售
-	GoodCommentsShare  float64        `json:"goodCommentsShare"`
-	ImageInfo          ImageInfo      `json:"imageInfo"`
-	InOrderComm30Days  float64        `json:"inOrderComm30Days"`
-	InOrderCount30Days int64          `json:"inOrderCount30Days"`
-	IsHot              int64          `json:"isHot"`
-	IsJdSale           int64          `json:"isJdSale"`
-	ItemId             string         `json:"itemId"`
-	MaterialURL        string         `json:"materialUrl"`
-	Owner              string         `json:"owner"`
-	PinGouInfo         PinGouInfo     `json:"pinGouInfo"`
-	PriceInfo          PriceInfo      `json:"priceInfo"`
-	ShopInfo           ShopInfo       `json:"shopInfo"`
-	SkuID              int64          `json:"skuId"`
-	SkuName            string         `json:"skuName"`
-	Spuid              int64          `json:"spuid"`
-	VideoInfo          VideoInfo      `json:"videoInfo"`
-	BookInfo           BookInfo       `json:"bookInfo"`
-	JxFlags            []int64        `json:"jxFlags"`   // 京喜商品类型（1京喜；2京喜工厂直供；3京喜优选（包含3时可在京东APP购买））
-	EliteType          []int64        `json:"eliteType"` // 资源位17：极速版商品
-	DocumentInfo       DocumentInfo   `json:"documentInfo"`
-	SeckillInfo        SeckillInfo    `json:"seckillInfo"` //秒杀信息
+	BrandCode          string            `json:"brandCode"`
+	BrandName          string            `json:"brandName"`
+	CategoryInfo       CategoryInfo      `json:"categoryInfo"`
+	Comments           int64             `json:"comments"`
+	CommissionInfo     CommissionInfo    `json:"commissionInfo"`
+	CouponInfo         CouponInfo        `json:"couponInfo"`
+	DeliveryType       int64             `json:"deliveryType"`
+	ForbidTypes        []int64           `json:"forbidTypes"` // 0普通商品，10微信京东购物小程序禁售，11微信京喜小程序禁售
+	GoodCommentsShare  float64           `json:"goodCommentsShare"`
+	ImageInfo          ImageInfo         `json:"imageInfo"`
+	InOrderComm30Days  float64           `json:"inOrderComm30Days"`
+	InOrderCount30Days int64             `json:"inOrderCount30Days"`
+	IsHot              int64             `json:"isHot"`
+	IsJdSale           int64             `json:"isJdSale"`
+	ItemId             string            `json:"itemId"`
+	MaterialURL        string            `json:"materialUrl"`
+	Owner              string            `json:"owner"`
+	PinGouInfo         PinGouInfo        `json:"pinGouInfo"`
+	PriceInfo          PriceInfo         `json:"priceInfo"`
+	PurchasePriceInfo  PurchasePriceInfo `json:"purchasePriceInfo"`
+	ShopInfo           ShopInfo          `json:"shopInfo"`
+	SkuID              int64             `json:"skuId"`
+	SkuName            string            `json:"skuName"`
+	Spuid              int64             `json:"spuid"`
+	VideoInfo          VideoInfo         `json:"videoInfo"`
+	BookInfo           BookInfo          `json:"bookInfo"`
+	JxFlags            []int64           `json:"jxFlags"`   // 京喜商品类型（1京喜；2京喜工厂直供；3京喜优选（包含3时可在京东APP购买））
+	EliteType          []int64           `json:"eliteType"` // 资源位17：极速版商品
+	DocumentInfo       DocumentInfo      `json:"documentInfo"`
+	SeckillInfo        SeckillInfo       `json:"seckillInfo"` //秒杀信息
 }
 
 type SeckillInfo struct {
@@ -196,4 +197,23 @@ type ShopInfo struct {
 	ShopLevel                     float64 `json:"shopLevel"`
 	ShopName                      string  `json:"shopName"`
 	UserEvaluateScore             string  `json:"userEvaluateScore"`
+}
+
+type PurchasePriceInfo struct {
+	BasisPriceType         int                  `json:"basisPriceType"`
+	Code                   int                  `json:"code"`
+	CouponList             []CouponList         `json:"couponList"`
+	Message                string               `json:"message"`
+	PromotionLabelInfoList []PromotionLabelInfo `json:"promotionLabelInfoList"`
+	PurchaseNum            int                  `json:"purchaseNum"`
+	PurchasePrice          float64              `json:"purchasePrice"`
+	ThresholdPrice         float64              `json:"thresholdPrice"`
+}
+
+type PromotionLabelInfo struct {
+	EndTime          int64  `json:"endTime"`
+	LabelName        string `json:"labelName"`
+	PromotionLabel   string `json:"promotionLabel"`
+	PromotionLabelId int64  `json:"promotionLabelId"`
+	StartTime        int64  `json:"startTime"`
 }
