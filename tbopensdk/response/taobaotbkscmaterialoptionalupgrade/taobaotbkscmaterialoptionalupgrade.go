@@ -158,10 +158,12 @@ type PublishInfo struct {
 }
 
 type IncomeInfo struct {
-	CommissionAmount string `json:"commission_amount"`
-	CommissionRate   string `json:"commission_rate"`
-	SubsidyAmount    string `json:"subsidy_amount"`
-	SubsidyRate      string `json:"subsidy_rate"`
+	CommissionAmount  string `json:"commission_amount"`
+	CommissionRate    string `json:"commission_rate"`
+	SubsidyAmount     string `json:"subsidy_amount"`
+	SubsidyRate       string `json:"subsidy_rate"`
+	SubsidyUpperLimit string `json:"subsidy_upper_limit"` // 新增
+	SubsidyType       string `json:"subsidy_type"`         // 新增
 }
 
 type SPCampaignList struct {
