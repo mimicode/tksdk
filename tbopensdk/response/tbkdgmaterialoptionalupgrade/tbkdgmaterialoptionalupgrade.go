@@ -1,4 +1,4 @@
-package taobaotbkscmaterialoptionalupgrade
+package tbkdgmaterialoptionalupgrade
 
 import (
 	"encoding/json"
@@ -6,10 +6,10 @@ import (
 	"github.com/mimicode/tksdk/tbopensdk/response"
 )
 
-// taobao.tbk.sc.material.optional.upgrade( 淘宝客-服务商-物料搜索升级版 )
+// taobao.tbk.dg.material.optional.upgrade( 淘宝客-推广者-物料搜索升级版 )
 type Response struct {
 	response.TopResponse
-	TbkScMaterialOptionalUpgradeResponse TbkScMaterialOptionalUpgradeResponse `json:"tbk_sc_material_optional_upgrade_response"`
+	TbkDgMaterialOptionalUpgradeResponse TbkDgMaterialOptionalUpgradeResponse `json:"tbk_dg_material_optional_upgrade_response"`
 }
 
 // 解析输出结果
@@ -24,7 +24,7 @@ func (t *Response) WrapResult(result string) {
 	}
 }
 
-type TbkScMaterialOptionalUpgradeResponse struct {
+type TbkDgMaterialOptionalUpgradeResponse struct {
 	TotalResults int64      `json:"total_results"`
 	ResultList   ResultList `json:"result_list"`
 	UvidMsg      string     `json:"uvid_msg"`
