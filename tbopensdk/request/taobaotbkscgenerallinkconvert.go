@@ -34,3 +34,8 @@ func (tk *TbkScGeneralLinkConvertRequest) GetApiName() string {
 func (tk *TbkScGeneralLinkConvertRequest) GetParameters() url.Values {
 	return *tk.Parameters
 }
+
+// 设置 required_link_type 参数（可选）
+func (tk *TbkScGeneralLinkConvertRequest) SetRequiredLinkType(val string) {
+	tk.AddParameter("required_link_type", val)
+}
