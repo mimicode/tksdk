@@ -22,13 +22,21 @@ func (t *Response) WrapResult(result string) {
 		t.ErrorResponse.Code = -1
 		t.ErrorResponse.Msg = unmarshal.Error()
 	} else {
-		if t.CreateResponse.Result.MsgCode != "" {
-			t.ErrorResponse.Code = -2
-			t.ErrorResponse.Msg = fmt.Sprintf("MsgCode:%s MsgInfo:%s", t.CreateResponse.Result.MsgCode, t.CreateResponse.Result.MsgInfo)
-			t.ErrorResponse.SubCode = t.CreateResponse.Result.MsgCode
-			t.ErrorResponse.SubMsg = t.CreateResponse.Result.MsgInfo
-			t.ErrorResponse.RequestID = t.CreateResponse.RequestID
+		// 先判断 Success 是否为 false
+		if !t.CreateResponse.Result.Success {
+			// 只有 Success=false 时才认为是失败
+			if t.CreateResponse.Result.MsgCode != "" {
+				t.ErrorResponse.Code = -2
+				t.ErrorResponse.Msg = fmt.Sprintf("MsgCode:%s MsgInfo:%s", t.CreateResponse.Result.MsgCode, t.CreateResponse.Result.MsgInfo)
+				t.ErrorResponse.SubCode = t.CreateResponse.Result.MsgCode
+				t.ErrorResponse.SubMsg = t.CreateResponse.Result.MsgInfo
+				t.ErrorResponse.RequestID = t.CreateResponse.RequestID
+			} else {
+				t.ErrorResponse.Code = -2
+				t.ErrorResponse.Msg = "创建淘礼金失败"
+			}
 		} else if t.CreateResponse.Result.Model == nil || t.CreateResponse.Result.Model.SendURL == "" {
+			// Success=true 但数据不完整的情况
 			t.ErrorResponse.Code = -3
 			t.ErrorResponse.Msg = "用户无权创建淘礼金"
 			t.ErrorResponse.SubCode = "用户无权创建淘礼金"
