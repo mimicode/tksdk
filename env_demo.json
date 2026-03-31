@@ -38,5 +38,9 @@
   "csjdy": {
     "app_key": "",
     "app_secret": ""
+  },
+  "pangolin": {
+    "app_key": "",
+    "app_secret": ""
   }
 }
