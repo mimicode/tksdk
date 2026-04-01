@@ -8,6 +8,7 @@ import (
 	"testing"
 
 	"github.com/mimicode/tksdk/csjdyopensdk/request"
+	"github.com/mimicode/tksdk/csjdyopensdk/response/commandparse"
 	"github.com/mimicode/tksdk/csjdyopensdk/response/livesearch"
 	"github.com/mimicode/tksdk/csjdyopensdk/response/livelink"
 	"github.com/mimicode/tksdk/csjdyopensdk/response/ordersearch"
@@ -316,4 +317,107 @@ func TestOrderSearchByIds(t *testing.T) {
 
 	fmt.Printf("按ID查询订单响应: code=%d, desc=%s\n", resp.Code, resp.Desc)
 	fmt.Printf("  返回订单数: %d\n", len(resp.Data.Orders))
+}
+
+// TestCommandParse 抖口令解析接口测试
+// 先通过商品搜索转链获取抖口令，再解析该口令
+func TestCommandParse(t *testing.T) {
+	client := GetClient()
+
+	// 第一步：搜索商品并转链获取抖口令
+	searchReq := &request.ProductSearchRequest{}
+	searchReq.SetPage(1)
+	searchReq.SetPageSize(1)
+
+	var searchResp productsearch.Response
+	err := client.Exec(searchReq, &searchResp)
+	if err != nil {
+		t.Errorf("Search failed: %v", err)
+		return
+	}
+
+	if len(searchResp.Data.Products) == 0 {
+		t.Log("No products found from search, skip CommandParse test")
+		return
+	}
+
+	product := searchResp.Data.Products[0]
+
+	// 商品转链获取口令
+	linkReq := &request.ProductLinkRequest{}
+	linkReq.SetProductUrl(product.DetailUrl)
+	linkReq.SetProductExt(product.Ext)
+	linkReq.SetShareType([]int{1, 3}) // deep link + 口令
+	linkReq.SetPlatform(0)
+
+	var linkResp productlink.Response
+	err = client.Exec(linkReq, &linkResp)
+	if err != nil {
+		t.Errorf("ProductLink failed: %v", err)
+		return
+	}
+
+	if linkResp.Code != 0 {
+		t.Logf("ProductLink not succeeded: code=%d, desc=%s", linkResp.Code, linkResp.Desc)
+		return
+	}
+
+	dyPassword := linkResp.Data.DyPassword
+	if dyPassword == "" {
+		t.Log("No dy_password returned from ProductLink, skip CommandParse test")
+		return
+	}
+
+	fmt.Printf("获取到抖口令: %s\n", dyPassword)
+
+	// 第二步：解析抖口令
+	parseReq := &request.CommandParseRequest{}
+	parseReq.SetCommand(dyPassword)
+	parseReq.SetShareType([]int{1, 2, 3, 4, 5}) // 获取所有转链类型
+	parseReq.SetPlatform(0)
+
+	var parseResp commandparse.Response
+	err = client.Exec(parseReq, &parseResp)
+	if err != nil {
+		t.Errorf("CommandParse failed: %v", err)
+		return
+	}
+
+	fmt.Printf("抖口令解析响应: code=%d, desc=%s\n", parseResp.Code, parseResp.Desc)
+	fmt.Printf("  command_type: %d (1=商品, 2=直播间, 3=活动页)\n", parseResp.Data.CommandType)
+	fmt.Printf("  is_own_command: %v\n", parseResp.Data.IsOwnCommand)
+
+	switch parseResp.Data.CommandType {
+	case 1:
+		if parseResp.Data.ProductInfo != nil {
+			fmt.Printf("  商品信息: product_id=%d\n", parseResp.Data.ProductInfo.ProductId)
+			if parseResp.Data.ProductInfo.ShareInfo != nil {
+				si := parseResp.Data.ProductInfo.ShareInfo
+				fmt.Printf("  分享物料: deeplink=%s, share_command=%s, zlink=%s, share_link=%s\n",
+					si.DeepLink, si.ShareCommand, si.Zlink, si.ShareLink)
+				if si.QrCode != nil {
+					fmt.Printf("  二维码: url=%s, width=%d, height=%d\n",
+						si.QrCode.URL, si.QrCode.Width, si.QrCode.Height)
+				}
+			}
+		}
+	case 2:
+		if parseResp.Data.LiveInfo != nil {
+			fmt.Printf("  直播间信息: author_buyin_id=%s, product_id=%d\n",
+				parseResp.Data.LiveInfo.AuthorBuyinId, parseResp.Data.LiveInfo.ProductId)
+			if parseResp.Data.LiveInfo.ShareInfo != nil {
+				si := parseResp.Data.LiveInfo.ShareInfo
+				fmt.Printf("  分享物料: deeplink=%s, share_command=%s\n", si.DeepLink, si.ShareCommand)
+			}
+		}
+	case 3:
+		if parseResp.Data.ActivityInfo != nil {
+			fmt.Printf("  活动页信息: material_id=%s, extra_params=%s\n",
+				parseResp.Data.ActivityInfo.MaterialId, parseResp.Data.ActivityInfo.ExtraParams)
+		}
+	}
+
+	if parseResp.Data.PublicPlanProductLinkResultInfo != nil {
+		fmt.Printf("  公共计划转链信息: %s\n", string(parseResp.Data.PublicPlanProductLinkResultInfo))
+	}
 }
