@@ -7,7 +7,7 @@ type CommandParseRequest struct {
 }
 
 func (r *CommandParseRequest) GetApiName() string {
-	return "/command/parse"
+	return "/command_parse"
 }
 
 func (r *CommandParseRequest) GetParameters() map[string]interface{} {
