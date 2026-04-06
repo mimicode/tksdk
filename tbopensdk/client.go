@@ -4,13 +4,14 @@ import (
 	"context"
 	"errors"
 	"fmt"
-	utils2 "github.com/mimicode/tksdk/utils"
 	"io/ioutil"
 	"net"
 	"net/http"
 	"net/url"
 	"strings"
 	"time"
+
+	utils2 "github.com/mimicode/tksdk/utils"
 )
 
 const (
@@ -55,11 +56,11 @@ func (u *TopClient) Init(appKey, appSecret, sessionkey string) {
 	u.SysParameters = &url.Values{}
 	//TOP分配给应用的AppKey
 	u.SysParameters.Add("app_key", appKey)
-	//签名的摘要算法，可选值为：hmac，md5
+	//签名的摘要算法，可选值为：hmac，md5，hmac-sha256
 	u.SysParameters.Add("sign_method", ApiSignMethod)
 	if sessionkey != "" {
-		//用户登录授权成功后，TOP颁发给应用的授权信息,当此API的标签上注明：“需要授权”，
-		// 则此参数必传；“不需要授权”，则此参数不需要传；“可选授权”，则此参数为可选
+		//用户登录授权成功后，TOP颁发给应用的授权信息,当此API的标签上注明："需要授权"，
+		// 则此参数必传；"不需要授权"，则此参数不需要传；"可选授权"，则此参数为可选
 		u.SysParameters.Add("session", sessionkey)
 	}
 
@@ -102,9 +103,9 @@ func (u *TopClient) CreateSign(params url.Values) {
 		signStr += k + newParams.Get(k)
 	}
 	signStr += u.AppSecret
-	sign := strings.ToUpper(utils2.Md5(signStr))
+
 	//API输入参数签名结果
-	u.SysParameters.Set("sign", sign)
+	u.SysParameters.Set("sign", strings.ToUpper(utils2.Md5(signStr)))
 }
 
 func (u *TopClient) CreateStrParam(params url.Values) string {

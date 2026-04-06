@@ -40,6 +40,8 @@ type Data struct {
 	ShopURLList     DataShopURLList     `json:"shop_url_list"`
 }
 
+// ==================== EventURLList ====================
+
 type DataEventURLList struct {
 	EventURLList []EventURLListElement `json:"event_url_list"`
 }
@@ -47,6 +49,8 @@ type DataEventURLList struct {
 type EventURLListElement struct {
 	InputPageID string                  `json:"input_page_id"`
 	LinkInfoDto EventURLListLinkInfoDto `json:"link_info_dto"`
+	Msg         string                  `json:"msg"` // 新增
+	Code        int64                   `json:"code"` // 新增
 }
 
 type EventURLListLinkInfoDto struct {
@@ -59,6 +63,8 @@ type EventURLListLinkInfoDto struct {
 	SellerID     *string `json:"seller_id,omitempty"`
 }
 
+// ==================== ItemURLList ====================
+
 type DataItemURLList struct {
 	ItemURLList []ItemURLListElement `json:"item_url_list"`
 }
@@ -69,6 +75,9 @@ type ItemURLListElement struct {
 	LinkInfoDto                 ItemURLListLinkInfoDto                 `json:"link_info_dto"`
 	MultipleItemsCouponInfoList ItemURLListMultipleItemsCouponInfoList `json:"multiple_items_coupon_info_list"`
 	PromotionInfoDto            PromotionInfoDto                       `json:"promotion_info_dto"`
+	ExtraInfo                   string                                 `json:"extra_info"` // 新增
+	Msg                         string                                 `json:"msg"`        // 新增
+	Code                        int64                                  `json:"code"`       // 新增
 }
 
 type CouponInfoDto struct {
@@ -78,6 +87,7 @@ type CouponInfoDto struct {
 	CouponEndTime     string `json:"coupon_end_time"`
 	CouponRemainCount int64  `json:"coupon_remain_count"`
 	CouponStartTime   string `json:"coupon_start_time"`
+	CouponType        int64  `json:"coupon_type"` // 新增
 }
 
 type ItemURLListLinkInfoDto struct {
@@ -92,6 +102,20 @@ type ItemURLListLinkInfoDto struct {
 	ItemID          *string `json:"item_id,omitempty"`
 	MaterialType    int64   `json:"material_type"`
 	TkBizType       *int64  `json:"tk_biz_type,omitempty"`
+	// 新增字段
+	CouponChannelURL      string `json:"coupon_channel_url"`       // coupon_channel_url
+	CouponChannelTpwd     string `json:"coupon_channel_tpwd"`       // coupon_channel_tpwd
+	CPSChannelURL         string `json:"cps_channel_url"`          // cps_channel_url
+	CPSChannelTpwd        string `json:"cps_channel_tpwd"`         // cps_channel_tpwd
+	CouponSuperedLongURL  string `json:"coupon_supered_long_url"`  // coupon_supered_long_url
+	CouponSuperedShortURL string `json:"coupon_supered_short_url"` // coupon_supered_short_url
+	CouponSuperedLongTpwd string `json:"coupon_supered_long_tpwd"` // coupon_supered_long_tpwd
+	CouponSuperedShortTpwd string `json:"coupon_supered_short_tpwd"` // coupon_supered_short_tpwd
+	CPSSuperedLongURL     string `json:"cps_supered_long_url"`      // cps_supered_long_url
+	CPSSuperedShortURL    string `json:"cps_supered_short_url"`     // cps_supered_short_url
+	CPSSuperedLongTpwd    string `json:"cps_supered_long_tpwd"`     // cps_supered_long_tpwd
+	CPSSuperedShortTpwd   string `json:"cps_supered_short_tpwd"`    // cps_supered_short_tpwd
+	ISVMktID              string `json:"isv_mktid"`                 // isv_mktid
 }
 
 type ItemURLListMultipleItemsCouponInfoList struct {
@@ -109,11 +133,24 @@ type MultiCouponPromotionInfoDTO struct {
 }
 
 type PromotionInfoDto struct {
-	CommissionRate           string `json:"commission_rate"`
-	CommissionType           string `json:"commission_type"`
-	MultipleItemsPricesCount int64  `json:"multiple_items_prices_count"`
-	PromotionPrice           *int64 `json:"promotion_price,omitempty"`
+	CommissionRate           string           `json:"commission_rate"`
+	CommissionType           string           `json:"commission_type"`
+	MultipleItemsPricesCount int64            `json:"multiple_items_prices_count"`
+	PromotionPrice           *int64           `json:"promotion_price,omitempty"`
+	IncomeInfo               *ItemTkIncomeDTO `json:"income_info,omitempty"` // 新增嵌套结构体
 }
+
+// 新增 ItemTkIncomeDTO
+type ItemTkIncomeDTO struct {
+	PureCommissionRate  string `json:"pure_commission_rate"`  // pure_commission_rate
+	PureCommissionAmount string `json:"pure_commission_amount"` // pure_commission_amount
+	SubsidyRate         string `json:"subsidy_rate"`           // subsidy_rate
+	SubsidyAmount       string `json:"subsidy_amount"`         // subsidy_amount
+	SubsidyUpperFee     string `json:"subsidy_upper_fee"`     // subsidy_upper_fee
+	SubsidyType         string `json:"subsidy_type"`           // subsidy_type
+}
+
+// ==================== MaterialURLList ====================
 
 type DataMaterialURLList struct {
 	MaterialURLList []MaterialURLListElement `json:"material_url_list"`
@@ -125,11 +162,15 @@ type MaterialURLListElement struct {
 	LinkInfoDto                 ItemURLListLinkInfoDto                     `json:"link_info_dto"`
 	MultipleItemsCouponInfoList MaterialURLListMultipleItemsCouponInfoList `json:"multiple_items_coupon_info_list"`
 	PromotionInfoDto            PromotionInfoDto                           `json:"promotion_info_dto"`
+	Msg                         string                                     `json:"msg"`  // 新增
+	Code                        int64                                      `json:"code"` // 新增
 }
 
 type MaterialURLListMultipleItemsCouponInfoList struct {
 	MaterialMultiCouponPromotionInfoDTO []MultiCouponPromotionInfoDTO `json:"material_multi_coupon_promotion_info_d_t_o"`
 }
+
+// ==================== ShopURLList ====================
 
 type DataShopURLList struct {
 	ShopURLList []ShopURLListElement `json:"shop_url_list"`
