@@ -7,6 +7,7 @@ import (
 	"os"
 	"testing"
 
+	"github.com/mimicode/tksdk/jdopensdk/response/jdunionopenactivityquery"
 	"github.com/mimicode/tksdk/jdopensdk/response/jdunionopengoodsmaterialquery"
 
 	"github.com/mimicode/tksdk/jdopensdk/request"
@@ -53,6 +54,21 @@ func GetClient() *TopClient {
 	client := &TopClient{}
 	client.Init(appKey, appSecret, sessionKey)
 	return client
+}
+
+func TestJdUnionOpenActivityQueryRequest(t *testing.T) {
+	client := GetClient()
+	getRequest := &request.JdUnionOpenActivityQueryRequest{}
+	getRequest.AddParameter("360buy_param_json", `{"activityReq":{"pageIndex":1,"pageSize":20,"poolId":1,"activeDate":"20260614"}}`)
+	var getResponse DefaultResponse = &jdunionopenactivityquery.Response{}
+	if err := client.Exec(getRequest, getResponse); err != nil {
+		fmt.Println(err)
+	} else {
+		commonGetResponse := getResponse.(*jdunionopenactivityquery.Response)
+
+		fmt.Println(commonGetResponse.IsError())
+		fmt.Println(commonGetResponse.Body)
+	}
 }
 
 func TestJdUnionOpenGoodsJingfenQueryRequest(t *testing.T) {
