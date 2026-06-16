@@ -49,7 +49,55 @@ type Responce struct {
 
 // QueryResult 具体内容
 type QueryResult struct {
-	Code      int64  `json:"code"`
-	Message   string `json:"message"`
-	RequestID string `json:"requestId"`
+	Code      int64              `json:"code"`
+	Message   string             `json:"message"`
+	RequestID string             `json:"requestId"`
+	Data      *PromotionCodeResp `json:"data"`
 }
+
+type PromotionCodeResp struct {
+	ShortURL        string `json:"shortURL"`        //生成的推广目标链接，以短链接形式，有效期60天
+	ClickURL        string `json:"clickURL"`        //生成推广目标的长链，长期有效
+	JCommand        string `json:"jCommand"`        //需要权限申请，京口令（匹配到红包活动有效配置才会返回京口令）
+	JShortCommand   string `json:"jShortCommand"`   //需要权限申请，短口令
+	WeChatShortLink string `json:"weChatShortLink"` //微信小程序ShortLink，当weChatType入参1时为京小街ShortLink，当weChatType入参2时为京东购物或京东外卖ShortLink
+}
+
+/*
+
+data
+PromotionCodeResp
+是
+无
+数据明细
+
+shortURL
+String
+是
+https://u.jd.com/XXXXX
+生成的推广目标链接，以短链接形式，有效期60天
+
+clickURL
+String
+是
+https://union-click.jd.com/jdc?e=XXXXXX p=XXXXXXXXXXX
+生成推广目标的长链，长期有效
+
+jCommand
+String
+否
+6.0复制整段话 http://JhT7V5wlKygHDK京口令内容#J6UFE5iMn***
+需要权限申请，京口令（匹配到红包活动有效配置才会返回京口令）
+
+jShortCommand
+String
+否
+短口令
+需要权限申请，短口令
+
+weChatShortLink
+String
+否
+#小程序://京小街/****
+微信小程序ShortLink，当weChatType入参1时为京小街ShortLink，当weChatType入参2时为京东购物或京东外卖ShortLink
+*/

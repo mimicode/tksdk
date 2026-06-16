@@ -88,7 +88,7 @@ func TestJdUnionOpenPromotionCommonGetRequest(t *testing.T) {
 func TestJdUnionOpenPromotionBysubunionidGetRequest(t *testing.T) {
 	client := GetClient()
 	getRequest := &request.JdUnionOpenPromotionBysubunionidGetRequest{}
-	getRequest.AddParameter("360buy_param_json", `{"promotionCodeReq":{"materialId":"https://item.jd.com/10030840282202.html", "positionId":"1631770896","subUnionId":"user_1","couponUrl":"","giftCouponKey":"","chainType":"3"}}`)
+	getRequest.AddParameter("360buy_param_json", `{"promotionCodeReq":{"materialId":"y84p6pobjclPUGaTWkuGPUGVieiJ84_3yuxuQBhb1pRF8f6RY", "positionId":"21002104967","subUnionId":"user_1","couponUrl":"","giftCouponKey":"","chainType":3}}`)
 	var getResponse DefaultResponse = &jdunionopenpromotionbysubunionidget.Response{}
 	if err := client.Exec(getRequest, getResponse); err != nil {
 		fmt.Println(err)

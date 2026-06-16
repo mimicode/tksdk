@@ -9,8 +9,8 @@ import (
 
 	"github.com/mimicode/tksdk/csjdyopensdk/request"
 	"github.com/mimicode/tksdk/csjdyopensdk/response/commandparse"
-	"github.com/mimicode/tksdk/csjdyopensdk/response/livesearch"
 	"github.com/mimicode/tksdk/csjdyopensdk/response/livelink"
+	"github.com/mimicode/tksdk/csjdyopensdk/response/livesearch"
 	"github.com/mimicode/tksdk/csjdyopensdk/response/ordersearch"
 	"github.com/mimicode/tksdk/csjdyopensdk/response/productcategory"
 	"github.com/mimicode/tksdk/csjdyopensdk/response/productdetail"
@@ -52,8 +52,8 @@ func TestProductSearch(t *testing.T) {
 	req.SetPage(1)
 	req.SetPageSize(10)
 	req.SetTitle("手机")
-	req.SetSearchType(1)  // 历史销量排序
-	req.SetOrderType(1)   // 降序
+	req.SetSearchType(1) // 历史销量排序
+	req.SetOrderType(1)  // 降序
 
 	var resp productsearch.Response
 	err := client.Exec(req, &resp)
@@ -167,7 +167,7 @@ func TestProductLink(t *testing.T) {
 	linkReq.SetProductUrl(product.DetailUrl)
 	linkReq.SetProductExt(product.Ext)
 	linkReq.SetShareType([]int{1, 3}) // deep link + 口令
-	linkReq.SetPlatform(0)             // 抖音
+	linkReq.SetPlatform(0)            // 抖音
 	linkReq.SetUseCoupon(true)
 
 	var linkResp productlink.Response
@@ -191,9 +191,9 @@ func TestLiveSearch(t *testing.T) {
 	req := &request.LiveSearchRequest{}
 	req.SetPage(1)
 	req.SetPageSize(10)
-	req.SetStatus(1)        // 只看在播
-	req.SetSortBy(2)        // 按销量排序
-	req.SetNeedProducts(1)  // 返回商品信息
+	req.SetStatus(1)       // 只看在播
+	req.SetSortBy(2)       // 按销量排序
+	req.SetNeedProducts(1) // 返回商品信息
 
 	var resp livesearch.Response
 	err := client.Exec(req, &resp)
@@ -274,10 +274,10 @@ func TestOrderSearch(t *testing.T) {
 	// 按时间范围查询订单
 	req := &request.OrderSearchRequest{}
 	// 查询最近7天的订单
-	endTime := int(os.Getpid()) // 用当前时间作为示例
+	endTime := int(os.Getpid())    // 用当前时间作为示例
 	startTime := endTime - 86400*7 // 7天前
 	req.SetPageQuery(50, "0", startTime, endTime)
-	req.SetOrderType(1)  // 商品分销订单
+	req.SetOrderType(1) // 商品分销订单
 	req.SetTimeType("pay")
 
 	var resp ordersearch.Response
@@ -324,60 +324,60 @@ func TestOrderSearchByIds(t *testing.T) {
 func TestCommandParse(t *testing.T) {
 	client := GetClient()
 
-	// 第一步：搜索商品并转链获取抖口令
-	searchReq := &request.ProductSearchRequest{}
-	searchReq.SetPage(1)
-	searchReq.SetPageSize(1)
-
-	var searchResp productsearch.Response
-	err := client.Exec(searchReq, &searchResp)
-	if err != nil {
-		t.Errorf("Search failed: %v", err)
-		return
-	}
-
-	if len(searchResp.Data.Products) == 0 {
-		t.Log("No products found from search, skip CommandParse test")
-		return
-	}
-
-	product := searchResp.Data.Products[0]
-
-	// 商品转链获取口令
-	linkReq := &request.ProductLinkRequest{}
-	linkReq.SetProductUrl(product.DetailUrl)
-	linkReq.SetProductExt(product.Ext)
-	linkReq.SetShareType([]int{1, 3}) // deep link + 口令
-	linkReq.SetPlatform(0)
-
-	var linkResp productlink.Response
-	err = client.Exec(linkReq, &linkResp)
-	if err != nil {
-		t.Errorf("ProductLink failed: %v", err)
-		return
-	}
-
-	if linkResp.Code != 0 {
-		t.Logf("ProductLink not succeeded: code=%d, desc=%s", linkResp.Code, linkResp.Desc)
-		return
-	}
-
-	dyPassword := linkResp.Data.DyPassword
-	if dyPassword == "" {
-		t.Log("No dy_password returned from ProductLink, skip CommandParse test")
-		return
-	}
-
-	fmt.Printf("获取到抖口令: %s\n", dyPassword)
+	//// 第一步：搜索商品并转链获取抖口令
+	//searchReq := &request.ProductSearchRequest{}
+	//searchReq.SetPage(1)
+	//searchReq.SetPageSize(1)
+	//
+	//var searchResp productsearch.Response
+	//err := client.Exec(searchReq, &searchResp)
+	//if err != nil {
+	//	t.Errorf("Search failed: %v", err)
+	//	return
+	//}
+	//
+	//if len(searchResp.Data.Products) == 0 {
+	//	t.Log("No products found from search, skip CommandParse test")
+	//	return
+	//}
+	//
+	//product := searchResp.Data.Products[0]
+	//
+	//// 商品转链获取口令
+	//linkReq := &request.ProductLinkRequest{}
+	//linkReq.SetProductUrl(product.DetailUrl)
+	//linkReq.SetProductExt(product.Ext)
+	//linkReq.SetShareType([]int{1, 3}) // deep link + 口令
+	//linkReq.SetPlatform(0)
+	//
+	//var linkResp productlink.Response
+	//err = client.Exec(linkReq, &linkResp)
+	//if err != nil {
+	//	t.Errorf("ProductLink failed: %v", err)
+	//	return
+	//}
+	//
+	//if linkResp.Code != 0 {
+	//	t.Logf("ProductLink not succeeded: code=%d, desc=%s", linkResp.Code, linkResp.Desc)
+	//	return
+	//}
+	//
+	//dyPassword := linkResp.Data.DyPassword
+	//if dyPassword == "" {
+	//	t.Log("No dy_password returned from ProductLink, skip CommandParse test")
+	//	return
+	//}
+	//
+	//fmt.Printf("获取到抖口令: %s\n", dyPassword)
 
 	// 第二步：解析抖口令
 	parseReq := &request.CommandParseRequest{}
-	parseReq.SetCommand(dyPassword)
+	parseReq.SetCommand("9:/ c@n.Qx 07/06 fu致※※K6AxAs1Q859➝➝(🎶dou音+:%")
 	parseReq.SetShareType([]int{1, 2, 3, 4, 5}) // 获取所有转链类型
 	parseReq.SetPlatform(0)
 
 	var parseResp commandparse.Response
-	err = client.Exec(parseReq, &parseResp)
+	err := client.Exec(parseReq, &parseResp)
 	if err != nil {
 		t.Errorf("CommandParse failed: %v", err)
 		return
