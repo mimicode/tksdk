@@ -3,11 +3,12 @@ package tbopensdk
 import (
 	"encoding/json"
 	"fmt"
-	"github.com/mimicode/tksdk/tbopensdk/response/taobaotbkscgenerallinkparse"
 	"io/ioutil"
 	"os"
 	"strings"
 	"testing"
+
+	"github.com/mimicode/tksdk/tbopensdk/response/taobaotbkscgenerallinkparse"
 
 	"github.com/mimicode/tksdk/tbopensdk/response/taobaotbkitemidprivatetransform"
 	"github.com/mimicode/tksdk/tbopensdk/response/taobaotbkiteminfoupgradeget"
@@ -38,6 +39,7 @@ import (
 	"github.com/mimicode/tksdk/tbopensdk/response/tbkiteminfoget"
 	"github.com/mimicode/tksdk/tbopensdk/response/tbkitemrecommendget"
 	"github.com/mimicode/tksdk/tbopensdk/response/tbkjutqgget"
+	"github.com/mimicode/tksdk/tbopensdk/response/tbkorderdetailsget"
 	"github.com/mimicode/tksdk/tbopensdk/response/tbkprivilegeget"
 	"github.com/mimicode/tksdk/tbopensdk/response/tbkscactivityinfoget"
 	"github.com/mimicode/tksdk/tbopensdk/response/tbkscactivitylinktoolget"
@@ -437,6 +439,38 @@ func TestTbkScOrderGet(t *testing.T) {
 		result := getResponse.(*tbkscorderget.Response)
 
 		fmt.Println(result.TbkScOrderGetResult.Results)
+
+	}
+}
+
+func TestTbkOrderDetailsGet(t *testing.T) {
+
+	//初始化TopClient
+	client := &TopClient{}
+	client.Init(appKey, appSecret, sessionKey)
+
+	//初始化请求接口信息
+	getRequest := &request2.TbkOrderDetailsGetRequest{}
+	getRequest.AddParameter("start_time", "2026-07-14 14:10:53")
+	getRequest.AddParameter("end_time", "2026-07-14 14:30:53")
+	getRequest.AddParameter("query_type", "1")
+	getRequest.AddParameter("member_type", "2")
+	getRequest.AddParameter("tk_status", "12")
+	getRequest.AddParameter("jump_type", "1")
+	getRequest.AddParameter("page_no", "1")
+	getRequest.AddParameter("page_size", "20")
+	getRequest.AddParameter("order_scene", "1")
+
+	//初始化结果类型
+	var getResponse DefaultResponse = &tbkorderdetailsget.Response{}
+	//执行请求接口得到结果
+	err := client.Exec(getRequest, getResponse)
+	if err != nil {
+		t.Log(err)
+	} else {
+		result := getResponse.(*tbkorderdetailsget.Response)
+
+		fmt.Println(result.TbkOrderDetailsGetResponse.Data)
 
 	}
 }
