@@ -65,6 +65,7 @@ type PublisherOrderDto struct {
 	PubSharePreFee                     string             `json:"pub_share_pre_fee"`
 	PubShareRate                       string             `json:"pub_share_rate"`
 	RefundTag                          int64              `json:"refund_tag"`
+	RightsId                           string             `json:"rights_id"` //淘礼金ID，每次创建的淘礼金有唯一的识别ID，可在订单中查询
 	SellerNick                         string             `json:"seller_nick"`
 	SellerShopTitle                    string             `json:"seller_shop_title"`
 	ServiceFeeDtoList                  *ServiceFeeDtoList `json:"service_fee_dto_list,omitempty"`
