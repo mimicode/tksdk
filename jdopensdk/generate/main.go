@@ -237,6 +237,18 @@ func createAPIS() {
 	}
 
 	request = ApiInfo{
+		APIDESC:    "jd.union.open.goods.rank.query 联盟实时热销榜商品接口，支持榜单Id和排序类型查询榜单商品列表",
+		APIORGNAME: "jd.union.open.goods.rank.query",
+		APIURL:     "https://union.jd.com/openplatform/api/v2?apiName=jd.union.open.goods.rank.query",
+		CHECKFIELDS: []CheckField{
+			{
+				FieldName:         "360buy_param_json",
+				FieldNotNullCheck: true,
+			},
+		},
+	}
+
+	request = ApiInfo{
 		APIDESC:    "jd.union.open.activity.query 提供联盟官方活动查询",
 		APIORGNAME: "jd.union.open.activity.query",
 		APIURL:     "https://union.jd.com/openplatform/api/v2?apiName=jd.union.open.activity.query",
