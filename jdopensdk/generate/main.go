@@ -309,6 +309,18 @@ func createAPIS() {
 	}
 
 	request = ApiInfo{
+		APIDESC:    "jd.union.open.promotion.intelligence.query 线报推广【申请】，获取京东商品段子、优惠信息、店铺及类目活动爆料信息，接口出参直接是转链后链接",
+		APIORGNAME: "jd.union.open.promotion.intelligence.query",
+		APIURL:     "https://union.jd.com/openplatform/api/v2?apiName=jd.union.open.promotion.intelligence.query",
+		CHECKFIELDS: []CheckField{
+			{
+				FieldName:         "360buy_param_json",
+				FieldNotNullCheck: true,
+			},
+		},
+	}
+
+	request = ApiInfo{
 		APIDESC:    "jd.union.open.order.row.query 查询推广订单及佣金信息",
 		APIORGNAME: "jd.union.open.order.row.query",
 		APIURL:     "https://union.jd.com/openplatform/api/v2?apiName=jd.union.open.order.row.query",
