@@ -17,6 +17,7 @@ import (
 	"github.com/mimicode/tksdk/jdopensdk/response/jdunionopengoodsjingfenquery"
 	"github.com/mimicode/tksdk/jdopensdk/response/jdunionopengoodspromotiongoodsinfoquery"
 	"github.com/mimicode/tksdk/jdopensdk/response/jdunionopengoodsquery"
+	"github.com/mimicode/tksdk/jdopensdk/response/jdunionopengoodsrankquery"
 	"github.com/mimicode/tksdk/jdopensdk/response/jdunionopenorderrowquery"
 	"github.com/mimicode/tksdk/jdopensdk/response/jdunionopenpositioncreate"
 	"github.com/mimicode/tksdk/jdopensdk/response/jdunionopenpositionquery"
@@ -285,6 +286,29 @@ func TestJdUnionOpenGoodsBigfieldQueryRequest(t *testing.T) {
 		fmt.Println(err)
 	} else {
 		commonGetResponse := getResponse.(*jdunionopengoodsbigfieldquery.Response)
+		fmt.Println(commonGetResponse.IsError())
+		fmt.Println(commonGetResponse.Body)
+	}
+}
+
+func TestJdUnionOpenGoodsRankQueryRequest(t *testing.T) {
+	client := GetClient()
+	getRequest := &request.JdUnionOpenGoodsRankQueryRequest{}
+	var param = map[string]interface{}{
+		"rankGoodsReq": map[string]interface{}{
+			"rankId":    200001,
+			"sortType":  2,
+			"pageIndex": 1,
+			"pageSize":  10,
+		},
+	}
+	marshal, _ := json.Marshal(param)
+	getRequest.AddParameter("360buy_param_json", string(marshal))
+	var getResponse DefaultResponse = &jdunionopengoodsrankquery.Response{}
+	if err := client.Exec(getRequest, getResponse); err != nil {
+		fmt.Println(err)
+	} else {
+		commonGetResponse := getResponse.(*jdunionopengoodsrankquery.Response)
 		fmt.Println(commonGetResponse.IsError())
 		fmt.Println(commonGetResponse.Body)
 	}
