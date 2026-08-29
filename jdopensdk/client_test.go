@@ -295,7 +295,7 @@ func TestJdUnionOpenGoodsRankQueryRequest(t *testing.T) {
 	client := GetClient()
 	getRequest := &request.JdUnionOpenGoodsRankQueryRequest{}
 	var param = map[string]interface{}{
-		"rankGoodsReq": map[string]interface{}{
+		"RankGoodsReq": map[string]interface{}{
 			"rankId":    200001,
 			"sortType":  2,
 			"pageIndex": 1,
