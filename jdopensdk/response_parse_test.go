@@ -3,6 +3,7 @@ package jdopensdk
 import (
 	"testing"
 
+	"github.com/mimicode/tksdk/jdopensdk/response/jdunionopenchannelrelationget"
 	"github.com/mimicode/tksdk/jdopensdk/response/jdunionopengoodsbigfieldquery"
 	"github.com/mimicode/tksdk/jdopensdk/response/jdunionopengoodscombinationpageget"
 	"github.com/mimicode/tksdk/jdopensdk/response/jdunionopengoodsrankquery"
@@ -145,5 +146,17 @@ func TestParseCombinationPageResponseShape(t *testing.T) {
 		d.FailSkuList[0].Sku != 234345 || d.FailSkuList[0].Message != "为预售商品" ||
 		d.FailCouponList[0].Message != "优惠券校验失败" {
 		t.Fatalf("combinationpage fields mismatch: %+v", d)
+	}
+}
+
+func TestParseChannelRelationGetResponseShape(t *testing.T) {
+	body := `{"jd_union_open_channel_relation_get_responce":{"getResult":"{\"code\":200,\"message\":\"success\",\"data\":{\"channelId\":100001}}"}}`
+	r := &jdunionopenchannelrelationget.Response{}
+	r.WrapResult(body)
+	if r.IsError() {
+		t.Fatalf("channel relation get parse failed: code=%d msg=%s body=%s", r.ErrorResponse.Code, r.ErrorResponse.Message, r.Body)
+	}
+	if r.Responce.GetResult.Data.ChannelID != 100001 {
+		t.Fatalf("channel relation get fields mismatch: %+v", r.Responce.GetResult)
 	}
 }

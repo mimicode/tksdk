@@ -8,6 +8,7 @@ import (
 	"testing"
 
 	"github.com/mimicode/tksdk/jdopensdk/response/jdunionopenactivityquery"
+	"github.com/mimicode/tksdk/jdopensdk/response/jdunionopenchannelrelationget"
 	"github.com/mimicode/tksdk/jdopensdk/response/jdunionopengoodsmaterialquery"
 
 	"github.com/mimicode/tksdk/jdopensdk/request"
@@ -61,6 +62,27 @@ func GetClient() *TopClient {
 	client := &TopClient{}
 	client.Init(appKey, appSecret, sessionKey)
 	return client
+}
+
+func TestJdUnionOpenChannelRelationGetRequest(t *testing.T) {
+	client := GetClient()
+	getRequest := &request.JdUnionOpenChannelRelationGetRequest{}
+	var param = map[string]interface{}{
+		"channelRelationGetReq": map[string]interface{}{
+			"inviteCode": "NCERT",
+			"note":       "测试渠道",
+		},
+	}
+	marshal, _ := json.Marshal(param)
+	getRequest.AddParameter("360buy_param_json", string(marshal))
+	var getResponse DefaultResponse = &jdunionopenchannelrelationget.Response{}
+	if err := client.Exec(getRequest, getResponse); err != nil {
+		fmt.Println(err)
+	} else {
+		commonGetResponse := getResponse.(*jdunionopenchannelrelationget.Response)
+		fmt.Println(commonGetResponse.IsError())
+		fmt.Println(commonGetResponse.Body)
+	}
 }
 
 func TestJdUnionOpenActivityQueryRequest(t *testing.T) {
