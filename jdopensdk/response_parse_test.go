@@ -20,6 +20,7 @@ import (
 	"github.com/mimicode/tksdk/jdopensdk/response/jdunionopenstatisticsactivitybonusquery"
 	"github.com/mimicode/tksdk/jdopensdk/response/jdunionopenstatisticspromotionquery"
 	"github.com/mimicode/tksdk/jdopensdk/response/jdunionopenuserpidget"
+	"github.com/mimicode/tksdk/jdopensdk/response/jdunionopenuserregistervalidate"
 )
 
 // 临时验证：按官方文档字段表构造的真实响应形状能否被 WrapResult 正确解析
@@ -284,5 +285,17 @@ func TestParseUserPidGetResponseShape(t *testing.T) {
 	}
 	if r.Responce.GetResult.Data != "1000618618_0_6186181618" {
 		t.Fatalf("user pid get fields mismatch: %+v", r.Responce.GetResult)
+	}
+}
+
+func TestParseUserRegisterValidateResponseShape(t *testing.T) {
+	body := `{"jd_union_open_user_register_validate_responce":{"validateResult":"{\"code\":200,\"message\":\"success\",\"data\":{\"userResp\":{\"jdUser\":2}}}"}}`
+	r := &jdunionopenuserregistervalidate.Response{}
+	r.WrapResult(body)
+	if r.IsError() {
+		t.Fatalf("user register validate parse failed: code=%d msg=%s body=%s", r.ErrorResponse.Code, r.ErrorResponse.Message, r.Body)
+	}
+	if r.Responce.ValidateResult.Data.UserResp.JdUser != 2 {
+		t.Fatalf("user register validate fields mismatch: %+v", r.Responce.ValidateResult)
 	}
 }

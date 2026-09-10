@@ -31,6 +31,7 @@ import (
 	"github.com/mimicode/tksdk/jdopensdk/response/jdunionopenpositioncreate"
 	"github.com/mimicode/tksdk/jdopensdk/response/jdunionopenpositionquery"
 	"github.com/mimicode/tksdk/jdopensdk/response/jdunionopenuserpidget"
+	"github.com/mimicode/tksdk/jdopensdk/response/jdunionopenuserregistervalidate"
 	"github.com/mimicode/tksdk/jdopensdk/response/jdunionopenpromotionbysubunionidget"
 	"github.com/mimicode/tksdk/jdopensdk/response/jdunionopenpromotioncommonget"
 	"github.com/mimicode/tksdk/jdopensdk/response/jdunionopenpromotionintelligencequery"
@@ -175,6 +176,27 @@ func TestJdUnionOpenUserPidGetRequest(t *testing.T) {
 		fmt.Println(err)
 	} else {
 		commonGetResponse := getResponse.(*jdunionopenuserpidget.Response)
+		fmt.Println(commonGetResponse.IsError())
+		fmt.Println(commonGetResponse.Body)
+	}
+}
+
+func TestJdUnionOpenUserRegisterValidateRequest(t *testing.T) {
+	client := GetClient()
+	getRequest := &request.JdUnionOpenUserRegisterValidateRequest{}
+	var param = map[string]interface{}{
+		"userStateReq": map[string]interface{}{
+			"userId":     "861794042953717",
+			"userIdType": 8,
+		},
+	}
+	marshal, _ := json.Marshal(param)
+	getRequest.AddParameter("360buy_param_json", string(marshal))
+	var getResponse DefaultResponse = &jdunionopenuserregistervalidate.Response{}
+	if err := client.Exec(getRequest, getResponse); err != nil {
+		fmt.Println(err)
+	} else {
+		commonGetResponse := getResponse.(*jdunionopenuserregistervalidate.Response)
 		fmt.Println(commonGetResponse.IsError())
 		fmt.Println(commonGetResponse.Body)
 	}

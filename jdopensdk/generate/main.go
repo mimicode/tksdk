@@ -429,6 +429,18 @@ request = ApiInfo{
 	}
 
 	request = ApiInfo{
+		APIDESC:    "jd.union.open.user.register.validate 实时RTA接口【申请】",
+		APIORGNAME: "jd.union.open.user.register.validate",
+		APIURL:     "https://union.jd.com/openplatform/api/v2?apiName=jd.union.open.user.register.validate",
+		CHECKFIELDS: []CheckField{
+			{
+				FieldName:         "360buy_param_json",
+				FieldNotNullCheck: true,
+			},
+		},
+	}
+
+	request = ApiInfo{
 		APIDESC:    "jd.union.open.user.pid.get 获取PID【申请】",
 		APIORGNAME: "jd.union.open.user.pid.get",
 		APIURL:     "https://union.jd.com/openplatform/api/v2?apiName=jd.union.open.user.pid.get",
