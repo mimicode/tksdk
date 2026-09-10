@@ -14,6 +14,7 @@ import (
 	"github.com/mimicode/tksdk/jdopensdk/response/jdunionopenorderquery"
 	"github.com/mimicode/tksdk/jdopensdk/response/jdunionopenpromotionintelligencequery"
 	"github.com/mimicode/tksdk/jdopensdk/response/jdunionopenpromotiontoolsintelligencequery"
+	"github.com/mimicode/tksdk/jdopensdk/response/jdunionopenstatisticspromotionquery"
 )
 
 // 临时验证：按官方文档字段表构造的真实响应形状能否被 WrapResult 正确解析
@@ -187,5 +188,20 @@ func TestParseChannelInvitecodeGetResponseShape(t *testing.T) {
 	}
 	if r.Responce.GetResult.Data.InviteCode != "NCERT" {
 		t.Fatalf("channel invitecode get fields mismatch: %+v", r.Responce.GetResult)
+	}
+}
+
+func TestParseStatisticsPromotionResponseShape(t *testing.T) {
+	body := `{"jd_union_open_statistics_promotion_query_responce":{"code":"0","queryResult":"{\"code\":200,\"message\":\"success\",\"data\":[{\"unionId\":10001,\"skuId\":10031228062854,\"activityUrl\":\"https://pro.m.jd.com/mall/active/xxx/index.html\",\"timeType\":1,\"dataType\":1,\"time\":\"2021-12-30 11\",\"clickPv\":1000,\"estimateValidOrders\":100,\"estimateValidFee\":100.0,\"estimateValidGmv\":5000.0,\"refundOrders\":10,\"completeOrders\":50,\"completeGmv\":2500.0,\"actualFee\":95.0,\"itemId\":\"Q9Z2ZdyM\"}]}"}}`
+	r := &jdunionopenstatisticspromotionquery.Response{}
+	r.WrapResult(body)
+	if r.IsError() {
+		t.Fatalf("statistics promotion parse failed: code=%d msg=%s body=%s", r.ErrorResponse.Code, r.ErrorResponse.Message, r.Body)
+	}
+	g := r.Responce.QueryResult.Data[0]
+	if g.ClickPv != 1000 || g.EstimateValidOrders != 100 || g.EstimateValidFee != 100 ||
+		g.CompleteGmv != 2500 || g.ActualFee != 95 || g.RefundOrders != 10 ||
+		g.UnionID != 10001 || g.ItemID != "Q9Z2ZdyM" {
+		t.Fatalf("statistics promotion fields mismatch: %+v", g)
 	}
 }
