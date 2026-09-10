@@ -417,6 +417,18 @@ request = ApiInfo{
 	}
 
 	request = ApiInfo{
+		APIDESC:    "jd.union.open.sh.promotion.get 深海投流账户授权模式获取推广链接接口【申请】",
+		APIORGNAME: "jd.union.open.sh.promotion.get",
+		APIURL:     "https://union.jd.com/openplatform/api/v2?apiName=jd.union.open.sh.promotion.get",
+		CHECKFIELDS: []CheckField{
+			{
+				FieldName:         "360buy_param_json",
+				FieldNotNullCheck: true,
+			},
+		},
+	}
+
+	request = ApiInfo{
 		APIDESC:    "jd.union.open.statistics.activity.bonus.query 奖励活动奖励金额查询接口【申请】",
 		APIORGNAME: "jd.union.open.statistics.activity.bonus.query",
 		APIURL:     "https://union.jd.com/openplatform/api/v2?apiName=jd.union.open.statistics.activity.bonus.query",

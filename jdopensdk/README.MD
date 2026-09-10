@@ -28,6 +28,7 @@
 - [JdUnionOpenPromotionCommonGetRequest jd.union.open.promotion.common.get 网站/APP来获取的推广链接](https://union.jd.com/openplatform/api/v2?apiName=jd.union.open.promotion.common.get)
 - [JdUnionOpenPromotionIntelligenceQueryRequest jd.union.open.promotion.intelligence.query 线报推广【申请】，获取京东商品段子、优惠信息、店铺及类目活动爆料信息，接口出参直接是转链后链接](https://union.jd.com/openplatform/api/v2?apiName=jd.union.open.promotion.intelligence.query)
 - [JdUnionOpenPromotionToolsIntelligenceQueryRequest jd.union.open.promotion.tools.intelligence.query 工具商线报推广【申请】，获取京东商品段子、优惠信息、店铺及类目活动爆料信息，接口出参直接是转链后链接](https://union.jd.com/openplatform/api/v2?apiName=jd.union.open.promotion.tools.intelligence.query)
+- [JdUnionOpenShPromotionGetRequest jd.union.open.sh.promotion.get 深海投流账户授权模式获取推广链接接口【申请】](https://union.jd.com/openplatform/api/v2?apiName=jd.union.open.sh.promotion.get)
 - [JdUnionOpenStatisticsActivityBonusQueryRequest jd.union.open.statistics.activity.bonus.query 奖励活动奖励金额查询接口【申请】](https://union.jd.com/openplatform/api/v2?apiName=jd.union.open.statistics.activity.bonus.query)
 - [JdUnionOpenStatisticsPromotionQueryRequest jd.union.open.statistics.promotion.query 推广效果数据查询接口【申请】](https://union.jd.com/openplatform/api/v2?apiName=jd.union.open.statistics.promotion.query)
 - [JdUnionOpenStatisticsRedpacketAgentQueryRequest jd.union.open.statistics.redpacket.agent.query 工具商查询帮助其他推客转的链接的红包发放数据](https://union.jd.com/openplatform/api/v2?apiName=jd.union.open.statistics.redpacket.agent.query)

@@ -16,6 +16,7 @@ import (
 	"github.com/mimicode/tksdk/jdopensdk/response/jdunionopenorderrowsupplyquery"
 	"github.com/mimicode/tksdk/jdopensdk/response/jdunionopenpromotionintelligencequery"
 	"github.com/mimicode/tksdk/jdopensdk/response/jdunionopenpromotiontoolsintelligencequery"
+	"github.com/mimicode/tksdk/jdopensdk/response/jdunionopenshpromotionget"
 	"github.com/mimicode/tksdk/jdopensdk/response/jdunionopenstatisticsactivitybonusquery"
 	"github.com/mimicode/tksdk/jdopensdk/response/jdunionopenstatisticspromotionquery"
 )
@@ -254,5 +255,21 @@ func TestParseOrderRowSupplyResponseShape(t *testing.T) {
 		g.TalentID != "53xxx2o" || g.OutSideOrderID != "41590029781666000" ||
 		r.Responce.QueryResult.HasMore {
 		t.Fatalf("order row supply fields mismatch: %+v", g)
+	}
+}
+
+func TestParseShPromotionGetResponseShape(t *testing.T) {
+	body := `{"jd_union_open_sh_promotion_get_responce":{"getResult":"{\"code\":200,\"message\":\"success\",\"data\":{\"clickUrl\":\"https://u.jd.com/XXXXX\",\"impressionMonitorUrl\":\"https://mktm.jd.com/u/impress?taskId=1\",\"clickMonitorUrl\":\"https://mktm.jd.com/u/click?taskId=1\",\"appUrl\":\"openapp.jdmobile://virtual?params=1\"}}"}}`
+	r := &jdunionopenshpromotionget.Response{}
+	r.WrapResult(body)
+	if r.IsError() {
+		t.Fatalf("sh promotion get parse failed: code=%d msg=%s body=%s", r.ErrorResponse.Code, r.ErrorResponse.Message, r.Body)
+	}
+	g := r.Responce.GetResult.Data
+	if g.ClickURL != "https://u.jd.com/XXXXX" ||
+		g.ImpressionMonitorURL != "https://mktm.jd.com/u/impress?taskId=1" ||
+		g.ClickMonitorURL != "https://mktm.jd.com/u/click?taskId=1" ||
+		g.AppURL != "openapp.jdmobile://virtual?params=1" {
+		t.Fatalf("sh promotion get fields mismatch: %+v", g)
 	}
 }
