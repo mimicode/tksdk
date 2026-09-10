@@ -14,6 +14,7 @@ import (
 	"github.com/mimicode/tksdk/jdopensdk/response/jdunionopencoupongiftget"
 	"github.com/mimicode/tksdk/jdopensdk/response/jdunionopencoupongiftstop"
 	"github.com/mimicode/tksdk/jdopensdk/response/jdunionopengoodsbigfieldquery"
+	"github.com/mimicode/tksdk/jdopensdk/response/jdunionopengoodscombinationpageget"
 	"github.com/mimicode/tksdk/jdopensdk/response/jdunionopengoodsjingfenquery"
 	"github.com/mimicode/tksdk/jdopensdk/response/jdunionopengoodspromotiongoodsinfoquery"
 	"github.com/mimicode/tksdk/jdopensdk/response/jdunionopengoodsquery"
@@ -421,6 +422,26 @@ func TestJdUnionOpenGoodsRecommendQueryRequest(t *testing.T) {
 		fmt.Println(err)
 	} else {
 		commonGetResponse := getResponse.(*jdunionopengoodsrecommendquery.Response)
+		fmt.Println(commonGetResponse.IsError())
+		fmt.Println(commonGetResponse.Body)
+	}
+}
+
+func TestJdUnionOpenGoodsCombinationpageGetRequest(t *testing.T) {
+	client := GetClient()
+	getRequest := &request.JdUnionOpenGoodsCombinationpageGetRequest{}
+	var param = map[string]interface{}{
+		"combinationGoodsPageReq": map[string]interface{}{
+			"couponUrls": []interface{}{"https://coupon.jd.com/ilink/get/get_coupon.action?XXXXXXX"},
+		},
+	}
+	marshal, _ := json.Marshal(param)
+	getRequest.AddParameter("360buy_param_json", string(marshal))
+	var getResponse DefaultResponse = &jdunionopengoodscombinationpageget.Response{}
+	if err := client.Exec(getRequest, getResponse); err != nil {
+		fmt.Println(err)
+	} else {
+		commonGetResponse := getResponse.(*jdunionopengoodscombinationpageget.Response)
 		fmt.Println(commonGetResponse.IsError())
 		fmt.Println(commonGetResponse.Body)
 	}
