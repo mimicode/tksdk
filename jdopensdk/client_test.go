@@ -8,6 +8,7 @@ import (
 	"testing"
 
 	"github.com/mimicode/tksdk/jdopensdk/response/jdunionopenactivityquery"
+	"github.com/mimicode/tksdk/jdopensdk/response/jdunionopenchannelinvitecodeget"
 	"github.com/mimicode/tksdk/jdopensdk/response/jdunionopenchannelrelationget"
 	"github.com/mimicode/tksdk/jdopensdk/response/jdunionopenchannelrelationquery"
 	"github.com/mimicode/tksdk/jdopensdk/response/jdunionopengoodsmaterialquery"
@@ -101,6 +102,27 @@ func TestJdUnionOpenChannelRelationQueryRequest(t *testing.T) {
 		fmt.Println(err)
 	} else {
 		commonGetResponse := getResponse.(*jdunionopenchannelrelationquery.Response)
+		fmt.Println(commonGetResponse.IsError())
+		fmt.Println(commonGetResponse.Body)
+	}
+}
+
+func TestJdUnionOpenChannelInvitecodeGetRequest(t *testing.T) {
+	client := GetClient()
+	getRequest := &request.JdUnionOpenChannelInvitecodeGetRequest{}
+	var param = map[string]interface{}{
+		"channelInviteReq": map[string]interface{}{
+			"inviteType":  0,
+			"channelType": 0,
+		},
+	}
+	marshal, _ := json.Marshal(param)
+	getRequest.AddParameter("360buy_param_json", string(marshal))
+	var getResponse DefaultResponse = &jdunionopenchannelinvitecodeget.Response{}
+	if err := client.Exec(getRequest, getResponse); err != nil {
+		fmt.Println(err)
+	} else {
+		commonGetResponse := getResponse.(*jdunionopenchannelinvitecodeget.Response)
 		fmt.Println(commonGetResponse.IsError())
 		fmt.Println(commonGetResponse.Body)
 	}

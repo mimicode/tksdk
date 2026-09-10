@@ -3,6 +3,7 @@
 - [JdUnionOpenActivityQueryRequest jd.union.open.activity.query 提供联盟官方活动查询](https://union.jd.com/openplatform/api/v2?apiName=jd.union.open.activity.query)
 - [JdUnionOpenActivityRecommendQueryRequest jd.union.open.activity.recommend.query 提供联盟官方活动查询](https://union.jd.com/openplatform/api/v2?apiName=jd.union.open.activity.recommend.query)
 - [JdUnionOpenCategoryGoodsGetRequest jd.union.open.category.goods.get 根据商品的父类目id查询子类目id信息](https://union.jd.com/openplatform/api/v2?apiName=jd.union.open.category.goods.get)
+- [JdUnionOpenChannelInvitecodeGetRequest jd.union.open.channel.invitecode.get 邀请码获取接口【申请】](https://union.jd.com/openplatform/api/v2?apiName=jd.union.open.channel.invitecode.get)
 - [JdUnionOpenChannelRelationGetRequest jd.union.open.channel.relation.get 渠道关系ID生成接口【申请】](https://union.jd.com/openplatform/api/v2?apiName=jd.union.open.channel.relation.get)
 - [JdUnionOpenChannelRelationQueryRequest jd.union.open.channel.relation.query 渠道关系查询接口【申请】](https://union.jd.com/openplatform/api/v2?apiName=jd.union.open.channel.relation.query)
 - [JdUnionOpenCouponQueryRequest jd.union.open.coupon.query 通过领券链接查询优惠券的平台、面额、期限、可用状态、剩余数量等详细信息](https://union.jd.com/openplatform/api/v2?apiName=jd.union.open.coupon.query)

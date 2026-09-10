@@ -225,6 +225,18 @@ func createAPIS() {
 	}
 
 		request = ApiInfo{
+		APIDESC:    "jd.union.open.channel.invitecode.get 邀请码获取接口【申请】",
+		APIORGNAME: "jd.union.open.channel.invitecode.get",
+		APIURL:     "https://union.jd.com/openplatform/api/v2?apiName=jd.union.open.channel.invitecode.get",
+		CHECKFIELDS: []CheckField{
+			{
+				FieldName:         "360buy_param_json",
+				FieldNotNullCheck: true,
+			},
+		},
+	}
+
+	request = ApiInfo{
 		APIDESC:    "jd.union.open.channel.relation.query 渠道关系查询接口【申请】",
 		APIORGNAME: "jd.union.open.channel.relation.query",
 		APIURL:     "https://union.jd.com/openplatform/api/v2?apiName=jd.union.open.channel.relation.query",
