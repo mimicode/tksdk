@@ -333,6 +333,18 @@ request = ApiInfo{
 	}
 
 	request = ApiInfo{
+		APIDESC:    "jd.union.open.activity.bonus.query 奖励活动信息查询接口【申请】",
+		APIORGNAME: "jd.union.open.activity.bonus.query",
+		APIURL:     "https://union.jd.com/openplatform/api/v2?apiName=jd.union.open.activity.bonus.query",
+		CHECKFIELDS: []CheckField{
+			{
+				FieldName:         "360buy_param_json",
+				FieldNotNullCheck: true,
+			},
+		},
+	}
+
+	request = ApiInfo{
 		APIDESC:    "jd.union.open.promotion.common.get 网站/APP来获取的推广链接",
 		APIORGNAME: "jd.union.open.promotion.common.get",
 		APIURL:     "https://union.jd.com/openplatform/api/v2?apiName=jd.union.open.promotion.common.get",

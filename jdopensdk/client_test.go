@@ -7,6 +7,7 @@ import (
 	"os"
 	"testing"
 
+	"github.com/mimicode/tksdk/jdopensdk/response/jdunionopenactivitybonusquery"
 	"github.com/mimicode/tksdk/jdopensdk/response/jdunionopenactivityquery"
 	"github.com/mimicode/tksdk/jdopensdk/response/jdunionopenchannelinvitecodeget"
 	"github.com/mimicode/tksdk/jdopensdk/response/jdunionopenchannelrelationget"
@@ -125,6 +126,29 @@ func TestJdUnionOpenChannelInvitecodeGetRequest(t *testing.T) {
 		fmt.Println(err)
 	} else {
 		commonGetResponse := getResponse.(*jdunionopenchannelinvitecodeget.Response)
+		fmt.Println(commonGetResponse.IsError())
+		fmt.Println(commonGetResponse.Body)
+	}
+}
+
+func TestJdUnionOpenActivityBonusQueryRequest(t *testing.T) {
+	client := GetClient()
+	getRequest := &request.JdUnionOpenActivityBonusQueryRequest{}
+	var param = map[string]interface{}{
+		"req": map[string]interface{}{
+			"beginTime": 1619428378000,
+			"endTime":   1619428378000,
+			"pageIndex": 1,
+			"pageSize":  10,
+		},
+	}
+	marshal, _ := json.Marshal(param)
+	getRequest.AddParameter("360buy_param_json", string(marshal))
+	var getResponse DefaultResponse = &jdunionopenactivitybonusquery.Response{}
+	if err := client.Exec(getRequest, getResponse); err != nil {
+		fmt.Println(err)
+	} else {
+		commonGetResponse := getResponse.(*jdunionopenactivitybonusquery.Response)
 		fmt.Println(commonGetResponse.IsError())
 		fmt.Println(commonGetResponse.Body)
 	}

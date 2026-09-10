@@ -2,6 +2,7 @@
 --
 - [JdUnionOpenActivityQueryRequest jd.union.open.activity.query 提供联盟官方活动查询](https://union.jd.com/openplatform/api/v2?apiName=jd.union.open.activity.query)
 - [JdUnionOpenActivityRecommendQueryRequest jd.union.open.activity.recommend.query 提供联盟官方活动查询](https://union.jd.com/openplatform/api/v2?apiName=jd.union.open.activity.recommend.query)
+- [JdUnionOpenActivityBonusQueryRequest jd.union.open.activity.bonus.query 奖励活动信息查询接口【申请】](https://union.jd.com/openplatform/api/v2?apiName=jd.union.open.activity.bonus.query)
 - [JdUnionOpenCategoryGoodsGetRequest jd.union.open.category.goods.get 根据商品的父类目id查询子类目id信息](https://union.jd.com/openplatform/api/v2?apiName=jd.union.open.category.goods.get)
 - [JdUnionOpenChannelInvitecodeGetRequest jd.union.open.channel.invitecode.get 邀请码获取接口【申请】](https://union.jd.com/openplatform/api/v2?apiName=jd.union.open.channel.invitecode.get)
 - [JdUnionOpenChannelRelationGetRequest jd.union.open.channel.relation.get 渠道关系ID生成接口【申请】](https://union.jd.com/openplatform/api/v2?apiName=jd.union.open.channel.relation.get)
