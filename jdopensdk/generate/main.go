@@ -273,6 +273,18 @@ request = ApiInfo{
 	}
 
 	request = ApiInfo{
+		APIDESC:    "jd.union.open.goods.seckill.query 秒杀商品查询接口【即将下线】",
+		APIORGNAME: "jd.union.open.goods.seckill.query",
+		APIURL:     "https://union.jd.com/openplatform/api/v2?apiName=jd.union.open.goods.seckill.query",
+		CHECKFIELDS: []CheckField{
+			{
+				FieldName:         "360buy_param_json",
+				FieldNotNullCheck: true,
+			},
+		},
+	}
+
+	request = ApiInfo{
 		APIDESC:    "jd.union.open.goods.rank.query 联盟实时热销榜商品接口，支持榜单Id和排序类型查询榜单商品列表",
 		APIORGNAME: "jd.union.open.goods.rank.query",
 		APIURL:     "https://union.jd.com/openplatform/api/v2?apiName=jd.union.open.goods.rank.query",
