@@ -13,6 +13,7 @@ import (
 	"github.com/mimicode/tksdk/jdopensdk/response/jdunionopengoodsrecommendquery"
 	"github.com/mimicode/tksdk/jdopensdk/response/jdunionopenorderagentquery"
 	"github.com/mimicode/tksdk/jdopensdk/response/jdunionopenorderquery"
+	"github.com/mimicode/tksdk/jdopensdk/response/jdunionopenorderrowsupplyquery"
 	"github.com/mimicode/tksdk/jdopensdk/response/jdunionopenpromotionintelligencequery"
 	"github.com/mimicode/tksdk/jdopensdk/response/jdunionopenpromotiontoolsintelligencequery"
 	"github.com/mimicode/tksdk/jdopensdk/response/jdunionopenstatisticsactivitybonusquery"
@@ -236,5 +237,22 @@ func TestParseActivityBonusResponseShape(t *testing.T) {
 		g.PcDescURL != "http://union.jd.com/activityRule?id=11180" ||
 		!r.Responce.QueryResult.HasMore {
 		t.Fatalf("activity bonus fields mismatch: %+v", g)
+	}
+}
+
+func TestParseOrderRowSupplyResponseShape(t *testing.T) {
+	body := `{"jd_union_open_order_row_supply_query_responce":{"code":"0","queryResult":"{\"code\":200,\"message\":\"success\",\"hasMore\":false,\"data\":[{\"id\":\"415900297816660001\",\"orderId\":108618000005,\"parentId\":0,\"orderTime\":\"2020-01-02 15:50:16\",\"finishTime\":\"2020-01-03 15:59:16\",\"modifyTime\":\"2020-01-02 16:01:03\",\"unionId\":1000618618,\"skuId\":44303679033,\"skuName\":\"盲盒\",\"skuNum\":1,\"skuReturnNum\":0,\"skuFrozenNum\":0,\"price\":69.0,\"commissionRate\":5.0,\"finalRate\":90.0,\"estimateCosPrice\":54.0,\"estimateFee\":2.43,\"actualCosPrice\":0.0,\"actualFee\":0.0,\"validCode\":16,\"cid1\":1620,\"cid2\":11158,\"cid3\":11969,\"popId\":709982,\"payMonth\":0,\"sign\":\"B44C\",\"proPriceAmount\":6.18,\"goodsInfo\":{\"imageUrl\":\"http://img14.com/a.jpg\",\"owner\":\"g\",\"mainSkuId\":6161111,\"productId\":1236547,\"shopName\":\"XXXX旗舰店\",\"shopId\":45619},\"categoryInfo\":{\"cid1\":1,\"cid2\":2,\"cid3\":3,\"cid1Name\":\"珠宝首饰\",\"cid2Name\":\"木手串\",\"cid3Name\":\"其他\"},\"expressStatus\":10,\"outSideOrderId\":\"41590029781666000\",\"talentName\":\"小名\",\"applyPlatform\":1,\"talentId\":\"53xxx2o\"}]}"}}`
+	r := &jdunionopenorderrowsupplyquery.Response{}
+	r.WrapResult(body)
+	if r.IsError() {
+		t.Fatalf("order row supply parse failed: code=%d msg=%s body=%s", r.ErrorResponse.Code, r.ErrorResponse.Message, r.Body)
+	}
+	g := r.Responce.QueryResult.Data[0]
+	if g.ID != "415900297816660001" || g.OrderID != 108618000005 || g.ValidCode != 16 ||
+		g.PayMonth != 0 || g.EstimateFee != 2.43 || g.GoodsInfo.ShopID != 45619 ||
+		g.CategoryInfo.Cid1Name != "珠宝首饰" || g.ApplyPlatform != 1 ||
+		g.TalentID != "53xxx2o" || g.OutSideOrderID != "41590029781666000" ||
+		r.Responce.QueryResult.HasMore {
+		t.Fatalf("order row supply fields mismatch: %+v", g)
 	}
 }
