@@ -9,6 +9,7 @@ import (
 	"github.com/mimicode/tksdk/jdopensdk/response/jdunionopenchannelrelationquery"
 	"github.com/mimicode/tksdk/jdopensdk/response/jdunionopengoodsbigfieldquery"
 	"github.com/mimicode/tksdk/jdopensdk/response/jdunionopengoodscombinationpageget"
+	"github.com/mimicode/tksdk/jdopensdk/response/jdunionopengoodsseckillquery"
 	"github.com/mimicode/tksdk/jdopensdk/response/jdunionopengoodsrankquery"
 	"github.com/mimicode/tksdk/jdopensdk/response/jdunionopengoodsrecommendquery"
 	"github.com/mimicode/tksdk/jdopensdk/response/jdunionopenorderagentquery"
@@ -297,5 +298,21 @@ func TestParseUserRegisterValidateResponseShape(t *testing.T) {
 	}
 	if r.Responce.ValidateResult.Data.UserResp.JdUser != 2 {
 		t.Fatalf("user register validate fields mismatch: %+v", r.Responce.ValidateResult)
+	}
+}
+
+func TestParseGoodsSeckillResponseShape(t *testing.T) {
+	body := `{"jd_union_open_goods_seckill_query_responce":{"code":"0","queryResult":"{\"code\":200,\"message\":\"success\",\"totalCount\":242426,\"data\":[{\"skuName\":\"EFE防辐射眼镜\",\"skuId\":11373310172,\"imageUrl\":\"jfs/t22312.jpg\",\"isSecKill\":1,\"oriPrice\":179.0,\"secKillPrice\":79.0,\"secKillStartTime\":1533211200000,\"secKillEndTime\":1533297599000,\"cid1Id\":1315,\"cid2Id\":1346,\"cid3Id\":12019,\"cid1Name\":\"服饰内衣\",\"cid2Name\":\"服饰配件\",\"cid3Name\":\"防辐射眼镜\",\"commissionShare\":23.0,\"commission\":18.17,\"owner\":\"p\",\"inOrderCount30Days\":1688,\"inOrderComm30Days\":15856.54,\"jdPrice\":138.0}]}"}}`
+	r := &jdunionopengoodsseckillquery.Response{}
+	r.WrapResult(body)
+	if r.IsError() {
+		t.Fatalf("goods seckill parse failed: code=%d msg=%s body=%s", r.ErrorResponse.Code, r.ErrorResponse.Message, r.Body)
+	}
+	g := r.Responce.QueryResult.Data[0]
+	if g.SkuID != 11373310172 || g.SecKillPrice != 79 || g.OriPrice != 179 ||
+		g.Commission != 18.17 || g.InOrderCount30Days != 1688 || g.JdPrice != 138 ||
+		g.SecKillStartTime != 1533211200000 || g.Owner != "p" ||
+		r.Responce.QueryResult.TotalCount != 242426 {
+		t.Fatalf("goods seckill fields mismatch: %+v", g)
 	}
 }
