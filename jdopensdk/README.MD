@@ -34,3 +34,4 @@
 - [JdUnionOpenStatisticsRedpacketAgentQueryRequest jd.union.open.statistics.redpacket.agent.query 工具商查询帮助其他推客转的链接的红包发放数据](https://union.jd.com/openplatform/api/v2?apiName=jd.union.open.statistics.redpacket.agent.query)
 - [JdUnionOpenStatisticsRedpacketQueryRequest jd.union.open.statistics.redpacket.query 京享红包效果数据](https://union.jd.com/openplatform/api/v2?apiName=jd.union.open.statistics.redpacket.query)
 - [JdUnionOpenUserPidGetRequest jd.union.open.user.pid.get 获取PID【申请】](https://union.jd.com/openplatform/api/v2?apiName=jd.union.open.user.pid.get)
+- [JdUnionOpenUserRegisterValidateRequest jd.union.open.user.register.validate 实时RTA接口【申请】](https://union.jd.com/openplatform/api/v2?apiName=jd.union.open.user.register.validate)
