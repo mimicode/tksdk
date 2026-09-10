@@ -33,6 +33,7 @@ import (
 	"github.com/mimicode/tksdk/jdopensdk/response/jdunionopenpromotionintelligencequery"
 	"github.com/mimicode/tksdk/jdopensdk/response/jdunionopenpromotiontoolsintelligencequery"
 	"github.com/mimicode/tksdk/jdopensdk/response/jdunionopenstatisticsgiftcouponquery"
+	"github.com/mimicode/tksdk/jdopensdk/response/jdunionopenstatisticspromotionquery"
 )
 
 var (
@@ -507,6 +508,29 @@ func TestJdUnionOpenGoodsCombinationpageGetRequest(t *testing.T) {
 		fmt.Println(err)
 	} else {
 		commonGetResponse := getResponse.(*jdunionopengoodscombinationpageget.Response)
+		fmt.Println(commonGetResponse.IsError())
+		fmt.Println(commonGetResponse.Body)
+	}
+}
+
+func TestJdUnionOpenStatisticsPromotionQueryRequest(t *testing.T) {
+	client := GetClient()
+	getRequest := &request.JdUnionOpenStatisticsPromotionQueryRequest{}
+	var param = map[string]interface{}{
+		"promotionEffectDataReq": map[string]interface{}{
+			"skuId":   10031228062854,
+			"timeType": 1,
+			"dataType": 1,
+			"fields":  "clickPv,estimateValidOrders,estimateValidFee,estimateValidGmv",
+		},
+	}
+	marshal, _ := json.Marshal(param)
+	getRequest.AddParameter("360buy_param_json", string(marshal))
+	var getResponse DefaultResponse = &jdunionopenstatisticspromotionquery.Response{}
+	if err := client.Exec(getRequest, getResponse); err != nil {
+		fmt.Println(err)
+	} else {
+		commonGetResponse := getResponse.(*jdunionopenstatisticspromotionquery.Response)
 		fmt.Println(commonGetResponse.IsError())
 		fmt.Println(commonGetResponse.Body)
 	}

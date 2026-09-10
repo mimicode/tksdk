@@ -405,6 +405,18 @@ request = ApiInfo{
 	}
 
 	request = ApiInfo{
+		APIDESC:    "jd.union.open.statistics.promotion.query 推广效果数据查询接口【申请】",
+		APIORGNAME: "jd.union.open.statistics.promotion.query",
+		APIURL:     "https://union.jd.com/openplatform/api/v2?apiName=jd.union.open.statistics.promotion.query",
+		CHECKFIELDS: []CheckField{
+			{
+				FieldName:         "360buy_param_json",
+				FieldNotNullCheck: true,
+			},
+		},
+	}
+
+	request = ApiInfo{
 		APIDESC:    "jd.union.open.order.query 订单查询接口",
 		APIORGNAME: "jd.union.open.order.query",
 		APIURL:     "https://union.jd.com/openplatform/api/v2?apiName=jd.union.open.order.query",
