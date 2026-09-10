@@ -6,6 +6,7 @@ import (
 	"github.com/mimicode/tksdk/jdopensdk/response/jdunionopengoodsbigfieldquery"
 	"github.com/mimicode/tksdk/jdopensdk/response/jdunionopengoodsrankquery"
 	"github.com/mimicode/tksdk/jdopensdk/response/jdunionopenorderagentquery"
+	"github.com/mimicode/tksdk/jdopensdk/response/jdunionopenorderquery"
 	"github.com/mimicode/tksdk/jdopensdk/response/jdunionopenpromotionintelligencequery"
 	"github.com/mimicode/tksdk/jdopensdk/response/jdunionopenpromotiontoolsintelligencequery"
 )
@@ -90,5 +91,25 @@ func TestParseToolsIntelligenceResponseShape(t *testing.T) {
 	if g.ReportContent != "特价" || g.Type != 2 || g.Status != 2 || g.Essence != 0 ||
 		g.Cid1List[0] != 52253 || g.EndTime != "2021-11-18 12:00:00" {
 		t.Fatalf("tools intelligence fields mismatch: %+v", g)
+	}
+}
+
+func TestParseOrderResponseShape(t *testing.T) {
+	body := `{"jd_union_open_order_query_responce":{"code":"0","queryResult":"{\"code\":200,\"message\":\"成功\",\"hasMore\":false,\"data\":[{\"finishTime\":1529271683000,\"orderEmt\":2,\"orderId\":61861861866,\"orderTime\":1529271683000,\"parentId\":66661861866,\"payMonth\":\"20180618\",\"plus\":1,\"popId\":1000066618,\"unionId\":2018618618,\"ext1\":\"100_618_大促\",\"validCode\":18,\"skuList\":[{\"actualCosPrice\":6.88,\"actualFee\":6.18,\"commissionRate\":2.5,\"estimateCosPrice\":618.18,\"estimateFee\":6.18,\"finalRate\":100.0,\"cid1\":737,\"frozenSkuNum\":0,\"pid\":\"618_618_6018\",\"positionId\":66,\"price\":61.8,\"cid2\":738,\"siteId\":6000618,\"skuId\":5487565,\"skuName\":\"空气净化器\",\"skuNum\":2,\"skuReturnNum\":1,\"subSideRate\":90.0,\"subsidyRate\":10.0,\"cid3\":749,\"unionAlias\":\"**平台\",\"unionTag\":\"00000000000000000000000000000001\",\"unionTrafficGroup\":1,\"validCode\":18,\"subUnionId\":\"2018061\",\"traceType\":3,\"payMonth\":20180618,\"popId\":30871,\"ext1\":\"1_1255413_0_XXXX\",\"cpActId\":618,\"unionRole\":1,\"giftCouponKey\":\"xxx_coupon_key\",\"giftCouponOcsAmount\":100.0,\"proPriceAmount\":6.18,\"itemId\":\"Q9Z2ZdyM\"}]}]}"}}`
+	r := &jdunionopenorderquery.Response{}
+	r.WrapResult(body)
+	if r.IsError() {
+		t.Fatalf("order parse failed: code=%d msg=%s body=%s", r.ErrorResponse.Code, r.ErrorResponse.Message, r.Body)
+	}
+	o := r.Responce.QueryResult.Data[0]
+	if o.OrderID != 61861861866 || o.PayMonth != "20180618" || o.UnionID != 2018618618 || o.ValidCode != 18 ||
+		r.Responce.QueryResult.HasMore {
+		t.Fatalf("order fields mismatch: %+v", o)
+	}
+	s := o.SkuList[0]
+	if s.SkuID != 5487565 || s.ActualFee != 6.18 || s.UnionTrafficGroup != 1 ||
+		s.PayMonth != 20180618 || s.PopID != 30871 || s.GiftCouponOcsAmount != 100 ||
+		s.ItemID != "Q9Z2ZdyM" || s.SubUnionID != "2018061" {
+		t.Fatalf("sku fields mismatch: %+v", s)
 	}
 }

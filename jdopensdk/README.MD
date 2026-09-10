@@ -12,6 +12,7 @@
 - [JdUnionOpenGoodsRankQueryRequest jd.union.open.goods.rank.query 联盟实时热销榜商品接口，支持榜单Id和排序类型查询榜单商品列表](https://union.jd.com/openplatform/api/v2?apiName=jd.union.open.goods.rank.query)
 - [JdUnionOpenOrderAgentQueryRequest jd.union.open.order.agent.query 工具商订单行查询接口](https://union.jd.com/openplatform/api/v2?apiName=jd.union.open.order.agent.query)
 - [JdUnionOpenOrderBonusQueryRequest jd.union.open.order.bonus.query 奖励订单查询接口](https://union.jd.com/openplatform/api/v2?apiName=jd.union.open.order.bonus.query)
+- [JdUnionOpenOrderQueryRequest jd.union.open.order.query 订单查询接口](https://union.jd.com/openplatform/api/v2?apiName=jd.union.open.order.query)
 - [JdUnionOpenOrderRowQueryRequest jd.union.open.order.row.query 查询推广订单及佣金信息](https://union.jd.com/openplatform/api/v2?apiName=jd.union.open.order.row.query)
 - [JdUnionOpenPositionCreateRequest jd.union.open.position.create 创建推广位【申请】](https://union.jd.com/openplatform/api/v2?apiName=jd.union.open.position.create)
 - [JdUnionOpenPositionQueryRequest jd.union.open.position.query 查询推广位【申请】](https://union.jd.com/openplatform/api/v2?apiName=jd.union.open.position.query)
