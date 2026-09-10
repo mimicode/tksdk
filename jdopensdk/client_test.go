@@ -9,6 +9,7 @@ import (
 
 	"github.com/mimicode/tksdk/jdopensdk/response/jdunionopenactivityquery"
 	"github.com/mimicode/tksdk/jdopensdk/response/jdunionopenchannelrelationget"
+	"github.com/mimicode/tksdk/jdopensdk/response/jdunionopenchannelrelationquery"
 	"github.com/mimicode/tksdk/jdopensdk/response/jdunionopengoodsmaterialquery"
 
 	"github.com/mimicode/tksdk/jdopensdk/request"
@@ -80,6 +81,26 @@ func TestJdUnionOpenChannelRelationGetRequest(t *testing.T) {
 		fmt.Println(err)
 	} else {
 		commonGetResponse := getResponse.(*jdunionopenchannelrelationget.Response)
+		fmt.Println(commonGetResponse.IsError())
+		fmt.Println(commonGetResponse.Body)
+	}
+}
+
+func TestJdUnionOpenChannelRelationQueryRequest(t *testing.T) {
+	client := GetClient()
+	getRequest := &request.JdUnionOpenChannelRelationQueryRequest{}
+	var param = map[string]interface{}{
+		"channelRelationQueryReq": map[string]interface{}{
+			"pageSize": 100,
+		},
+	}
+	marshal, _ := json.Marshal(param)
+	getRequest.AddParameter("360buy_param_json", string(marshal))
+	var getResponse DefaultResponse = &jdunionopenchannelrelationquery.Response{}
+	if err := client.Exec(getRequest, getResponse); err != nil {
+		fmt.Println(err)
+	} else {
+		commonGetResponse := getResponse.(*jdunionopenchannelrelationquery.Response)
 		fmt.Println(commonGetResponse.IsError())
 		fmt.Println(commonGetResponse.Body)
 	}

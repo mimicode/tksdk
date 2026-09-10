@@ -4,6 +4,7 @@ import (
 	"testing"
 
 	"github.com/mimicode/tksdk/jdopensdk/response/jdunionopenchannelrelationget"
+	"github.com/mimicode/tksdk/jdopensdk/response/jdunionopenchannelrelationquery"
 	"github.com/mimicode/tksdk/jdopensdk/response/jdunionopengoodsbigfieldquery"
 	"github.com/mimicode/tksdk/jdopensdk/response/jdunionopengoodscombinationpageget"
 	"github.com/mimicode/tksdk/jdopensdk/response/jdunionopengoodsrankquery"
@@ -158,5 +159,20 @@ func TestParseChannelRelationGetResponseShape(t *testing.T) {
 	}
 	if r.Responce.GetResult.Data.ChannelID != 100001 {
 		t.Fatalf("channel relation get fields mismatch: %+v", r.Responce.GetResult)
+	}
+}
+
+func TestParseChannelRelationQueryResponseShape(t *testing.T) {
+	body := `{"jd_union_open_channel_relation_query_responce":{"code":"0","queryResult":"{\"code\":200,\"message\":\"success\",\"totalCount\":100,\"data\":[{\"channelId\":100001,\"createTime\":\"2020-12-20 23:59:59\",\"note\":\"渠道备注名\",\"channelNote\":\"合作方备注名\",\"id\":1000010179}]}"}}`
+	r := &jdunionopenchannelrelationquery.Response{}
+	r.WrapResult(body)
+	if r.IsError() {
+		t.Fatalf("channel relation query parse failed: code=%d msg=%s body=%s", r.ErrorResponse.Code, r.ErrorResponse.Message, r.Body)
+	}
+	g := r.Responce.QueryResult.Data[0]
+	if g.ChannelID != 100001 || g.ID != 1000010179 || g.Note != "渠道备注名" ||
+		g.ChannelNote != "合作方备注名" || g.CreateTime != "2020-12-20 23:59:59" ||
+		r.Responce.QueryResult.TotalCount != 100 {
+		t.Fatalf("channel relation query fields mismatch: %+v", g)
 	}
 }

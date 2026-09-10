@@ -224,7 +224,19 @@ func createAPIS() {
 		},
 	}
 
-	request = ApiInfo{
+		request = ApiInfo{
+		APIDESC:    "jd.union.open.channel.relation.query 渠道关系查询接口【申请】",
+		APIORGNAME: "jd.union.open.channel.relation.query",
+		APIURL:     "https://union.jd.com/openplatform/api/v2?apiName=jd.union.open.channel.relation.query",
+		CHECKFIELDS: []CheckField{
+			{
+				FieldName:         "360buy_param_json",
+				FieldNotNullCheck: true,
+			},
+		},
+	}
+
+request = ApiInfo{
 		APIDESC:    "jd.union.open.channel.relation.get 渠道关系ID生成接口【申请】",
 		APIORGNAME: "jd.union.open.channel.relation.get",
 		APIURL:     "https://union.jd.com/openplatform/api/v2?apiName=jd.union.open.channel.relation.get",
