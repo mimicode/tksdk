@@ -3,6 +3,7 @@ package jdopensdk
 import (
 	"testing"
 
+	"github.com/mimicode/tksdk/jdopensdk/response/jdunionopenactivitybonusquery"
 	"github.com/mimicode/tksdk/jdopensdk/response/jdunionopenchannelinvitecodeget"
 	"github.com/mimicode/tksdk/jdopensdk/response/jdunionopenchannelrelationget"
 	"github.com/mimicode/tksdk/jdopensdk/response/jdunionopenchannelrelationquery"
@@ -219,5 +220,21 @@ func TestParseStatisticsActivityBonusResponseShape(t *testing.T) {
 		g.EstimateBonus != 1000 || g.ActualValidNum != 1200 || g.ActualBonus != 1200 ||
 		g.UV != 1 || g.ChannelID != 100001 {
 		t.Fatalf("statistics activity bonus fields mismatch: %+v", g)
+	}
+}
+
+func TestParseActivityBonusResponseShape(t *testing.T) {
+	body := `{"jd_union_open_activity_bonus_query_responce":{"code":"0","queryResult":"{\"code\":200,\"message\":\"success\",\"hasMore\":true,\"data\":[{\"activityId\":1,\"activityName\":\"京橙周年庆\",\"prepareTime\":1616603400000,\"beginDate\":1616603400000,\"endDate\":1621180799000,\"payType\":1,\"firstPayTime\":1622390400000,\"firstPayRate\":100.0,\"secondPayTime\":1622390400000,\"secondPayRate\":0.0,\"pcDescUrl\":\"http://union.jd.com/activityRule?id=11180\",\"remark\":\"周年庆\"}]}"}}`
+	r := &jdunionopenactivitybonusquery.Response{}
+	r.WrapResult(body)
+	if r.IsError() {
+		t.Fatalf("activity bonus parse failed: code=%d msg=%s body=%s", r.ErrorResponse.Code, r.ErrorResponse.Message, r.Body)
+	}
+	g := r.Responce.QueryResult.Data[0]
+	if g.ActivityID != 1 || g.ActivityName != "京橙周年庆" || g.PayType != 1 ||
+		g.FirstPayRate != 100 || g.SecondPayRate != 0 || g.PrepareTime != 1616603400000 ||
+		g.PcDescURL != "http://union.jd.com/activityRule?id=11180" ||
+		!r.Responce.QueryResult.HasMore {
+		t.Fatalf("activity bonus fields mismatch: %+v", g)
 	}
 }
