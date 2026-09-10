@@ -14,6 +14,7 @@ import (
 	"github.com/mimicode/tksdk/jdopensdk/response/jdunionopenorderquery"
 	"github.com/mimicode/tksdk/jdopensdk/response/jdunionopenpromotionintelligencequery"
 	"github.com/mimicode/tksdk/jdopensdk/response/jdunionopenpromotiontoolsintelligencequery"
+	"github.com/mimicode/tksdk/jdopensdk/response/jdunionopenstatisticsactivitybonusquery"
 	"github.com/mimicode/tksdk/jdopensdk/response/jdunionopenstatisticspromotionquery"
 )
 
@@ -203,5 +204,20 @@ func TestParseStatisticsPromotionResponseShape(t *testing.T) {
 		g.CompleteGmv != 2500 || g.ActualFee != 95 || g.RefundOrders != 10 ||
 		g.UnionID != 10001 || g.ItemID != "Q9Z2ZdyM" {
 		t.Fatalf("statistics promotion fields mismatch: %+v", g)
+	}
+}
+
+func TestParseStatisticsActivityBonusResponseShape(t *testing.T) {
+	body := `{"jd_union_open_statistics_activity_bonus_query_responce":{"code":"0","queryResult":"{\"code\":200,\"message\":\"success\",\"data\":{\"unionId\":5227,\"activityId\":1,\"estimateValidNum\":1000,\"estimateCosPrice\":10000.0,\"estimateBonus\":1000.0,\"actualValidNum\":1200,\"actualCosPrice\":12000.0,\"actualBonus\":1200.0,\"uv\":1,\"channelId\":100001}}"}}`
+	r := &jdunionopenstatisticsactivitybonusquery.Response{}
+	r.WrapResult(body)
+	if r.IsError() {
+		t.Fatalf("statistics activity bonus parse failed: code=%d msg=%s body=%s", r.ErrorResponse.Code, r.ErrorResponse.Message, r.Body)
+	}
+	g := r.Responce.QueryResult.Data
+	if g.UnionID != 5227 || g.ActivityID != 1 || g.EstimateValidNum != 1000 ||
+		g.EstimateBonus != 1000 || g.ActualValidNum != 1200 || g.ActualBonus != 1200 ||
+		g.UV != 1 || g.ChannelID != 100001 {
+		t.Fatalf("statistics activity bonus fields mismatch: %+v", g)
 	}
 }
