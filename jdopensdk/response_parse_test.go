@@ -4,6 +4,7 @@ import (
 	"testing"
 
 	"github.com/mimicode/tksdk/jdopensdk/response/jdunionopengoodsbigfieldquery"
+	"github.com/mimicode/tksdk/jdopensdk/response/jdunionopengoodscombinationpageget"
 	"github.com/mimicode/tksdk/jdopensdk/response/jdunionopengoodsrankquery"
 	"github.com/mimicode/tksdk/jdopensdk/response/jdunionopengoodsrecommendquery"
 	"github.com/mimicode/tksdk/jdopensdk/response/jdunionopenorderagentquery"
@@ -128,5 +129,21 @@ func TestParseGoodsRecommendResponseShape(t *testing.T) {
 		d.RecommendSkuInfoList[0].SubType != 2001 || d.RecommendSkuInfoList[0].Reason != "同类品价更优" ||
 		d.RecommendSkuInfoList[1].Type != 3 {
 		t.Fatalf("recommend fields mismatch: %+v", d)
+	}
+}
+
+func TestParseCombinationPageResponseShape(t *testing.T) {
+	body := `{"jd_union_open_goods_combinationpage_get_responce":{"getResult":"{\"code\":200,\"message\":\"成功\",\"data\":{\"shortURL\":\"https://u.jd.com/Ezv***\",\"clickURL\":\"https://union-click.jd.com/jdc?e=XXX\",\"failSkuList\":[{\"sku\":234345,\"message\":\"为预售商品\"}],\"materialId\":\"https://jingfen.jd.com/item?***\",\"failCouponList\":[{\"url\":\"http://coupon.jd.com/x\",\"message\":\"优惠券校验失败\"}],\"failActivityUrlList\":[]}}"}}`
+	r := &jdunionopengoodscombinationpageget.Response{}
+	r.WrapResult(body)
+	if r.IsError() {
+		t.Fatalf("combinationpage parse failed: code=%d msg=%s body=%s", r.ErrorResponse.Code, r.ErrorResponse.Message, r.Body)
+	}
+	d := r.Responce.GetResult.Data
+	if d.ShortURL != "https://u.jd.com/Ezv***" || d.ClickURL != "https://union-click.jd.com/jdc?e=XXX" ||
+		d.MaterialID != "https://jingfen.jd.com/item?***" ||
+		d.FailSkuList[0].Sku != 234345 || d.FailSkuList[0].Message != "为预售商品" ||
+		d.FailCouponList[0].Message != "优惠券校验失败" {
+		t.Fatalf("combinationpage fields mismatch: %+v", d)
 	}
 }
