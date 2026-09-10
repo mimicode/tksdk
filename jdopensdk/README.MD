@@ -4,6 +4,7 @@
 - [JdUnionOpenActivityRecommendQueryRequest jd.union.open.activity.recommend.query 提供联盟官方活动查询](https://union.jd.com/openplatform/api/v2?apiName=jd.union.open.activity.recommend.query)
 - [JdUnionOpenCategoryGoodsGetRequest jd.union.open.category.goods.get 根据商品的父类目id查询子类目id信息](https://union.jd.com/openplatform/api/v2?apiName=jd.union.open.category.goods.get)
 - [JdUnionOpenChannelRelationGetRequest jd.union.open.channel.relation.get 渠道关系ID生成接口【申请】](https://union.jd.com/openplatform/api/v2?apiName=jd.union.open.channel.relation.get)
+- [JdUnionOpenChannelRelationQueryRequest jd.union.open.channel.relation.query 渠道关系查询接口【申请】](https://union.jd.com/openplatform/api/v2?apiName=jd.union.open.channel.relation.query)
 - [JdUnionOpenCouponQueryRequest jd.union.open.coupon.query 通过领券链接查询优惠券的平台、面额、期限、可用状态、剩余数量等详细信息](https://union.jd.com/openplatform/api/v2?apiName=jd.union.open.coupon.query)
 - [JdUnionOpenGoodsBigfieldQueryRequest jd.union.open.goods.bigfield.query 商品详情查询接口,大字段信息](https://union.jd.com/openplatform/api/v2?apiName=jd.union.open.goods.bigfield.query)
 - [JdUnionOpenGoodsJingfenQueryRequest jd.union.open.goods.jingfen.query 京粉精选商品查询接口](https://union.jd.com/openplatform/api/v2?apiName=jd.union.open.goods.jingfen.query)
