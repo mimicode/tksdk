@@ -345,6 +345,18 @@ func createAPIS() {
 	}
 
 	request = ApiInfo{
+		APIDESC:    "jd.union.open.order.query 订单查询接口",
+		APIORGNAME: "jd.union.open.order.query",
+		APIURL:     "https://union.jd.com/openplatform/api/v2?apiName=jd.union.open.order.query",
+		CHECKFIELDS: []CheckField{
+			{
+				FieldName:         "360buy_param_json",
+				FieldNotNullCheck: true,
+			},
+		},
+	}
+
+	request = ApiInfo{
 		APIDESC:    "jd.union.open.order.bonus.query 奖励订单查询接口",
 		APIORGNAME: "jd.union.open.order.bonus.query",
 		APIURL:     "https://union.jd.com/openplatform/api/v2?apiName=jd.union.open.order.bonus.query",
