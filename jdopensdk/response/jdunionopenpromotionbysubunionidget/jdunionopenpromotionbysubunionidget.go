@@ -9,7 +9,7 @@ import (
 // Response jd.union.open.promotion.bysubunionid.get 通过商品链接、领券链接、活动链接获取普通推广链接或优惠券二合一推广链接
 type Response struct {
 	response.TopResponse
-	Responce Responce `json:"jd_union_open_promotion_bysubunionid_get_responce"`
+	Responce Responce `json:"jd_union_open_promotion_byunionid_get_responce"`
 }
 
 // WrapResult 解析输出结果

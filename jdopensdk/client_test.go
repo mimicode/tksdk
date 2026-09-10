@@ -24,6 +24,7 @@ import (
 	"github.com/mimicode/tksdk/jdopensdk/response/jdunionopenpositionquery"
 	"github.com/mimicode/tksdk/jdopensdk/response/jdunionopenpromotionbysubunionidget"
 	"github.com/mimicode/tksdk/jdopensdk/response/jdunionopenpromotioncommonget"
+	"github.com/mimicode/tksdk/jdopensdk/response/jdunionopenpromotionintelligencequery"
 	"github.com/mimicode/tksdk/jdopensdk/response/jdunionopenstatisticsgiftcouponquery"
 )
 
@@ -180,6 +181,22 @@ func TestJdUnionOpenGoodsQueryRequest(t *testing.T) {
 	}
 }
 
+// 【京东】https://3.cn/32-iPdAt?jkl=@PBHQkCXC2B@ MU5104 「[品牌新-20]爱他美卓傲3段800g」
+// 点击链接直接打开 或者复制文案打开京东
+func TestJdUnionOpenPromotionByunionidGetRequest(t *testing.T) {
+	client := GetClient()
+	getRequest := &request.JdUnionOpenPromotionByunionidGetRequest{}
+	getRequest.AddParameter("360buy_param_json", `{"promotionCodeReq":{"materialId":"https://3.cn/32-iPdAt?jkl=@PBHQkCXC2B@","unionId":2038350641,"positionId":3108213893,"pid":"","chainType":3,"sceneId":2,"key":""}}`)
+	var getResponse DefaultResponse = &jdunionopenpromotionbysubunionidget.Response{}
+	if err := client.Exec(getRequest, getResponse); err != nil {
+		fmt.Println(err)
+	} else {
+		commonGetResponse := getResponse.(*jdunionopenpromotionbysubunionidget.Response)
+		fmt.Println(commonGetResponse.IsError())
+		fmt.Println(commonGetResponse.Body)
+	}
+}
+
 func TestJdUnionOpenPositionQueryRequest(t *testing.T) {
 	client := GetClient()
 	getRequest := &request.JdUnionOpenPositionQueryRequest{}
@@ -324,6 +341,27 @@ func TestJdUnionOpenGoodsRankQueryRequest(t *testing.T) {
 		fmt.Println(err)
 	} else {
 		commonGetResponse := getResponse.(*jdunionopengoodsrankquery.Response)
+		fmt.Println(commonGetResponse.IsError())
+		fmt.Println(commonGetResponse.Body)
+	}
+}
+
+func TestJdUnionOpenPromotionIntelligenceQueryRequest(t *testing.T) {
+	client := GetClient()
+	getRequest := &request.JdUnionOpenPromotionIntelligenceQueryRequest{}
+	var param = map[string]interface{}{
+		"req": map[string]interface{}{
+			"pageIndex": 1,
+			"pageSize":  10,
+		},
+	}
+	marshal, _ := json.Marshal(param)
+	getRequest.AddParameter("360buy_param_json", string(marshal))
+	var getResponse DefaultResponse = &jdunionopenpromotionintelligencequery.Response{}
+	if err := client.Exec(getRequest, getResponse); err != nil {
+		fmt.Println(err)
+	} else {
+		commonGetResponse := getResponse.(*jdunionopenpromotionintelligencequery.Response)
 		fmt.Println(commonGetResponse.IsError())
 		fmt.Println(commonGetResponse.Body)
 	}
