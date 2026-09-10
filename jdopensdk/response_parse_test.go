@@ -3,6 +3,7 @@ package jdopensdk
 import (
 	"testing"
 
+	"github.com/mimicode/tksdk/jdopensdk/response/jdunionopenchannelinvitecodeget"
 	"github.com/mimicode/tksdk/jdopensdk/response/jdunionopenchannelrelationget"
 	"github.com/mimicode/tksdk/jdopensdk/response/jdunionopenchannelrelationquery"
 	"github.com/mimicode/tksdk/jdopensdk/response/jdunionopengoodsbigfieldquery"
@@ -174,5 +175,17 @@ func TestParseChannelRelationQueryResponseShape(t *testing.T) {
 		g.ChannelNote != "合作方备注名" || g.CreateTime != "2020-12-20 23:59:59" ||
 		r.Responce.QueryResult.TotalCount != 100 {
 		t.Fatalf("channel relation query fields mismatch: %+v", g)
+	}
+}
+
+func TestParseChannelInvitecodeGetResponseShape(t *testing.T) {
+	body := `{"jd_union_open_channel_invitecode_get_responce":{"getResult":"{\"code\":200,\"message\":\"success\",\"data\":{\"inviteCode\":\"NCERT\"}}"}}`
+	r := &jdunionopenchannelinvitecodeget.Response{}
+	r.WrapResult(body)
+	if r.IsError() {
+		t.Fatalf("channel invitecode get parse failed: code=%d msg=%s body=%s", r.ErrorResponse.Code, r.ErrorResponse.Message, r.Body)
+	}
+	if r.Responce.GetResult.Data.InviteCode != "NCERT" {
+		t.Fatalf("channel invitecode get fields mismatch: %+v", r.Responce.GetResult)
 	}
 }
