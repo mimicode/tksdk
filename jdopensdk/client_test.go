@@ -25,6 +25,7 @@ import (
 	"github.com/mimicode/tksdk/jdopensdk/response/jdunionopenpromotionbysubunionidget"
 	"github.com/mimicode/tksdk/jdopensdk/response/jdunionopenpromotioncommonget"
 	"github.com/mimicode/tksdk/jdopensdk/response/jdunionopenpromotionintelligencequery"
+	"github.com/mimicode/tksdk/jdopensdk/response/jdunionopenpromotiontoolsintelligencequery"
 	"github.com/mimicode/tksdk/jdopensdk/response/jdunionopenstatisticsgiftcouponquery"
 )
 
@@ -362,6 +363,27 @@ func TestJdUnionOpenPromotionIntelligenceQueryRequest(t *testing.T) {
 		fmt.Println(err)
 	} else {
 		commonGetResponse := getResponse.(*jdunionopenpromotionintelligencequery.Response)
+		fmt.Println(commonGetResponse.IsError())
+		fmt.Println(commonGetResponse.Body)
+	}
+}
+
+func TestJdUnionOpenPromotionToolsIntelligenceQueryRequest(t *testing.T) {
+	client := GetClient()
+	getRequest := &request.JdUnionOpenPromotionToolsIntelligenceQueryRequest{}
+	var param = map[string]interface{}{
+		"req": map[string]interface{}{
+			"pageIndex": 1,
+			"pageSize":  10,
+		},
+	}
+	marshal, _ := json.Marshal(param)
+	getRequest.AddParameter("360buy_param_json", string(marshal))
+	var getResponse DefaultResponse = &jdunionopenpromotiontoolsintelligencequery.Response{}
+	if err := client.Exec(getRequest, getResponse); err != nil {
+		fmt.Println(err)
+	} else {
+		commonGetResponse := getResponse.(*jdunionopenpromotiontoolsintelligencequery.Response)
 		fmt.Println(commonGetResponse.IsError())
 		fmt.Println(commonGetResponse.Body)
 	}

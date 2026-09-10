@@ -7,6 +7,7 @@ import (
 	"github.com/mimicode/tksdk/jdopensdk/response/jdunionopengoodsrankquery"
 	"github.com/mimicode/tksdk/jdopensdk/response/jdunionopenorderagentquery"
 	"github.com/mimicode/tksdk/jdopensdk/response/jdunionopenpromotionintelligencequery"
+	"github.com/mimicode/tksdk/jdopensdk/response/jdunionopenpromotiontoolsintelligencequery"
 )
 
 // 临时验证：按官方文档字段表构造的真实响应形状能否被 WrapResult 正确解析
@@ -75,5 +76,19 @@ func TestParseIntelligenceResponseShape(t *testing.T) {
 		g.Cid1List[0] != 52253 || g.Cid1List[1] != 75691 ||
 		g.StartTime != "2021-11-11 12:00:00" || g.EndTime != "2021-11-18 12:00:00" {
 		t.Fatalf("intelligence fields mismatch: %+v", g)
+	}
+}
+
+func TestParseToolsIntelligenceResponseShape(t *testing.T) {
+	body := `{"jd_union_open_promotion_tools_intelligence_query_responce":{"code":"0","queryResult":"{\"code\":200,\"message\":\"success\",\"data\":[{\"reportContent\":\"特价\",\"type\":2,\"cid1List\":[52253],\"status\":2,\"essence\":0,\"startTime\":\"2021-11-11 12:00:00\",\"endTime\":\"2021-11-18 12:00:00\"}]}"}}`
+	r := &jdunionopenpromotiontoolsintelligencequery.Response{}
+	r.WrapResult(body)
+	if r.IsError() {
+		t.Fatalf("tools intelligence parse failed: code=%d msg=%s body=%s", r.ErrorResponse.Code, r.ErrorResponse.Message, r.Body)
+	}
+	g := r.Responce.QueryResult.Data[0]
+	if g.ReportContent != "特价" || g.Type != 2 || g.Status != 2 || g.Essence != 0 ||
+		g.Cid1List[0] != 52253 || g.EndTime != "2021-11-18 12:00:00" {
+		t.Fatalf("tools intelligence fields mismatch: %+v", g)
 	}
 }
