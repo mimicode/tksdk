@@ -26,6 +26,7 @@ import (
 	"github.com/mimicode/tksdk/jdopensdk/response/jdunionopengoodsrecommendquery"
 	"github.com/mimicode/tksdk/jdopensdk/response/jdunionopenorderagentquery"
 	"github.com/mimicode/tksdk/jdopensdk/response/jdunionopenorderquery"
+	"github.com/mimicode/tksdk/jdopensdk/response/jdunionopenorderrowsupplyquery"
 	"github.com/mimicode/tksdk/jdopensdk/response/jdunionopenorderrowquery"
 	"github.com/mimicode/tksdk/jdopensdk/response/jdunionopenpositioncreate"
 	"github.com/mimicode/tksdk/jdopensdk/response/jdunionopenpositionquery"
@@ -252,6 +253,20 @@ func TestJdUnionOpenOrderQueryRequest(t *testing.T) {
 		fmt.Println(err)
 	} else {
 		commonGetResponse := getResponse.(*jdunionopenorderquery.Response)
+		fmt.Println(commonGetResponse.IsError())
+		fmt.Println(commonGetResponse.Body)
+	}
+}
+
+func TestJdUnionOpenOrderRowSupplyQueryRequest(t *testing.T) {
+	client := GetClient()
+	getRequest := &request.JdUnionOpenOrderRowSupplyQueryRequest{}
+	getRequest.AddParameter("360buy_param_json", `{"orderReq":{"pageIndex":1,"pageSize":20,"type":3,"startTime":"2021-08-02 11:45:00","endTime":"2021-08-02 11:50:00","fields":"goodsInfo,categoryInfo"}}`)
+	var getResponse DefaultResponse = &jdunionopenorderrowsupplyquery.Response{}
+	if err := client.Exec(getRequest, getResponse); err != nil {
+		fmt.Println(err)
+	} else {
+		commonGetResponse := getResponse.(*jdunionopenorderrowsupplyquery.Response)
 		fmt.Println(commonGetResponse.IsError())
 		fmt.Println(commonGetResponse.Body)
 	}

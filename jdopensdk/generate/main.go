@@ -441,6 +441,18 @@ request = ApiInfo{
 	}
 
 	request = ApiInfo{
+		APIDESC:    "jd.union.open.order.row.supply.query 供开订单行查询接口【申请】",
+		APIORGNAME: "jd.union.open.order.row.supply.query",
+		APIURL:     "https://union.jd.com/openplatform/api/v2?apiName=jd.union.open.order.row.supply.query",
+		CHECKFIELDS: []CheckField{
+			{
+				FieldName:         "360buy_param_json",
+				FieldNotNullCheck: true,
+			},
+		},
+	}
+
+	request = ApiInfo{
 		APIDESC:    "jd.union.open.order.query 订单查询接口",
 		APIORGNAME: "jd.union.open.order.query",
 		APIURL:     "https://union.jd.com/openplatform/api/v2?apiName=jd.union.open.order.query",
