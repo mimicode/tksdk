@@ -249,6 +249,18 @@ func createAPIS() {
 	}
 
 	request = ApiInfo{
+		APIDESC:    "jd.union.open.goods.recommend.query 相似品推荐接口【申请】",
+		APIORGNAME: "jd.union.open.goods.recommend.query",
+		APIURL:     "https://union.jd.com/openplatform/api/v2?apiName=jd.union.open.goods.recommend.query",
+		CHECKFIELDS: []CheckField{
+			{
+				FieldName:         "360buy_param_json",
+				FieldNotNullCheck: true,
+			},
+		},
+	}
+
+	request = ApiInfo{
 		APIDESC:    "jd.union.open.activity.query 提供联盟官方活动查询",
 		APIORGNAME: "jd.union.open.activity.query",
 		APIURL:     "https://union.jd.com/openplatform/api/v2?apiName=jd.union.open.activity.query",
