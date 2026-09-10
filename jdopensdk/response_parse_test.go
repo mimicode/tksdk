@@ -5,6 +5,7 @@ import (
 
 	"github.com/mimicode/tksdk/jdopensdk/response/jdunionopengoodsbigfieldquery"
 	"github.com/mimicode/tksdk/jdopensdk/response/jdunionopengoodsrankquery"
+	"github.com/mimicode/tksdk/jdopensdk/response/jdunionopengoodsrecommendquery"
 	"github.com/mimicode/tksdk/jdopensdk/response/jdunionopenorderagentquery"
 	"github.com/mimicode/tksdk/jdopensdk/response/jdunionopenorderquery"
 	"github.com/mimicode/tksdk/jdopensdk/response/jdunionopenpromotionintelligencequery"
@@ -111,5 +112,21 @@ func TestParseOrderResponseShape(t *testing.T) {
 		s.PayMonth != 20180618 || s.PopID != 30871 || s.GiftCouponOcsAmount != 100 ||
 		s.ItemID != "Q9Z2ZdyM" || s.SubUnionID != "2018061" {
 		t.Fatalf("sku fields mismatch: %+v", s)
+	}
+}
+
+func TestParseGoodsRecommendResponseShape(t *testing.T) {
+	body := `{"jd_union_open_goods_recommend_query_responce":{"code":"0","queryResult":"{\"code\":200,\"message\":\"success\",\"data\":{\"matchSkuInfo\":{\"skuId\":26898778009,\"itemId\":\"Q9Z2ZdyM\"},\"recommendSkuInfoList\":[{\"skuId\":111,\"itemId\":\"AAA\",\"type\":2,\"subType\":2001,\"reason\":\"同类品价更优\"},{\"skuId\":222,\"itemId\":\"BBB\",\"type\":3,\"subType\":3002,\"reason\":\"相似品高销\"}]}}"}}`
+	r := &jdunionopengoodsrecommendquery.Response{}
+	r.WrapResult(body)
+	if r.IsError() {
+		t.Fatalf("recommend parse failed: code=%d msg=%s body=%s", r.ErrorResponse.Code, r.ErrorResponse.Message, r.Body)
+	}
+	d := r.Responce.QueryResult.Data
+	if d.MatchSkuInfo.SkuID != 26898778009 || d.MatchSkuInfo.ItemID != "Q9Z2ZdyM" ||
+		len(d.RecommendSkuInfoList) != 2 ||
+		d.RecommendSkuInfoList[0].SubType != 2001 || d.RecommendSkuInfoList[0].Reason != "同类品价更优" ||
+		d.RecommendSkuInfoList[1].Type != 3 {
+		t.Fatalf("recommend fields mismatch: %+v", d)
 	}
 }

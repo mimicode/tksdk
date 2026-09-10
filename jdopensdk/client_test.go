@@ -18,6 +18,7 @@ import (
 	"github.com/mimicode/tksdk/jdopensdk/response/jdunionopengoodspromotiongoodsinfoquery"
 	"github.com/mimicode/tksdk/jdopensdk/response/jdunionopengoodsquery"
 	"github.com/mimicode/tksdk/jdopensdk/response/jdunionopengoodsrankquery"
+	"github.com/mimicode/tksdk/jdopensdk/response/jdunionopengoodsrecommendquery"
 	"github.com/mimicode/tksdk/jdopensdk/response/jdunionopenorderagentquery"
 	"github.com/mimicode/tksdk/jdopensdk/response/jdunionopenorderquery"
 	"github.com/mimicode/tksdk/jdopensdk/response/jdunionopenorderrowquery"
@@ -399,6 +400,27 @@ func TestJdUnionOpenPromotionToolsIntelligenceQueryRequest(t *testing.T) {
 		fmt.Println(err)
 	} else {
 		commonGetResponse := getResponse.(*jdunionopenpromotiontoolsintelligencequery.Response)
+		fmt.Println(commonGetResponse.IsError())
+		fmt.Println(commonGetResponse.Body)
+	}
+}
+
+func TestJdUnionOpenGoodsRecommendQueryRequest(t *testing.T) {
+	client := GetClient()
+	getRequest := &request.JdUnionOpenGoodsRecommendQueryRequest{}
+	var param = map[string]interface{}{
+		"RecommendGoodsReq": map[string]interface{}{
+			"skuId":   26898778009,
+			"sceneId": 1,
+		},
+	}
+	marshal, _ := json.Marshal(param)
+	getRequest.AddParameter("360buy_param_json", string(marshal))
+	var getResponse DefaultResponse = &jdunionopengoodsrecommendquery.Response{}
+	if err := client.Exec(getRequest, getResponse); err != nil {
+		fmt.Println(err)
+	} else {
+		commonGetResponse := getResponse.(*jdunionopengoodsrecommendquery.Response)
 		fmt.Println(commonGetResponse.IsError())
 		fmt.Println(commonGetResponse.Body)
 	}
