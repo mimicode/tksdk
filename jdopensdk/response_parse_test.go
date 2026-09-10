@@ -19,6 +19,7 @@ import (
 	"github.com/mimicode/tksdk/jdopensdk/response/jdunionopenshpromotionget"
 	"github.com/mimicode/tksdk/jdopensdk/response/jdunionopenstatisticsactivitybonusquery"
 	"github.com/mimicode/tksdk/jdopensdk/response/jdunionopenstatisticspromotionquery"
+	"github.com/mimicode/tksdk/jdopensdk/response/jdunionopenuserpidget"
 )
 
 // 临时验证：按官方文档字段表构造的真实响应形状能否被 WrapResult 正确解析
@@ -271,5 +272,17 @@ func TestParseShPromotionGetResponseShape(t *testing.T) {
 		g.ClickMonitorURL != "https://mktm.jd.com/u/click?taskId=1" ||
 		g.AppURL != "openapp.jdmobile://virtual?params=1" {
 		t.Fatalf("sh promotion get fields mismatch: %+v", g)
+	}
+}
+
+func TestParseUserPidGetResponseShape(t *testing.T) {
+	body := `{"jd_union_open_user_pid_get_responce":{"getResult":"{\"code\":200,\"message\":\"success\",\"data\":\"1000618618_0_6186181618\"}"}}`
+	r := &jdunionopenuserpidget.Response{}
+	r.WrapResult(body)
+	if r.IsError() {
+		t.Fatalf("user pid get parse failed: code=%d msg=%s body=%s", r.ErrorResponse.Code, r.ErrorResponse.Message, r.Body)
+	}
+	if r.Responce.GetResult.Data != "1000618618_0_6186181618" {
+		t.Fatalf("user pid get fields mismatch: %+v", r.Responce.GetResult)
 	}
 }
