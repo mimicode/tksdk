@@ -41,6 +41,7 @@
 - [taobao.tbk.sc.newuser.tborder.sum( 拉新活动汇总API--社交 )](http://open.taobao.com/api.htm?docId=36837&docType=2&scopeId=11655)
 - [taobao.tbk.sc.optimus.material( 淘宝客擎天柱通用物料API - 社交 )](http://open.taobao.com/api.htm?docId=37884&docType=2&scopeId=11655)
 - [taobao.tbk.order.details.get( 淘宝客-推广者-所有订单查询 )](https://open.taobao.com/api.htm?docId=43328&docType=2&scopeId=16175)
+- [taobao.tbk.dg.punish.order.get( 淘宝客-推广者-处罚订单查询 )](https://open.taobao.com/api.htm?docId=42050&docType=2&scopeId=15736)
 - [taobao.tbk.sc.order.details.get( 淘宝客【服务商】所有订单查询 )](https://open.taobao.com/api.htm?docId=43755&docType=2&scopeId=16322)
 - [taobao.tbk.sc.tborder.get( 淘宝客订单查询 - 社交 )](http://open.taobao.com/api.htm?docId=38078&docType=2&scopeId=14814)
 - [taobao.tbk.sc.publisher.info.get( 淘宝客信息查询 - 社交 )](http://open.taobao.com/api.htm?docId=37989&docType=2&scopeId=14474)
