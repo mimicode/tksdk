@@ -21,26 +21,27 @@ import (
 	"github.com/mimicode/tksdk/jdopensdk/response/jdunionopengoodscombinationpageget"
 	"github.com/mimicode/tksdk/jdopensdk/response/jdunionopengoodsjingfenquery"
 	"github.com/mimicode/tksdk/jdopensdk/response/jdunionopengoodspromotiongoodsinfoquery"
-	"github.com/mimicode/tksdk/jdopensdk/response/jdunionopengoodsseckillquery"
 	"github.com/mimicode/tksdk/jdopensdk/response/jdunionopengoodsquery"
 	"github.com/mimicode/tksdk/jdopensdk/response/jdunionopengoodsrankquery"
 	"github.com/mimicode/tksdk/jdopensdk/response/jdunionopengoodsrecommendquery"
+	"github.com/mimicode/tksdk/jdopensdk/response/jdunionopengoodsseckillquery"
 	"github.com/mimicode/tksdk/jdopensdk/response/jdunionopenorderagentquery"
+	"github.com/mimicode/tksdk/jdopensdk/response/jdunionopenorderbonusquery"
 	"github.com/mimicode/tksdk/jdopensdk/response/jdunionopenorderquery"
-	"github.com/mimicode/tksdk/jdopensdk/response/jdunionopenorderrowsupplyquery"
 	"github.com/mimicode/tksdk/jdopensdk/response/jdunionopenorderrowquery"
+	"github.com/mimicode/tksdk/jdopensdk/response/jdunionopenorderrowsupplyquery"
 	"github.com/mimicode/tksdk/jdopensdk/response/jdunionopenpositioncreate"
 	"github.com/mimicode/tksdk/jdopensdk/response/jdunionopenpositionquery"
-	"github.com/mimicode/tksdk/jdopensdk/response/jdunionopenuserpidget"
-	"github.com/mimicode/tksdk/jdopensdk/response/jdunionopenuserregistervalidate"
 	"github.com/mimicode/tksdk/jdopensdk/response/jdunionopenpromotionbysubunionidget"
 	"github.com/mimicode/tksdk/jdopensdk/response/jdunionopenpromotioncommonget"
 	"github.com/mimicode/tksdk/jdopensdk/response/jdunionopenpromotionintelligencequery"
 	"github.com/mimicode/tksdk/jdopensdk/response/jdunionopenpromotiontoolsintelligencequery"
 	"github.com/mimicode/tksdk/jdopensdk/response/jdunionopenshpromotionget"
-	"github.com/mimicode/tksdk/jdopensdk/response/jdunionopenstatisticsgiftcouponquery"
 	"github.com/mimicode/tksdk/jdopensdk/response/jdunionopenstatisticsactivitybonusquery"
+	"github.com/mimicode/tksdk/jdopensdk/response/jdunionopenstatisticsgiftcouponquery"
 	"github.com/mimicode/tksdk/jdopensdk/response/jdunionopenstatisticspromotionquery"
+	"github.com/mimicode/tksdk/jdopensdk/response/jdunionopenuserpidget"
+	"github.com/mimicode/tksdk/jdopensdk/response/jdunionopenuserregistervalidate"
 )
 
 var (
@@ -164,10 +165,10 @@ func TestJdUnionOpenUserPidGetRequest(t *testing.T) {
 	getRequest := &request.JdUnionOpenUserPidGetRequest{}
 	var param = map[string]interface{}{
 		"pidReq": map[string]interface{}{
-			"unionId":        10000618,
-			"childUnionId":   61800001,
-			"promotionType":  1,
-			"mediaName":      "huhu",
+			"unionId":       10000618,
+			"childUnionId":  61800001,
+			"promotionType": 1,
+			"mediaName":     "huhu",
 		},
 	}
 	marshal, _ := json.Marshal(param)
@@ -273,6 +274,20 @@ func TestJdUnionOpenOrderRowQueryRequest(t *testing.T) {
 	} else {
 		commonGetResponse := getResponse.(*jdunionopenorderrowquery.Response)
 
+		fmt.Println(commonGetResponse.IsError())
+		fmt.Println(commonGetResponse.Body)
+	}
+}
+
+func TestJdUnionOpenOrderBonusQueryRequest(t *testing.T) {
+	client := GetClient()
+	getRequest := &request.JdUnionOpenOrderBonusQueryRequest{}
+	getRequest.AddParameter("360buy_param_json", `{"orderReq":{"optType":1,"startTime":1730558400000,"endTime":1730558410000,"pageNo":1,"pageSize":20}}`)
+	var getResponse DefaultResponse = &jdunionopenorderbonusquery.Response{}
+	if err := client.Exec(getRequest, getResponse); err != nil {
+		fmt.Println(err)
+	} else {
+		commonGetResponse := getResponse.(*jdunionopenorderbonusquery.Response)
 		fmt.Println(commonGetResponse.IsError())
 		fmt.Println(commonGetResponse.Body)
 	}
@@ -627,10 +642,10 @@ func TestJdUnionOpenStatisticsPromotionQueryRequest(t *testing.T) {
 	getRequest := &request.JdUnionOpenStatisticsPromotionQueryRequest{}
 	var param = map[string]interface{}{
 		"promotionEffectDataReq": map[string]interface{}{
-			"skuId":   10031228062854,
+			"skuId":    10031228062854,
 			"timeType": 1,
 			"dataType": 1,
-			"fields":  "clickPv,estimateValidOrders,estimateValidFee,estimateValidGmv",
+			"fields":   "clickPv,estimateValidOrders,estimateValidFee,estimateValidGmv",
 		},
 	}
 	marshal, _ := json.Marshal(param)
