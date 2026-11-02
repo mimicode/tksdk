@@ -9,6 +9,7 @@ import (
 	"github.com/mimicode/tksdk/jdopensdk/response/jdunionopenchannelrelationquery"
 	"github.com/mimicode/tksdk/jdopensdk/response/jdunionopengoodsbigfieldquery"
 	"github.com/mimicode/tksdk/jdopensdk/response/jdunionopengoodscombinationpageget"
+	"github.com/mimicode/tksdk/jdopensdk/response/jdunionopengoodsquery"
 	"github.com/mimicode/tksdk/jdopensdk/response/jdunionopengoodsrankquery"
 	"github.com/mimicode/tksdk/jdopensdk/response/jdunionopengoodsrecommendquery"
 	"github.com/mimicode/tksdk/jdopensdk/response/jdunionopengoodsseckillquery"
@@ -318,6 +319,60 @@ func TestParseOrderBonusQueryResponseShape(t *testing.T) {
 		d.SortValue != "1541733600000,263989501198192640" || d.Pid != "3131_131_11" ||
 		d.Account != "123456" || d.ItemID != "Q9Z2ZdyMsa9g7jpsfgQNVA0R_3SD7M7ISbsR0zCKPoF" {
 		t.Fatalf("order bonus fields mismatch: %+v", d)
+	}
+}
+
+func TestParseGoodsQueryResponseShape(t *testing.T) {
+	body := `{"jd_union_open_goods_query_responce":{"code":"0","queryResult":"{\"code\":200,\"message\":\"success\",\"requestId\":\"req_gq\",\"totalCount\":6186186,\"hotWords\":\"牛奶,家电\",\"similarSkuList\":[11144230,11993134],\"similarItemIdList\":[\"Q9Z2ZdyMsa9g7jpsfgQNVA0R_3SD7M7ISbsR0zCKPoF\"],\"searchPosition\":\"ENCohYvfyBJkAxdsyV6t1w==\",\"data\":[{\"skuId\":1,\"skuName\":\"便携式女士香水\",\"spuid\":3491692,\"brandCode\":\"7998\",\"brandName\":\"悍途（Humtto）\",\"owner\":\"g\",\"materialUrl\":\"item.jd.com/26898778009.html\",\"itemId\":\"Q9Z2ZdyMsa9g7jpsfgQNVA0R_3SD7M7ISbsR0zCKPoF\",\"oriItemId\":\"Q9Z2ZdyMsa9g7jpsfgQNVA0R_3SD7M7ISbsR0zCKPoF\",\"callerItemId\":\"UOWr2TlQWFp0JAokyWv5S1fP_309lO7rgdWouKuKnsF\",\"kaAdowner\":1,\"isOversea\":1,\"companyType\":2,\"stockState\":1,\"deliveryType\":1,\"inOrderCount30Days\":6018,\"inOrderCount30DaysSku\":1000,\"comments\":250,\"goodCommentsShare\":99.0,\"forbidTypes\":[0,10,11],\"jxFlags\":[1,2,3],\"eliteType\":[17],\"categoryInfo\":{\"cid1\":6144,\"cid1Name\":\"珠宝首饰\",\"cid2\":12041,\"cid2Name\":\"木手串/把件\",\"cid3\":12052,\"cid3Name\":\"其他\"},\"commissionInfo\":{\"commission\":22.68,\"commissionShare\":50.0,\"couponCommission\":12.68,\"plusCommissionShare\":50.0,\"isLock\":1,\"startTime\":1601364491000,\"endTime\":1601364491062,\"lhCommissionStockMax\":50000,\"lhCommissionStockRemaining\":25000},\"couponInfo\":{\"couponList\":[{\"bindType\":3,\"discount\":30.0,\"link\":\"http://coupon.jd.com/ilink/couponActiveFront/front_index.action?XXXXXXX\",\"platformType\":0,\"quota\":39.0,\"getStartTime\":1532921782000,\"getEndTime\":1532921782000,\"useStartTime\":1532921782000,\"useEndTime\":1532921782000,\"isBest\":1,\"hotValue\":5,\"isInputCoupon\":1,\"couponStyle\":0,\"couponStatus\":-1,\"limitPlatforms\":[3,5],\"timeCouponInfoList\":[{\"timeCouponBegin\":\"00:00:00\",\"timeCouponEnd\":\"08:59:59\"}]}]},\"imageInfo\":{\"imageList\":[{\"url\":\"http://img14.360buyimg.com/ads/jfs/a.jpg\"}],\"whiteImage\":\"https://img14.360buyimg.com/pop/w.png\"},\"priceInfo\":{\"price\":39.9,\"lowestPrice\":14.9,\"lowestPriceType\":2,\"lowestCouponPrice\":10.9,\"historyPriceDay\":100},\"shopInfo\":{\"shopName\":\"XXXX旗舰店\",\"shopId\":45619,\"shopLevel\":3.5},\"pinGouInfo\":{\"pingouPrice\":39.9,\"pingouTmCount\":2,\"pingouUrl\":\"https://wq.jd.com/pingou_api/GetAutoTuan?sku_id=35097232463\",\"pingouStartTime\":1546444800000,\"pingouEndTime\":1548604800000},\"videoInfo\":{\"videoList\":[{\"width\":400,\"high\":300,\"imageUrl\":\"https://img.300hu.com/s.jpg\",\"videoType\":1,\"playUrl\":\"https://vod.300hu.com/v.f20.mp4\",\"playType\":\"high\",\"duration\":10}]},\"commentInfo\":{\"commentList\":[{\"content\":\"不错，是正品\",\"imageList\":[{\"url\":\"http://img14.360buyimg.com/ads/jfs/c.jpg\"}]}]},\"documentInfo\":{\"document\":\"温和亲肤的配方 洁净面部污垢\",\"discount\":\"29.9碧素堂氨基酸洗面奶\"},\"bookInfo\":{\"isbn\":\"9787515515564\",\"publisherName\":\"某出版社\",\"authorName\":\"刘某某\",\"bookDesc\":\"内容简介\",\"bookName\":\"中文图书名称\",\"foreignBookName\":\"英文图书名称\"},\"specInfo\":{\"size\":\"1\",\"color\":\"白色\",\"spec\":\"无\",\"specName\":\"无\",\"isFreeShipping\":1},\"skuLabelInfo\":{\"is7ToReturn\":1,\"fxg\":1,\"fxgServiceList\":[{\"serviceName\":\"破损包退换\"}]},\"promotionLabelInfoList\":[{\"promotionLabel\":\"满2件，总价打8折\",\"labelName\":\"满折\",\"lableName\":\"满折\",\"promotionLabelId\":5000125161,\"promotionLableId\":5000125161,\"startTime\":1608998400000,\"endTime\":1609862399000,\"provinceNameList\":[\"天津\"],\"subType\":9105,\"rebate\":0.5,\"topDiscount\":2000.0,\"promotionDiscount\":10.0}],\"secondPriceInfoList\":[{\"secondPriceType\":2,\"secondPrice\":8.8}],\"seckillInfo\":{\"seckillOriPrice\":36.9,\"seckillPrice\":26.8,\"seckillStartTime\":1574474399000,\"seckillEndTime\":1574388000000},\"preSaleInfo\":{\"currentPrice\":100.0,\"earnest\":15.0,\"preSalePayType\":1,\"discountType\":1,\"depositWorth\":10.0,\"preAmountDeposit\":10.0,\"preSaleStartTime\":1546444800000,\"preSaleEndTime\":1546444800000,\"balanceStartTime\":1546444800000,\"balanceEndTime\":1546444800000,\"shipTime\":1546444800000,\"preSaleStatus\":1,\"amountDeposit\":10.0},\"reserveInfo\":{\"price\":15.0,\"type\":1,\"status\":1,\"startTime\":1601364491000,\"endTime\":1601364491000,\"panicBuyingStartTime\":1601364491000,\"panicBuyingEndTime\":1601364491000},\"activityCardInfo\":{\"amount\":100.0,\"activityType\":3,\"expireDay\":5},\"smartDocumentInfoList\":[{\"documentType\":2,\"documentName\":\"知乎风格\",\"document\":\"内衣洗衣液，深层祛渍，植物配方。限时24元！\"}],\"skuTagList\":[{\"type\":3,\"index\":1,\"name\":\"7天无理由退货\"}],\"specialSkuUrlInfo\":{\"skuUrlType\":1,\"skuUrl\":\"https://pro.m.jd.com/mall/active/Md9FMi1pJX\"},\"searchPageInfo\":{\"searchPageUrl\":\"无\"},\"purchasePriceInfo\":{\"code\":200,\"message\":\"成功\",\"purchasePrice\":30.9,\"thresholdPrice\":39.9,\"basisPriceType\":1,\"purchaseNum\":1,\"plusBenefitInfo\":{\"plus95Benefit\":10.0,\"parallelSubsidyBenefit\":10.0,\"plusSuperBenefit\":9.0},\"promotionLabelInfoList\":[{\"promotionLabel\":\"满2件，总价打8折\",\"promotionLabelId\":5000125161,\"labelName\":\"满折\",\"startTime\":1608998400000,\"endTime\":1609862399000}],\"couponList\":[{\"bindType\":3,\"discount\":30.0,\"quota\":39.0,\"link\":\"http://coupon.jd.com/x\",\"couponStyle\":0,\"couponStatus\":-1}]},\"multiPurchasePriceInfo\":{\"code\":200,\"message\":\"成功\",\"purchasePrice\":30.9,\"thresholdPrice\":39.9,\"basisPriceType\":1},\"bonusInfoList\":[{\"id\":123456,\"name\":\"周年庆\",\"state\":2,\"beginTime\":1684044385159,\"endTime\":1684044386159,\"activityType\":2,\"estimateBonus\":30.8,\"bonusSkuNum\":10000,\"stockSkuNum\":5000}]}]}"}}`
+	r := &jdunionopengoodsquery.Response{}
+	r.WrapResult(body)
+	if r.IsError() {
+		t.Fatalf("goods query parse failed: code=%d msg=%s body=%s", r.ErrorResponse.Code, r.ErrorResponse.Message, r.Body)
+	}
+	q := r.Responce.QueryResult
+	g := q.Data[0]
+	if q.HotWords != "牛奶,家电" || len(q.SimilarSkuList) != 2 || q.SimilarSkuList[0] != 11144230 ||
+		q.SimilarItemIdList[0] != "Q9Z2ZdyMsa9g7jpsfgQNVA0R_3SD7M7ISbsR0zCKPoF" || q.SearchPosition != "ENCohYvfyBJkAxdsyV6t1w==" {
+		t.Fatalf("goods query result-level new fields mismatch: %+v", q)
+	}
+	if g.CommissionInfo.LhCommissionStockMax != 50000 || g.CommissionInfo.LhCommissionStockRemaining != 25000 {
+		t.Fatalf("commissionInfo new fields mismatch: %+v", g.CommissionInfo)
+	}
+	c := g.CouponInfo.CouponList[0]
+	if c.CouponStyle != 0 || c.CouponStatus != -1 || len(c.LimitPlatforms) != 2 || c.LimitPlatforms[1] != 5 ||
+		c.TimeCouponInfoList[0].TimeCouponEnd != "08:59:59" {
+		t.Fatalf("coupon new fields mismatch: %+v", c)
+	}
+	if g.PriceInfo.HistoryPriceDay != 100 || g.VideoInfo.VideoList[0].PlayType != "high" || g.VideoInfo.VideoList[0].Duration != 10 {
+		t.Fatalf("priceInfo/videoInfo fields mismatch: %+v %+v", g.PriceInfo, g.VideoInfo)
+	}
+	if g.BookInfo.PublisherName != "某出版社" || g.BookInfo.ForeignBookName != "英文图书名称" {
+		t.Fatalf("bookInfo new fields mismatch: %+v", g.BookInfo)
+	}
+	if g.CommentInfo.CommentList[0].Content != "不错，是正品" || g.SpecInfo.IsFreeShipping != 1 || g.StockState != 1 ||
+		g.SkuLabelInfo.Fxg != 1 || g.SkuLabelInfo.FxgServiceList[0].ServiceName != "破损包退换" {
+		t.Fatalf("commentInfo/specInfo/skuLabelInfo mismatch: %+v %+v %+v", g.CommentInfo, g.SpecInfo, g.SkuLabelInfo)
+	}
+	p := g.PromotionLabelInfoList[0]
+	if p.SubType != 9105 || p.Rebate != 0.5 || p.TopDiscount != 2000 || p.PromotionDiscount != 10 ||
+		p.ProvinceNameList[0] != "天津" || p.LableName != "满折" || p.PromotionLableId != 5000125161 {
+		t.Fatalf("promotionLabelInfo new fields mismatch: %+v", p)
+	}
+	if g.SecondPriceInfoList[0].SecondPrice != 8.8 || g.PreSaleInfo.PreSaleStatus != 1 || g.PreSaleInfo.AmountDeposit != 10 ||
+		g.ReserveInfo.Status != 1 || g.IsOversea != 1 || g.CompanyType != 2 || g.KaAdowner != 1 ||
+		g.OriItemId != "Q9Z2ZdyMsa9g7jpsfgQNVA0R_3SD7M7ISbsR0zCKPoF" || g.CallerItemId != "UOWr2TlQWFp0JAokyWv5S1fP_309lO7rgdWouKuKnsF" {
+		t.Fatalf("secondPrice/preSale/reserve/datum new fields mismatch: %+v", g)
+	}
+	if g.ActivityCardInfo.Amount != 100 || g.SmartDocumentInfoList[0].DocumentType != 2 ||
+		g.SkuTagList[0].Name != "7天无理由退货" || g.InOrderCount30DaysSku != 1000 ||
+		g.SpecialSkuUrlInfo.SkuUrlType != 1 || g.SearchPageInfo.SearchPageUrl != "无" {
+		t.Fatalf("activityCard/smartDocument/skuTag/specialSkuUrl new fields mismatch: %+v", g)
+	}
+	if g.PurchasePriceInfo.PlusBenefitInfo.PlusSuperBenefit != 9 || g.MultiPurchasePriceInfo.PurchasePrice != 30.9 {
+		t.Fatalf("purchasePriceInfo new fields mismatch: %+v %+v", g.PurchasePriceInfo, g.MultiPurchasePriceInfo)
+	}
+	if g.BonusInfoList[0].EstimateBonus != 30.8 || g.BonusInfoList[0].StockSkuNum != 5000 {
+		t.Fatalf("bonusInfoList mismatch: %+v", g.BonusInfoList[0])
 	}
 }
 
