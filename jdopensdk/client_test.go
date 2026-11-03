@@ -378,7 +378,8 @@ func TestJdUnionOpenGoodsQueryRequest(t *testing.T) {
 	//getRequest.AddParameter("360buy_param_json", `{"goodsReqDTO":{"keyword":"iPhone+13"}}`)
 	//getRequest.AddParameter("360buy_param_json", `{"goodsReqDTO":{"keyword":"小米+13"}}`)
 	//getRequest.AddParameter("360buy_param_json", `{"goodsReqDTO":{"keyword":"民法典"}}`)
-	getRequest.AddParameter("360buy_param_json", `{"goodsReqDTO":{"keyword":"礼盒"}}`)
+	//getRequest.AddParameter("360buy_param_json", `{"goodsReqDTO":{"keyword":"礼盒"}}`)
+	getRequest.AddParameter("360buy_param_json", `{"goodsReqDTO":{"keyword":"礼盒","fields":"videoInfo,hotWords,similar,documentInfo,skuLabelInfo,promotionLabelInfo,stockState,companyType,freeShippingInfo,seckillSpecialPriceInfo,bonusInfo"}}`)
 	var getResponse DefaultResponse = &jdunionopengoodsquery.Response{}
 	if err := client.Exec(getRequest, getResponse); err != nil {
 		fmt.Println(err)
