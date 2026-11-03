@@ -9,10 +9,11 @@ import (
 	"github.com/mimicode/tksdk/jdopensdk/response/jdunionopenchannelrelationquery"
 	"github.com/mimicode/tksdk/jdopensdk/response/jdunionopengoodsbigfieldquery"
 	"github.com/mimicode/tksdk/jdopensdk/response/jdunionopengoodscombinationpageget"
-	"github.com/mimicode/tksdk/jdopensdk/response/jdunionopengoodsseckillquery"
 	"github.com/mimicode/tksdk/jdopensdk/response/jdunionopengoodsrankquery"
 	"github.com/mimicode/tksdk/jdopensdk/response/jdunionopengoodsrecommendquery"
+	"github.com/mimicode/tksdk/jdopensdk/response/jdunionopengoodsseckillquery"
 	"github.com/mimicode/tksdk/jdopensdk/response/jdunionopenorderagentquery"
+	"github.com/mimicode/tksdk/jdopensdk/response/jdunionopenorderbonusquery"
 	"github.com/mimicode/tksdk/jdopensdk/response/jdunionopenorderquery"
 	"github.com/mimicode/tksdk/jdopensdk/response/jdunionopenorderrowsupplyquery"
 	"github.com/mimicode/tksdk/jdopensdk/response/jdunionopenpromotionintelligencequery"
@@ -298,6 +299,25 @@ func TestParseUserRegisterValidateResponseShape(t *testing.T) {
 	}
 	if r.Responce.ValidateResult.Data.UserResp.JdUser != 2 {
 		t.Fatalf("user register validate fields mismatch: %+v", r.Responce.ValidateResult)
+	}
+}
+
+func TestParseOrderBonusQueryResponseShape(t *testing.T) {
+	body := `{"jd_union_open_order_bonus_query_responce":{"code":"0","queryResult":"{\"code\":200,\"message\":\"success\",\"requestId\":\"req_ob\",\"data\":[{\"id\":1001,\"orderId\":81823969001,\"parentId\":81823969001,\"unionId\":1000009196,\"positionId\":502047534,\"skuId\":35847800771,\"skuName\":\"拼团户外手套\",\"itemId\":\"Q9Z2ZdyMsa9g7jpsfgQNVA0R_3SD7M7ISbsR0zCKPoF\",\"payPrice\":0.00,\"estimateCosPrice\":1.00,\"estimateFee\":0.04,\"actualCosPrice\":0.00,\"actualFee\":0.00,\"estimateBonusFee\":0.0,\"actualBonusFee\":0.0,\"commissionRate\":4.0,\"subSideRate\":95.00,\"subsidyRate\":0.00,\"finalRate\":95.00,\"bonusState\":0,\"bonusText\":\"无效\",\"bonusInvalidCode\":\"3\",\"bonusInvalidText\":\"无效-取消\",\"orderState\":2,\"orderText\":\"已付款\",\"orderTime\":1541733600000,\"finishTime\":0,\"sortValue\":\"1541733600000,263989501198192640\",\"activityId\":1,\"activityName\":\"11月京粉拼购节重点媒体奖励活动\",\"channelId\":100001,\"subUnionId\":\"LX_STORE_47534\",\"pid\":\"3131_131_11\",\"ext1\":\"无\",\"unionAlias\":\"fhakf\",\"account\":\"123456\"}]}"}}`
+	r := &jdunionopenorderbonusquery.Response{}
+	r.WrapResult(body)
+	if r.IsError() {
+		t.Fatalf("order bonus parse failed: code=%d msg=%s body=%s", r.ErrorResponse.Code, r.ErrorResponse.Message, r.Body)
+	}
+	d := r.Responce.QueryResult.Data[0]
+	if d.ID != 1001 || d.OrderID != 81823969001 || d.ParentID != 81823969001 ||
+		d.UnionID != 1000009196 || d.PositionID != 502047534 || d.SkuID != 35847800771 ||
+		d.EstimateFee != 0.04 || d.CommissionRate != 4.0 || d.FinalRate != 95.0 ||
+		d.BonusState != 0 || d.BonusInvalidCode != "3" || d.OrderState != 2 ||
+		d.OrderTime != 1541733600000 || d.ActivityID != 1 || d.ChannelID != 100001 ||
+		d.SortValue != "1541733600000,263989501198192640" || d.Pid != "3131_131_11" ||
+		d.Account != "123456" || d.ItemID != "Q9Z2ZdyMsa9g7jpsfgQNVA0R_3SD7M7ISbsR0zCKPoF" {
+		t.Fatalf("order bonus fields mismatch: %+v", d)
 	}
 }
 
