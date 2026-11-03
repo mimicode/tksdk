@@ -10,6 +10,7 @@ import (
 
 	"github.com/mimicode/tksdk/tbopensdk/response/taobaotbkscgenerallinkparse"
 
+	"github.com/mimicode/tksdk/tbopensdk/response/taobaotbkdgpunishorderget"
 	"github.com/mimicode/tksdk/tbopensdk/response/taobaotbkitemidprivatetransform"
 	"github.com/mimicode/tksdk/tbopensdk/response/taobaotbkiteminfoupgradeget"
 	"github.com/mimicode/tksdk/tbopensdk/response/taobaotbkscadzonecreate"
@@ -1469,6 +1470,45 @@ func TestTbkScOrderRefundGet(t *testing.T) {
 		result := getResponse.(*tbkscorderrefundget.Response)
 
 		fmt.Println(result.TbkScOrderRefundGetResponse.Data)
+
+	}
+}
+
+func TestTbkDgPunishOrderGet(t *testing.T) {
+
+	//初始化TopClient（该接口不需用户授权，sessionKey传空）
+	client := &TopClient{}
+	client.Init(appKey, appSecret, "")
+
+	//初始化请求接口信息
+	getRequest := &request2.TbkDgPunishOrderGetRequest{}
+	//业务参数对象 af_order_option，以JSON字符串传递，键名与官方文档业务参数表一致
+	afOrderOptionBytes, _ := json.Marshal(map[string]interface{}{
+		//查询开始时间，以taoke订单创建时间开始，格式：yyyy-MM-dd HH:mm:ss
+		"start_time": "2026-10-01 00:00:00",
+		//查询时间跨度，不超过30天，单位是天
+		"span": 15,
+		//第几页
+		"page_no": 1,
+		//页大小
+		"page_size": 20,
+		//pid中的第三段，adzoneId
+		"adzone_id": pid.AdzoneID,
+		//pid中的第二段，siteId
+		"site_id": pid.SiteID,
+	})
+	getRequest.AddParameter("af_order_option", string(afOrderOptionBytes))
+
+	//初始化结果类型
+	var getResponse DefaultResponse = &taobaotbkdgpunishorderget.Response{}
+	//执行请求接口得到结果
+	err := client.Exec(getRequest, getResponse)
+	if err != nil {
+		t.Log(err)
+	} else {
+		result := getResponse.(*taobaotbkdgpunishorderget.Response)
+
+		fmt.Println(result.TbkDgPunishOrderGetResponse.Result.Data)
 
 	}
 }

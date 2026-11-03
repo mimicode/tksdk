@@ -706,6 +706,18 @@ func createAPIS() {
 		},
 	}
 
+	request = ApiInfo{
+		APIDESC:    "taobao.tbk.dg.punish.order.get( 淘宝客-推广者-处罚订单查询 )",
+		APIORGNAME: "taobao.tbk.dg.punish.order.get",
+		APIURL:     "https://open.taobao.com/api.htm?docId=42050&docType=2&scopeId=15736",
+		CHECKFIELDS: []CheckField{
+			{
+				FieldName:         "af_order_option",
+				FieldNotNullCheck: true,
+			},
+		},
+	}
+
 	//request = ApiInfo{
 	//	APIDESC:    "taobao.tbk.sc.relation.refund( 淘宝客-服务商-维权退款订单查询 )",
 	//	APIORGNAME: "taobao.tbk.sc.relation.refund",
