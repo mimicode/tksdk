@@ -80,6 +80,11 @@ type CouponInfoDto struct {
 	CouponStartTime   string `json:"coupon_start_time"`
 }
 
+// ItemURLListLinkInfoDto 单品/物料转链的链接信息（官方字段表：LinkInfoDTO / ItemLinkInfoDTO）
+//
+// 说明：超红链接字段默认不返回，仅在 required_link_type 入参指定对应字段名时才出参；
+// 非超红活动期间请求这些字段会返回普通推广链接。
+// 官方文档：https://open.taobao.com/api.htm?docId=65412&docType=2&scopeId=28320
 type ItemURLListLinkInfoDto struct {
 	CouponFullTpwd  string  `json:"coupon_full_tpwd"`
 	CouponLongURL   string  `json:"coupon_long_url"`
@@ -92,6 +97,18 @@ type ItemURLListLinkInfoDto struct {
 	ItemID          *string `json:"item_id,omitempty"`
 	MaterialType    int64   `json:"material_type"`
 	TkBizType       *int64  `json:"tk_biz_type,omitempty"`
+
+	// 超红二合一链接/口令（仅 required_link_type 入参指定才返回）
+	CouponSuperedLongURL   string `json:"coupon_supered_long_url"`   // 超红二合一长链接
+	CouponSuperedShortURL  string `json:"coupon_supered_short_url"`  // 超红二合一短链接
+	CouponSuperedLongTpwd  string `json:"coupon_supered_long_tpwd"`  // 超红二合一长口令
+	CouponSuperedShortTpwd string `json:"coupon_supered_short_tpwd"` // 超红二合一短口令
+
+	// 超红 CPS 链接/口令（仅 required_link_type 入参指定才返回）
+	CPSSuperedLongURL   string `json:"cps_supered_long_url"`   // 超红cps长链接
+	CPSSuperedShortURL  string `json:"cps_supered_short_url"`  // 超红cps短链接
+	CPSSuperedLongTpwd  string `json:"cps_supered_long_tpwd"`  // 超红cps长口令
+	CPSSuperedShortTpwd string `json:"cps_supered_short_tpwd"` // 超红cps短口令
 }
 
 type ItemURLListMultipleItemsCouponInfoList struct {
