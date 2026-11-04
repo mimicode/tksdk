@@ -57,7 +57,7 @@ func TestParseScGeneralLinkConvertResponseShape(t *testing.T) {
 			"promotion_info_dto":{"commission_rate":"6.00","commission_type":"MKT","multiple_items_prices_count":2,
 				"income_info":{"pure_commission_rate":"23.2","pure_commission_amount":0.5,"subsidy_rate":"11.2","subsidy_amount":0.23,"subsidy_upper_fee":"300.2","subsidy_type":"淘客补贴"}},
 			"coupon_info_dto":{"coupon_end_time":"2022-12-20 23:59:59","activity_id":"19d114f1a6464c98a30b01b3cb17dad6","coupon_remain_count":99944,"coupon_amount":"80.00","coupon_start_time":"2022-12-14 00:00:00","coupon_desc":"满129元减80元","coupon_type":0},
-			"link_info_dto":{"coupon_long_url":"https://uland.taobao.com/coupon/edetail?e=xxx","material_type":1,"cps_long_url":"https://s.click.taobao.com/t?e=xxx","cps_short_tpwd":"￥XODHdeIlU9B￥","tk_biz_type":2,"coupon_short_tpwd":"￥LOcqdeIlU9y￥","cps_short_url":"https://s.click.taobao.com/GvHjOPu","coupon_short_url":"https://s.click.taobao.com/HvHjOPu","coupon_full_tpwd":"48￥ CZ3457 LOcqdeIlU9y￥ https://m.tb.cn/h.UQ4ceEC","cps_full_tpwd":"47￥ CZ3457 XODHdeIlU9B￥ https://m.tb.cn/h.UQ4ceEy","isv_mktid":"aisj979ld8-8asdbalaiu","share_unit_url":"s.click.taobao.com/share","tao_brick_url":"s.click.taobao.com/brick",
+			"link_info_dto":{"coupon_long_url":"https://uland.taobao.com/coupon/edetail?e=xxx","material_type":1,"cps_long_url":"https://s.click.taobao.com/t?e=xxx","cps_short_tpwd":"￥XODHdeIlU9B￥","tk_biz_type":2,"coupon_short_tpwd":"￥LOcqdeIlU9y￥","cps_short_url":"https://s.click.taobao.com/GvHjOPu","coupon_short_url":"https://s.click.taobao.com/HvHjOPu","coupon_full_tpwd":"48￥ CZ3457 LOcqdeIlU9y￥ https://m.tb.cn/h.UQ4ceEC","cps_full_tpwd":"47￥ CZ3457 XODHdeIlU9B￥ https://m.tb.cn/h.UQ4ceEy","isv_mktid":"aisj979ld8-8asdbalaiu",
 				"coupon_channel_url":"https://uland.taobao.com/coupon_channel","coupon_channel_tpwd":"￥channelCoupon￥","cps_channel_url":"https://s.click.taobao.com/cps_channel","cps_channel_tpwd":"￥channelCPS￥",
 				"coupon_supered_long_url":"https://uland.taobao.com/supered_long","coupon_supered_long_tpwd":"￥superedCouponLong￥","coupon_supered_short_url":"https://s.click.taobao.com/superedCouponShort","coupon_supered_short_tpwd":"￥superedCouponShort￥","cps_supered_long_url":"https://s.click.taobao.com/superedCpsLong","cps_supered_long_tpwd":"￥superedCpsLong￥","cps_supered_short_url":"https://s.click.taobao.com/superedCpsShort","cps_supered_short_tpwd":"￥superedCpsShort￥"},
 			"input_material_url":"s.click.taobao.com","extra_info":"skuid已失效",
@@ -68,7 +68,7 @@ func TestParseScGeneralLinkConvertResponseShape(t *testing.T) {
 			"promotion_info_dto":{"commission_rate":"2.40","commission_type":"MKT","promotion_price":1349,"multiple_items_prices_count":2,
 				"income_info":{"pure_commission_rate":"23.2","pure_commission_amount":0.5,"subsidy_rate":"11.2","subsidy_amount":0.23,"subsidy_upper_fee":"300.2","subsidy_type":"淘客补贴"}},
 			"coupon_info_dto":{"coupon_end_time":"2022-12-25 23:59:59","activity_id":"642208f7db6b4fb9880a9d09832d6b8d","coupon_remain_count":99987,"coupon_amount":"170.00","coupon_start_time":"2022-12-20 00:00:00","coupon_desc":"满319元减170元"},
-			"link_info_dto":{"coupon_long_url":"https://uland.taobao.com/coupon/edetail?e=xxx","material_type":1,"item_id":"i87a9ja90d8-09qrjcoa7qwl","cps_long_url":"https://s.click.taobao.com/t?e=xxx","cps_short_tpwd":"￥XODHdeIlU9B￥","coupon_short_tpwd":"￥LOcqdeIlU9y￥","cps_short_url":"https://s.click.taobao.com/GvHjOPu","coupon_short_url":"https://s.click.taobao.com/HvHjOPu","coupon_full_tpwd":"48￥ CZ3457 LOcqdeIlU9y￥ https://m.tb.cn/h.UQ4ceEC","cps_full_tpwd":"47￥ CZ3457 XODHdeIlU9B￥ https://m.tb.cn/h.UQ4ceEy","isv_mktid":"cacda-cdcd","share_unit_url":"s.click.taobao.com/share","tao_brick_url":"s.click.taobao.com/brick",
+			"link_info_dto":{"coupon_long_url":"https://uland.taobao.com/coupon/edetail?e=xxx","material_type":1,"item_id":"i87a9ja90d8-09qrjcoa7qwl","cps_long_url":"https://s.click.taobao.com/t?e=xxx","cps_short_tpwd":"￥XODHdeIlU9B￥","coupon_short_tpwd":"￥LOcqdeIlU9y￥","cps_short_url":"https://s.click.taobao.com/GvHjOPu","coupon_short_url":"https://s.click.taobao.com/HvHjOPu","coupon_full_tpwd":"48￥ CZ3457 LOcqdeIlU9y￥ https://m.tb.cn/h.UQ4ceEC","cps_full_tpwd":"47￥ CZ3457 XODHdeIlU9B￥ https://m.tb.cn/h.UQ4ceEy","isv_mktid":"cacda-cdcd",
 				"coupon_channel_url":"https://uland.taobao.com/coupon_channel","coupon_channel_tpwd":"￥channelCoupon￥","cps_channel_url":"https://s.click.taobao.com/cps_channel","cps_channel_tpwd":"￥channelCPS￥",
 				"coupon_supered_long_url":"https://uland.taobao.com/supered_long","coupon_supered_long_tpwd":"￥superedCouponLong￥","coupon_supered_short_url":"https://s.click.taobao.com/superedCouponShort","coupon_supered_short_tpwd":"￥superedCouponShort￥","cps_supered_long_url":"https://s.click.taobao.com/superedCpsLong","cps_supered_long_tpwd":"￥superedCpsLong￥","cps_supered_short_url":"https://s.click.taobao.com/superedCpsShort","cps_supered_short_tpwd":"￥superedCpsShort￥"},
 			"input_item_id":"i87a9ja90d8-09qrjcoa7qwl","extra_info":"skuid已失效",
@@ -107,7 +107,6 @@ func TestParseScGeneralLinkConvertResponseShape(t *testing.T) {
 	}
 	ml := m.LinkInfoDto
 	if ml.ISVMktid != "aisj979ld8-8asdbalaiu" ||
-		ml.ShareUnitURL != "s.click.taobao.com/share" || ml.TaoBrickURL != "s.click.taobao.com/brick" ||
 		ml.CouponChannelURL != "https://uland.taobao.com/coupon_channel" || ml.CouponChannelTpwd != "￥channelCoupon￥" ||
 		ml.CPSChannelURL != "https://s.click.taobao.com/cps_channel" || ml.CPSChannelTpwd != "￥channelCPS￥" {
 		t.Fatalf("material channel fields mismatch: %+v", ml)
@@ -134,7 +133,6 @@ func TestParseScGeneralLinkConvertResponseShape(t *testing.T) {
 	}
 	il := i.LinkInfoDto
 	if il.ItemID == nil || *il.ItemID != "i87a9ja90d8-09qrjcoa7qwl" || il.ISVMktid != "cacda-cdcd" ||
-		il.ShareUnitURL != "s.click.taobao.com/share" || il.TaoBrickURL != "s.click.taobao.com/brick" ||
 		il.CouponSuperedLongURL != "https://uland.taobao.com/supered_long" || il.CouponSuperedLongTpwd != "￥superedCouponLong￥" ||
 		il.CouponSuperedShortURL != "https://s.click.taobao.com/superedCouponShort" || il.CouponSuperedShortTpwd != "￥superedCouponShort￥" ||
 		il.CPSSuperedLongURL != "https://s.click.taobao.com/superedCpsLong" || il.CPSSuperedLongTpwd != "￥superedCpsLong￥" ||

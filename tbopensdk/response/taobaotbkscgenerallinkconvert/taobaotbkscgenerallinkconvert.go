@@ -100,9 +100,7 @@ type ItemURLListLinkInfoDto struct {
 	MaterialType           int64   `json:"material_type"`
 	TkBizType              *int64  `json:"tk_biz_type,omitempty"`
 	ISVMktid               string  `json:"isv_mktid"`                 //根据入参工具服务商账号信息生成的新商品ID
-	ShareUnitURL           string  `json:"share_unit_url"`            //种草页链接，定向开放
-	TaoBrickURL            string  `json:"tao_brick_url"`             //淘积木页面链接，定向开放
-	CouponChannelURL       string  `json:"coupon_channel_url"`        //频道页二合一链接，必须在required_link_type字段入参才可出参 目前支持淘金币
+	CouponChannelURL       string  `json:"coupon_channel_url"`        //频道片二合一链接，目前支持淘金币
 	CouponChannelTpwd      string  `json:"coupon_channel_tpwd"`       //频道页二合一口令，必须在required_link_type字段入参才可出参 目前支持淘金币
 	CPSChannelURL          string  `json:"cps_channel_url"`           //频道页CPS链接，必须在required_link_type字段入参才可出参 目前支持淘金币
 	CPSChannelTpwd         string  `json:"cps_channel_tpwd"`          //频道页CPS口令，必须在required_link_type字段入参才可出参 目前支持淘金币

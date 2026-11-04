@@ -36,8 +36,6 @@ func (tk *TbkScGeneralLinkConvertRequest) GetParameters() url.Values {
 }
 
 // 设置 required_link_type 参数（可选）
-// 用于指定link_info_dto字段出参，多个字段用英文逗号拼接；默认不返回超红链接，
-// 仅入参指定coupon_supered_*/cps_supered_*等字段才返回对应链接
 func (tk *TbkScGeneralLinkConvertRequest) SetRequiredLinkType(val string) {
 	tk.AddParameter("required_link_type", val)
 }
