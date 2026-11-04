@@ -31,6 +31,7 @@ type TbkScGeneralLinkConvertResponse struct {
 	Data         Data   `json:"data"`
 	BizErrorDesc int64  `json:"biz_error_desc"`
 	ResultMsg    string `json:"result_msg"`
+	RequestID    string `json:"request_id"` //平台颁发的每次请求访问的唯一标识
 }
 
 type Data struct {
@@ -47,6 +48,8 @@ type DataEventURLList struct {
 type EventURLListElement struct {
 	InputPageID string                  `json:"input_page_id"`
 	LinkInfoDto EventURLListLinkInfoDto `json:"link_info_dto"`
+	Msg         string                  `json:"msg"`  //物料对应错误描述
+	Code        int64                   `json:"code"` //物料对应错误码
 }
 
 type EventURLListLinkInfoDto struct {
@@ -69,6 +72,9 @@ type ItemURLListElement struct {
 	LinkInfoDto                 ItemURLListLinkInfoDto                 `json:"link_info_dto"`
 	MultipleItemsCouponInfoList ItemURLListMultipleItemsCouponInfoList `json:"multiple_items_coupon_info_list"`
 	PromotionInfoDto            PromotionInfoDto                       `json:"promotion_info_dto"`
+	Msg                         string                                 `json:"msg"`        //物料对应错误描述
+	Code                        int64                                  `json:"code"`       //物料对应错误码
+	ExtraInfo                   string                                 `json:"extra_info"` //转链成功的场景下，需要补充说明的信息
 }
 
 type CouponInfoDto struct {
@@ -78,37 +84,36 @@ type CouponInfoDto struct {
 	CouponEndTime     string `json:"coupon_end_time"`
 	CouponRemainCount int64  `json:"coupon_remain_count"`
 	CouponStartTime   string `json:"coupon_start_time"`
+	CouponType        int64  `json:"coupon_type"` //0-店铺 1-单品
 }
 
-// ItemURLListLinkInfoDto 单品/物料转链的链接信息（官方字段表：LinkInfoDTO / ItemLinkInfoDTO）
-//
-// 说明：超红链接字段默认不返回，仅在 required_link_type 入参指定对应字段名时才出参；
-// 非超红活动期间请求这些字段会返回普通推广链接。
-// 官方文档：https://open.taobao.com/api.htm?docId=65412&docType=2&scopeId=28320
 type ItemURLListLinkInfoDto struct {
-	CouponFullTpwd  string  `json:"coupon_full_tpwd"`
-	CouponLongURL   string  `json:"coupon_long_url"`
-	CouponShortTpwd string  `json:"coupon_short_tpwd"`
-	CouponShortURL  string  `json:"coupon_short_url"`
-	CPSFullTpwd     string  `json:"cps_full_tpwd"`
-	CPSLongURL      string  `json:"cps_long_url"`
-	CPSShortTpwd    string  `json:"cps_short_tpwd"`
-	CPSShortURL     string  `json:"cps_short_url"`
-	ItemID          *string `json:"item_id,omitempty"`
-	MaterialType    int64   `json:"material_type"`
-	TkBizType       *int64  `json:"tk_biz_type,omitempty"`
-
-	// 超红二合一链接/口令（仅 required_link_type 入参指定才返回）
-	CouponSuperedLongURL   string `json:"coupon_supered_long_url"`   // 超红二合一长链接
-	CouponSuperedShortURL  string `json:"coupon_supered_short_url"`  // 超红二合一短链接
-	CouponSuperedLongTpwd  string `json:"coupon_supered_long_tpwd"`  // 超红二合一长口令
-	CouponSuperedShortTpwd string `json:"coupon_supered_short_tpwd"` // 超红二合一短口令
-
-	// 超红 CPS 链接/口令（仅 required_link_type 入参指定才返回）
-	CPSSuperedLongURL   string `json:"cps_supered_long_url"`   // 超红cps长链接
-	CPSSuperedShortURL  string `json:"cps_supered_short_url"`  // 超红cps短链接
-	CPSSuperedLongTpwd  string `json:"cps_supered_long_tpwd"`  // 超红cps长口令
-	CPSSuperedShortTpwd string `json:"cps_supered_short_tpwd"` // 超红cps短口令
+	CouponFullTpwd         string  `json:"coupon_full_tpwd"`
+	CouponLongURL          string  `json:"coupon_long_url"`
+	CouponShortTpwd        string  `json:"coupon_short_tpwd"`
+	CouponShortURL         string  `json:"coupon_short_url"`
+	CPSFullTpwd            string  `json:"cps_full_tpwd"`
+	CPSLongURL             string  `json:"cps_long_url"`
+	CPSShortTpwd           string  `json:"cps_short_tpwd"`
+	CPSShortURL            string  `json:"cps_short_url"`
+	ItemID                 *string `json:"item_id,omitempty"`
+	MaterialType           int64   `json:"material_type"`
+	TkBizType              *int64  `json:"tk_biz_type,omitempty"`
+	ISVMktid               string  `json:"isv_mktid"`                 //根据入参工具服务商账号信息生成的新商品ID
+	ShareUnitURL           string  `json:"share_unit_url"`            //种草页链接，定向开放
+	TaoBrickURL            string  `json:"tao_brick_url"`             //淘积木页面链接，定向开放
+	CouponChannelURL       string  `json:"coupon_channel_url"`        //频道页二合一链接，必须在required_link_type字段入参才可出参 目前支持淘金币
+	CouponChannelTpwd      string  `json:"coupon_channel_tpwd"`       //频道页二合一口令，必须在required_link_type字段入参才可出参 目前支持淘金币
+	CPSChannelURL          string  `json:"cps_channel_url"`           //频道页CPS链接，必须在required_link_type字段入参才可出参 目前支持淘金币
+	CPSChannelTpwd         string  `json:"cps_channel_tpwd"`          //频道页CPS口令，必须在required_link_type字段入参才可出参 目前支持淘金币
+	CouponSuperedLongURL   string  `json:"coupon_supered_long_url"`   //超红二合一长链接，必须在required_link_type字段入参才可出参（非超红活动期间，请求该字段返回普通推广链接）
+	CouponSuperedLongTpwd  string  `json:"coupon_supered_long_tpwd"`  //超红二合一长口令，必须在required_link_type字段入参才可出参（非超红活动期间，请求该字段返回普通推广链接）
+	CouponSuperedShortURL  string  `json:"coupon_supered_short_url"`  //超红二合一短链接，必须在required_link_type字段入参才可出参（非超红活动期间，请求该字段返回普通推广链接）
+	CouponSuperedShortTpwd string  `json:"coupon_supered_short_tpwd"` //超红二合一短口令，必须在required_link_type字段入参才可出参（非超红活动期间，请求该字段返回普通推广链接）
+	CPSSuperedLongURL      string  `json:"cps_supered_long_url"`      //超红cps长链接，必须在required_link_type字段入参才可出参（非超红活动期间，请求该字段返回普通推广链接）
+	CPSSuperedLongTpwd     string  `json:"cps_supered_long_tpwd"`     //超红cps长口令，必须在required_link_type字段入参才可出参（非超红活动期间，请求该字段返回普通推广链接）
+	CPSSuperedShortURL     string  `json:"cps_supered_short_url"`     //超红cps短链接，必须在required_link_type字段入参才可出参（非超红活动期间，请求该字段返回普通推广链接）
+	CPSSuperedShortTpwd    string  `json:"cps_supered_short_tpwd"`    //超红cps短口令，必须在required_link_type字段入参才可出参（非超红活动期间，请求该字段返回普通推广链接）
 }
 
 type ItemURLListMultipleItemsCouponInfoList struct {
@@ -126,10 +131,20 @@ type MultiCouponPromotionInfoDTO struct {
 }
 
 type PromotionInfoDto struct {
-	CommissionRate           string `json:"commission_rate"`
-	CommissionType           string `json:"commission_type"`
-	MultipleItemsPricesCount int64  `json:"multiple_items_prices_count"`
-	PromotionPrice           *int64 `json:"promotion_price,omitempty"`
+	CommissionRate           string     `json:"commission_rate"`
+	CommissionType           string     `json:"commission_type"`
+	MultipleItemsPricesCount int64      `json:"multiple_items_prices_count"`
+	PromotionPrice           *int64     `json:"promotion_price,omitempty"`
+	IncomeInfo               IncomeInfo `json:"income_info"` //商品佣金信息
+}
+
+type IncomeInfo struct {
+	PureCommissionRate   string  `json:"pure_commission_rate"`   //商品佣金比例
+	PureCommissionAmount float64 `json:"pure_commission_amount"` //商品佣金金额
+	SubsidyRate          string  `json:"subsidy_rate"`           //补贴比例
+	SubsidyAmount        float64 `json:"subsidy_amount"`         //补贴金额
+	SubsidyUpperFee      string  `json:"subsidy_upper_fee"`      //补贴上限；仅在单笔订单命中补贴上限时返回结果否则出参为空
+	SubsidyType          string  `json:"subsidy_type"`           //补贴类型
 }
 
 type DataMaterialURLList struct {
@@ -142,6 +157,9 @@ type MaterialURLListElement struct {
 	LinkInfoDto                 ItemURLListLinkInfoDto                     `json:"link_info_dto"`
 	MultipleItemsCouponInfoList MaterialURLListMultipleItemsCouponInfoList `json:"multiple_items_coupon_info_list"`
 	PromotionInfoDto            PromotionInfoDto                           `json:"promotion_info_dto"`
+	Msg                         string                                     `json:"msg"`        //物料对应错误描述
+	Code                        int64                                      `json:"code"`       //物料对应错误码
+	ExtraInfo                   string                                     `json:"extra_info"` //转链成功的场景下，需要补充说明的信息
 }
 
 type MaterialURLListMultipleItemsCouponInfoList struct {
@@ -155,4 +173,6 @@ type DataShopURLList struct {
 type ShopURLListElement struct {
 	InputShopID string                  `json:"input_shop_id"`
 	LinkInfoDto EventURLListLinkInfoDto `json:"link_info_dto"`
+	Msg         string                  `json:"msg"`  //物料对应错误描述
+	Code        int64                   `json:"code"` //物料对应错误码
 }

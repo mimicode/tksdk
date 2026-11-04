@@ -35,25 +35,9 @@ func (tk *TbkScGeneralLinkConvertRequest) GetParameters() url.Values {
 	return *tk.Parameters
 }
 
-// required_link_type 可选字段名（官方字段表：用于指定 link_info_dto 出参）
-//
-// 特别说明：超红链接默认不返回，仅 required_link_type 入参指定下列字段才返回；
-// 非超红活动期间请求超红字段会返回普通推广链接。多个字段用英文逗号拼接传入。
-// 官方文档：https://open.taobao.com/api.htm?docId=65412&docType=2&scopeId=28320
-const (
-	RequiredLinkTypeCouponSuperedLongURL   = "coupon_supered_long_url"   // 超红二合一长链接
-	RequiredLinkTypeCouponSuperedLongTpwd  = "coupon_supered_long_tpwd"  // 超红二合一长口令
-	RequiredLinkTypeCouponSuperedShortURL  = "coupon_supered_short_url"  // 超红二合一短链接
-	RequiredLinkTypeCouponSuperedShortTpwd = "coupon_supered_short_tpwd" // 超红二合一短口令
-	RequiredLinkTypeCPSSuperedLongURL      = "cps_supered_long_url"      // 超红cps长链接
-	RequiredLinkTypeCPSSuperedLongTpwd     = "cps_supered_long_tpwd"     // 超红cps长口令
-	RequiredLinkTypeCPSSuperedShortURL     = "cps_supered_short_url"     // 超红cps短链接
-	RequiredLinkTypeCPSSuperedShortTpwd    = "cps_supered_short_tpwd"    // 超红cps短口令
-)
-
 // 设置 required_link_type 参数（可选）
-// val 为需要返回的 link_info_dto 字段名，多个用英文逗号拼接；
-// 例如：RequiredLinkTypeCouponSuperedShortURL + "," + RequiredLinkTypeCPSSuperedShortTpwd
+// 用于指定link_info_dto字段出参，多个字段用英文逗号拼接；默认不返回超红链接，
+// 仅入参指定coupon_supered_*/cps_supered_*等字段才返回对应链接
 func (tk *TbkScGeneralLinkConvertRequest) SetRequiredLinkType(val string) {
 	tk.AddParameter("required_link_type", val)
 }

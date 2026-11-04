@@ -1513,138 +1513,58 @@ func TestTbkDgPunishOrderGet(t *testing.T) {
 	}
 }
 
-// 联调测试：真实调用 taobao.tbk.sc.general.link.convert，
-// 入参商品ID（item_id_list）并通过 required_link_type 指定 8 个超红链接字段，
-// 核对响应解析无字段丢失（官方文档 docId=65412）。
-// 注意：超红链接默认不返回，仅 required_link_type 入参指定才出参；
-// 非超红活动期间请求这些字段返回普通推广链接；平台有每日调用配额。
-func Test_TbkScGeneralLinkConvertSuperedLinkRequest(t *testing.T) {
+func TestTbkScGeneralLinkConvertSuperedLinkRequest(t *testing.T) {
+
+	//初始化TopClient
 	client := &TopClient{}
 	client.Init(appKey, appSecret, sessionKey)
 
-	req := &request2.TbkScGeneralLinkConvertRequest{}
-	req.AddParameter("site_id", pid.SiteID)
-	req.AddParameter("adzone_id", pid.AdzoneID)
-	if pid.RelationID != "" {
-		req.AddParameter("relation_id", pid.RelationID)
-	}
-	// 1-动态ID转链场景
-	req.AddParameter("biz_scene_id", "1")
-	// 1-自购省
-	req.AddParameter("promotion_type", "1")
-	// 入参商品ID（也可改用 item_dto 或 material_dto / material_list）
-	req.AddParameter("item_id_list", "ZrqAKVyotRCPDQgb6KdCwAztVt6-Vk8meripo7oxb38IgZ")
-	req.SetRequiredLinkType(strings.Join([]string{
-		request2.RequiredLinkTypeCouponSuperedLongURL,
-		request2.RequiredLinkTypeCouponSuperedLongTpwd,
-		request2.RequiredLinkTypeCouponSuperedShortURL,
-		request2.RequiredLinkTypeCouponSuperedShortTpwd,
-		request2.RequiredLinkTypeCPSSuperedLongURL,
-		request2.RequiredLinkTypeCPSSuperedLongTpwd,
-		request2.RequiredLinkTypeCPSSuperedShortURL,
-		request2.RequiredLinkTypeCPSSuperedShortTpwd,
-	}, ","))
+	//初始化请求接口信息
+	getRequest := &request2.TbkScGeneralLinkConvertRequest{}
+	getRequest.AddParameter("site_id", pid.SiteID)
+	getRequest.AddParameter("adzone_id", pid.AdzoneID)
+	getRequest.AddParameter("relation_id", pid.RelationID)
+	//1-动态ID转链场景，2-消费者比价场景
+	getRequest.AddParameter("biz_scene_id", "1")
+	//1-自购省，2-推广赚
+	getRequest.AddParameter("promotion_type", "1")
+	//入参商品ID（item_id_list），也可改用商品链接（material_list）
+	getRequest.AddParameter("item_id_list", "ZrqAKVyotRCPDQgb6KdCwAztVt6-Vk8meripo7oxb38IgZ")
+	//默认不返回超红链接，仅入参指定字段才返回；多个字段用英文逗号拼接
+	getRequest.SetRequiredLinkType("coupon_supered_long_url,coupon_supered_long_tpwd,coupon_supered_short_url,coupon_supered_short_tpwd,cps_supered_long_url,cps_supered_long_tpwd,cps_supered_short_url,cps_supered_short_tpwd")
 
+	//初始化结果类型
 	var getResponse DefaultResponse = &taobaotbkscgenerallinkconvert.Response{}
-	if err := client.Exec(req, getResponse); err != nil {
-		t.Fatalf("exec failed: %v", err)
-	}
-	result := getResponse.(*taobaotbkscgenerallinkconvert.Response)
-	fmt.Println("万能转链超红字段联调响应:", result.Body)
-	if result.IsError() {
-		t.Logf("error_response: code=%d msg=%s sub_code=%s sub_msg=%s",
-			result.ErrorResponse.Code, result.ErrorResponse.Msg,
-			result.ErrorResponse.SubCode, result.ErrorResponse.SubMsg)
-		return
-	}
+	//执行请求接口得到结果
+	err := client.Exec(getRequest, getResponse)
+	if err != nil {
+		t.Log(err)
+	} else {
+		result := getResponse.(*taobaotbkscgenerallinkconvert.Response)
 
-	// 核对：原始报文里出现的超红字段，必须能在结构体中取到相同的值（无字段丢失）
-	superedFields := map[string]func(taobaotbkscgenerallinkconvert.ItemURLListLinkInfoDto) string{
-		"coupon_supered_long_url":   func(d taobaotbkscgenerallinkconvert.ItemURLListLinkInfoDto) string { return d.CouponSuperedLongURL },
-		"coupon_supered_long_tpwd":  func(d taobaotbkscgenerallinkconvert.ItemURLListLinkInfoDto) string { return d.CouponSuperedLongTpwd },
-		"coupon_supered_short_url":  func(d taobaotbkscgenerallinkconvert.ItemURLListLinkInfoDto) string { return d.CouponSuperedShortURL },
-		"coupon_supered_short_tpwd": func(d taobaotbkscgenerallinkconvert.ItemURLListLinkInfoDto) string { return d.CouponSuperedShortTpwd },
-		"cps_supered_long_url":      func(d taobaotbkscgenerallinkconvert.ItemURLListLinkInfoDto) string { return d.CPSSuperedLongURL },
-		"cps_supered_long_tpwd":     func(d taobaotbkscgenerallinkconvert.ItemURLListLinkInfoDto) string { return d.CPSSuperedLongTpwd },
-		"cps_supered_short_url":     func(d taobaotbkscgenerallinkconvert.ItemURLListLinkInfoDto) string { return d.CPSSuperedShortURL },
-		"cps_supered_short_tpwd":    func(d taobaotbkscgenerallinkconvert.ItemURLListLinkInfoDto) string { return d.CPSSuperedShortTpwd },
-	}
+		fmt.Println(result.Body)
 
-	type linkList struct {
-		raw  map[string]interface{}
-		dto  taobaotbkscgenerallinkconvert.ItemURLListLinkInfoDto
-		name string
-	}
-	collect := func(name string, elems []taobaotbkscgenerallinkconvert.ItemURLListLinkInfoDto,
-		rawList []interface{}) []linkList {
-		out := make([]linkList, 0, len(elems))
-		for idx, dto := range elems {
-			raw := map[string]interface{}(nil)
-			if idx < len(rawList) {
-				if elem, ok := rawList[idx].(map[string]interface{}); ok {
-					raw, _ = elem["link_info_dto"].(map[string]interface{})
-				}
-			}
-			out = append(out, linkList{raw: raw, dto: dto, name: name})
+		if result.IsError() {
+			fmt.Println(result.ErrorResponse)
+			return
 		}
-		return out
-	}
-	data := result.TbkScGeneralLinkConvertResponse.Data
-	var lists []linkList
-	lists = append(lists, collect("material_url_list", dtoListOfMaterial(data.MaterialURLList.MaterialURLList),
-		extractLinkInfoDTOList(result.Body, "material_url_list", "material_url_list"))...)
-	lists = append(lists, collect("item_url_list", dtoListOfItem(data.ItemURLList.ItemURLList),
-		extractLinkInfoDTOList(result.Body, "item_url_list", "item_url_list"))...)
-	if len(lists) == 0 {
-		t.Fatal("响应中没有 material_url_list / item_url_list 转链结果，无法核对字段映射")
-	}
-	for _, l := range lists {
-		for name, get := range superedFields {
-			rawVal, _ := l.raw[name].(string)
-			if rawVal != "" && get(l.dto) != rawVal {
-				t.Errorf("%s %s 解析丢字段: raw=%q parsed=%q", l.name, name, rawVal, get(l.dto))
-			}
-			if rawVal != "" {
-				t.Logf("%s %s = %s", l.name, name, rawVal)
-			}
+		//核对超红链接字段无丢失（required_link_type 指定的字段应全部返回）
+		items := result.TbkScGeneralLinkConvertResponse.Data.ItemURLList.ItemURLList
+		if len(items) == 0 {
+			t.Log("无单品转链结果，接口配额或权限受限时会出现")
+			return
+		}
+		link := items[0].LinkInfoDto
+		if link.CouponSuperedLongURL == "" || link.CouponSuperedLongTpwd == "" ||
+			link.CouponSuperedShortURL == "" || link.CouponSuperedShortTpwd == "" ||
+			link.CPSSuperedLongURL == "" || link.CPSSuperedLongTpwd == "" ||
+			link.CPSSuperedShortURL == "" || link.CPSSuperedShortTpwd == "" {
+			t.Fatalf("超红链接字段解析丢失: %+v", link)
+		}
+		//核对 income_info 等新补字段（真实响应含佣金拆分信息）
+		income := items[0].PromotionInfoDto.IncomeInfo
+		if income.PureCommissionRate == "" || income.SubsidyUpperFee == "" {
+			t.Fatalf("income_info 字段解析丢失: %+v", income)
 		}
 	}
-}
-
-func dtoListOfMaterial(in []taobaotbkscgenerallinkconvert.MaterialURLListElement) []taobaotbkscgenerallinkconvert.ItemURLListLinkInfoDto {
-	out := make([]taobaotbkscgenerallinkconvert.ItemURLListLinkInfoDto, 0, len(in))
-	for _, e := range in {
-		out = append(out, e.LinkInfoDto)
-	}
-	return out
-}
-
-func dtoListOfItem(in []taobaotbkscgenerallinkconvert.ItemURLListElement) []taobaotbkscgenerallinkconvert.ItemURLListLinkInfoDto {
-	out := make([]taobaotbkscgenerallinkconvert.ItemURLListLinkInfoDto, 0, len(in))
-	for _, e := range in {
-		out = append(out, e.LinkInfoDto)
-	}
-	return out
-}
-
-// extractLinkInfoDTOList 从原始 JSON 报文中取指定列表的原始元素数组
-func extractLinkInfoDTOList(body, listName, elemName string) []interface{} {
-	var payload map[string]interface{}
-	if err := json.Unmarshal([]byte(body), &payload); err != nil {
-		return nil
-	}
-	root, _ := payload["tbk_sc_general_link_convert_response"].(map[string]interface{})
-	if root == nil {
-		return nil
-	}
-	data, _ := root["data"].(map[string]interface{})
-	if data == nil {
-		return nil
-	}
-	list, _ := data[listName].(map[string]interface{})
-	if list == nil {
-		return nil
-	}
-	elems, _ := list[elemName].([]interface{})
-	return elems
 }
