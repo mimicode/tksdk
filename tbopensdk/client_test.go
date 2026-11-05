@@ -1512,3 +1512,54 @@ func TestTbkDgPunishOrderGet(t *testing.T) {
 
 	}
 }
+
+func TestTbkScGeneralLinkConvertSuperedLinkRequest(t *testing.T) {
+
+	//初始化TopClient
+	client := &TopClient{}
+	client.Init(appKey, appSecret, sessionKey)
+
+	//初始化请求接口信息
+	getRequest := &request2.TbkScGeneralLinkConvertRequest{}
+	getRequest.AddParameter("site_id", pid.SiteID)
+	getRequest.AddParameter("adzone_id", pid.AdzoneID)
+	getRequest.AddParameter("relation_id", pid.RelationID)
+	//1-动态ID转链场景，2-消费者比价场景
+	getRequest.AddParameter("biz_scene_id", "1")
+	//1-自购省，2-推广赚
+	getRequest.AddParameter("promotion_type", "1")
+	//入参商品ID（item_id_list），也可改用商品链接（material_list）
+	getRequest.AddParameter("item_id_list", "ZrqAKVyotRCPDQgb6KdCwAztVt6-Vk8meripo7oxb38IgZ")
+	//required_link_type 指定 link_info_dto 出参字段，多个用英文逗号拼接
+	getRequest.SetRequiredLinkType("coupon_supered_long_url,coupon_supered_long_tpwd,coupon_supered_short_url,coupon_supered_short_tpwd,cps_supered_long_url,cps_supered_long_tpwd,cps_supered_short_url,cps_supered_short_tpwd")
+
+	//初始化结果类型
+	var getResponse DefaultResponse = &taobaotbkscgenerallinkconvert.Response{}
+	//执行请求接口得到结果
+	err := client.Exec(getRequest, getResponse)
+	if err != nil {
+		t.Log(err)
+	} else {
+		result := getResponse.(*taobaotbkscgenerallinkconvert.Response)
+
+		fmt.Println(result.Body)
+
+		if result.IsError() {
+			fmt.Println(result.ErrorResponse)
+			return
+		}
+		items := result.TbkScGeneralLinkConvertResponse.Data.ItemURLList.ItemURLList
+		if len(items) == 0 {
+			t.Log("无单品转链结果，接口配额或权限受限时会出现")
+			return
+		}
+		if items[0].Code != 0 || items[0].Msg != "" {
+			t.Logf("物料级错误: code=%d msg=%s", items[0].Code, items[0].Msg)
+			return
+		}
+		//打印解析后的字段值，核对超红链接与 income_info 无字段丢失；
+		//活动期/权限/补贴上限均会影响字段是否返回，故此处不做强断言
+		fmt.Println(items[0].LinkInfoDto)
+		fmt.Println(items[0].PromotionInfoDto.IncomeInfo)
+	}
+}
